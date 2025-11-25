@@ -1,6 +1,6 @@
 port: 8888
 backendServices:
-  - name: golang-mock
+  - name: golangmock
     environments:
       - platform: pc
         port: 9090

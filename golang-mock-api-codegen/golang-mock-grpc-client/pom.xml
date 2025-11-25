@@ -17,7 +17,6 @@
         <io.grpc.version>1.50.2</io.grpc.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <maven.compiler.skip>true</maven.compiler.skip>
     </properties>
 
     <dependencies>
@@ -268,9 +267,9 @@
                                         <include name="**/*Controller.java"/>
                                     </fileset>
                                 </replaceregexp>
-                                <!-- Step 8: Fix CompletableFuture issue using script -->
+                                <!-- Step 8: Fix CompletableFuture method body using dedicated script -->
                                 <exec executable="bash" failonerror="false">
-                                    <arg value="${project.basedir}/scripts/fix-completable-future.sh"/>
+                                    <arg value="${project.basedir}/scripts/fix-controller-complete.sh"/>
                                     <arg value="${project.build.directory}/generated-sources/swagger/src/mock/v4/config/MockConfigCatController.java"/>
                                 </exec>
                                 <!-- Rename the file -->
@@ -305,12 +304,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
-                <executions>
-                    <execution>
-                        <id>default-compile</id>
-                        <phase>none</phase>
-                    </execution>
-                </executions>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
