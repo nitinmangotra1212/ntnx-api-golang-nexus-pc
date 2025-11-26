@@ -19,6 +19,7 @@ option go_package = "mock/v4/config";
 
 import "google/protobuf/any.proto";
 import "mock/v4/error/error.proto";
+import "common/v1/response/response.proto";
 
 /*
  * Map wrapper message
@@ -94,11 +95,11 @@ message ErrorResponseWrapper {
   optional mock.v4.error.ErrorResponse value = 1000;
 }
 /*
- * 
+ * REST response for all response codes in API path /mock/v4.1/config/cats Get operation
  */
 message ListCatsApiResponse {
   /*
-   * 
+   * REST response for all response codes in API path /mock/v4.1/config/cats Get operation
    */
   oneof data {
     /*
@@ -110,6 +111,10 @@ message ListCatsApiResponse {
      */
     mock.v4.config.ErrorResponseWrapper error_response_data = 400;
   }
+  /*
+   * 
+   */
+  optional common.v1.response.ApiResponseMetadata metadata = 1001;
   /*
    * 
    */

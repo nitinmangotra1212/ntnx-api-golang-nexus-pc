@@ -12,11 +12,12 @@
 // versions:
 // 	protoc-gen-go v1.36.10
 // 	protoc        v6.33.0
-// source: swagger/mock/v4/error/error.proto
+// source: mock/v4/error/error.proto
 
 package error
 
 import (
+	config "github.com/nutanix/ntnx-api-golang-mock-pc/generated-code/protobuf/common/v1/config"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
@@ -33,71 +34,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type MessageSeverityMessage_MessageSeverity int32
-
-const (
-	MessageSeverityMessage_UNKNOWN  MessageSeverityMessage_MessageSeverity = 201
-	MessageSeverityMessage_REDACTED MessageSeverityMessage_MessageSeverity = 202
-	MessageSeverityMessage_INFO     MessageSeverityMessage_MessageSeverity = 203
-	MessageSeverityMessage_WARNING  MessageSeverityMessage_MessageSeverity = 204
-	MessageSeverityMessage_ERROR    MessageSeverityMessage_MessageSeverity = 205
-)
-
-// Enum value maps for MessageSeverityMessage_MessageSeverity.
-var (
-	MessageSeverityMessage_MessageSeverity_name = map[int32]string{
-		201: "UNKNOWN",
-		202: "REDACTED",
-		203: "INFO",
-		204: "WARNING",
-		205: "ERROR",
-	}
-	MessageSeverityMessage_MessageSeverity_value = map[string]int32{
-		"UNKNOWN":  201,
-		"REDACTED": 202,
-		"INFO":     203,
-		"WARNING":  204,
-		"ERROR":    205,
-	}
-)
-
-func (x MessageSeverityMessage_MessageSeverity) Enum() *MessageSeverityMessage_MessageSeverity {
-	p := new(MessageSeverityMessage_MessageSeverity)
-	*p = x
-	return p
-}
-
-func (x MessageSeverityMessage_MessageSeverity) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (MessageSeverityMessage_MessageSeverity) Descriptor() protoreflect.EnumDescriptor {
-	return file_swagger_mock_v4_error_error_proto_enumTypes[0].Descriptor()
-}
-
-func (MessageSeverityMessage_MessageSeverity) Type() protoreflect.EnumType {
-	return &file_swagger_mock_v4_error_error_proto_enumTypes[0]
-}
-
-func (x MessageSeverityMessage_MessageSeverity) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Do not use.
-func (x *MessageSeverityMessage_MessageSeverity) UnmarshalJSON(b []byte) error {
-	num, err := protoimpl.X.UnmarshalJSONEnum(x.Descriptor(), b)
-	if err != nil {
-		return err
-	}
-	*x = MessageSeverityMessage_MessageSeverity(num)
-	return nil
-}
-
-// Deprecated: Use MessageSeverityMessage_MessageSeverity.Descriptor instead.
-func (MessageSeverityMessage_MessageSeverity) EnumDescriptor() ([]byte, []int) {
-	return file_swagger_mock_v4_error_error_proto_rawDescGZIP(), []int{6, 0}
-}
-
 // Map wrapper message
 type StringMapWrapper struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
@@ -109,7 +45,7 @@ type StringMapWrapper struct {
 
 func (x *StringMapWrapper) Reset() {
 	*x = StringMapWrapper{}
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[0]
+	mi := &file_mock_v4_error_error_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -121,7 +57,7 @@ func (x *StringMapWrapper) String() string {
 func (*StringMapWrapper) ProtoMessage() {}
 
 func (x *StringMapWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[0]
+	mi := &file_mock_v4_error_error_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -134,7 +70,7 @@ func (x *StringMapWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StringMapWrapper.ProtoReflect.Descriptor instead.
 func (*StringMapWrapper) Descriptor() ([]byte, []int) {
-	return file_swagger_mock_v4_error_error_proto_rawDescGZIP(), []int{0}
+	return file_mock_v4_error_error_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *StringMapWrapper) GetValue() map[string]string {
@@ -155,7 +91,7 @@ type ObjectMapWrapper struct {
 
 func (x *ObjectMapWrapper) Reset() {
 	*x = ObjectMapWrapper{}
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[1]
+	mi := &file_mock_v4_error_error_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -167,7 +103,7 @@ func (x *ObjectMapWrapper) String() string {
 func (*ObjectMapWrapper) ProtoMessage() {}
 
 func (x *ObjectMapWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[1]
+	mi := &file_mock_v4_error_error_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -180,7 +116,7 @@ func (x *ObjectMapWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ObjectMapWrapper.ProtoReflect.Descriptor instead.
 func (*ObjectMapWrapper) Descriptor() ([]byte, []int) {
-	return file_swagger_mock_v4_error_error_proto_rawDescGZIP(), []int{1}
+	return file_mock_v4_error_error_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *ObjectMapWrapper) GetValue() map[string]*anypb.Any {
@@ -195,7 +131,7 @@ type AppMessage struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The message string.
 	Message *string `protobuf:"bytes,201,opt,name=message" json:"message,omitempty"`
-	Severity *MessageSeverityMessage_MessageSeverity `protobuf:"varint,202,opt,name=severity,enum=mock.v4.error.MessageSeverityMessage_MessageSeverity" json:"severity,omitempty"`
+	Severity *config.MessageSeverityMessage_MessageSeverity `protobuf:"varint,202,opt,name=severity,enum=common.v1.config.MessageSeverityMessage_MessageSeverity" json:"severity,omitempty"`
 	// The code associated with this message. This string is typically prefixed with the namespace to which the endpoint belongs. For example: VMM-40000
 	Code *string `protobuf:"bytes,203,opt,name=code" json:"code,omitempty"`
 	// Locale for this message. The default locale would be 'en-US'.
@@ -216,7 +152,7 @@ const (
 
 func (x *AppMessage) Reset() {
 	*x = AppMessage{}
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[2]
+	mi := &file_mock_v4_error_error_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -228,7 +164,7 @@ func (x *AppMessage) String() string {
 func (*AppMessage) ProtoMessage() {}
 
 func (x *AppMessage) ProtoReflect() protoreflect.Message {
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[2]
+	mi := &file_mock_v4_error_error_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -241,7 +177,7 @@ func (x *AppMessage) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AppMessage.ProtoReflect.Descriptor instead.
 func (*AppMessage) Descriptor() ([]byte, []int) {
-	return file_swagger_mock_v4_error_error_proto_rawDescGZIP(), []int{2}
+	return file_mock_v4_error_error_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *AppMessage) GetMessage() string {
@@ -251,11 +187,11 @@ func (x *AppMessage) GetMessage() string {
 	return ""
 }
 
-func (x *AppMessage) GetSeverity() MessageSeverityMessage_MessageSeverity {
+func (x *AppMessage) GetSeverity() config.MessageSeverityMessage_MessageSeverity {
 	if x != nil && x.Severity != nil {
 		return *x.Severity
 	}
-	return MessageSeverityMessage_UNKNOWN
+	return config.MessageSeverityMessage_MessageSeverity(0)
 }
 
 func (x *AppMessage) GetCode() string {
@@ -304,7 +240,7 @@ type AppMessageArrayWrapper struct {
 
 func (x *AppMessageArrayWrapper) Reset() {
 	*x = AppMessageArrayWrapper{}
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[3]
+	mi := &file_mock_v4_error_error_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -316,7 +252,7 @@ func (x *AppMessageArrayWrapper) String() string {
 func (*AppMessageArrayWrapper) ProtoMessage() {}
 
 func (x *AppMessageArrayWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[3]
+	mi := &file_mock_v4_error_error_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -329,7 +265,7 @@ func (x *AppMessageArrayWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AppMessageArrayWrapper.ProtoReflect.Descriptor instead.
 func (*AppMessageArrayWrapper) Descriptor() ([]byte, []int) {
-	return file_swagger_mock_v4_error_error_proto_rawDescGZIP(), []int{3}
+	return file_mock_v4_error_error_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *AppMessageArrayWrapper) GetValue() []*AppMessage {
@@ -350,7 +286,7 @@ type SchemaValidationErrorWrapper struct {
 
 func (x *SchemaValidationErrorWrapper) Reset() {
 	*x = SchemaValidationErrorWrapper{}
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[4]
+	mi := &file_mock_v4_error_error_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -362,7 +298,7 @@ func (x *SchemaValidationErrorWrapper) String() string {
 func (*SchemaValidationErrorWrapper) ProtoMessage() {}
 
 func (x *SchemaValidationErrorWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[4]
+	mi := &file_mock_v4_error_error_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -375,7 +311,7 @@ func (x *SchemaValidationErrorWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SchemaValidationErrorWrapper.ProtoReflect.Descriptor instead.
 func (*SchemaValidationErrorWrapper) Descriptor() ([]byte, []int) {
-	return file_swagger_mock_v4_error_error_proto_rawDescGZIP(), []int{4}
+	return file_mock_v4_error_error_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *SchemaValidationErrorWrapper) GetValue() *SchemaValidationError {
@@ -402,7 +338,7 @@ type ErrorResponse struct {
 
 func (x *ErrorResponse) Reset() {
 	*x = ErrorResponse{}
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[5]
+	mi := &file_mock_v4_error_error_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -414,7 +350,7 @@ func (x *ErrorResponse) String() string {
 func (*ErrorResponse) ProtoMessage() {}
 
 func (x *ErrorResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[5]
+	mi := &file_mock_v4_error_error_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -427,7 +363,7 @@ func (x *ErrorResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ErrorResponse.ProtoReflect.Descriptor instead.
 func (*ErrorResponse) Descriptor() ([]byte, []int) {
-	return file_swagger_mock_v4_error_error_proto_rawDescGZIP(), []int{5}
+	return file_mock_v4_error_error_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *ErrorResponse) GetError() isErrorResponse_Error {
@@ -478,43 +414,6 @@ func (*ErrorResponse_AppMessageArrayError) isErrorResponse_Error() {}
 
 func (*ErrorResponse_SchemaValidationErrorError) isErrorResponse_Error() {}
 
-// Enum schema MessageSeverity
-type MessageSeverityMessage struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *MessageSeverityMessage) Reset() {
-	*x = MessageSeverityMessage{}
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[6]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *MessageSeverityMessage) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*MessageSeverityMessage) ProtoMessage() {}
-
-func (x *MessageSeverityMessage) ProtoReflect() protoreflect.Message {
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[6]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use MessageSeverityMessage.ProtoReflect.Descriptor instead.
-func (*MessageSeverityMessage) Descriptor() ([]byte, []int) {
-	return file_swagger_mock_v4_error_error_proto_rawDescGZIP(), []int{6}
-}
-
 // Array wrapper message
 type SchemaValidationErrorMessageArrayWrapper struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
@@ -526,7 +425,7 @@ type SchemaValidationErrorMessageArrayWrapper struct {
 
 func (x *SchemaValidationErrorMessageArrayWrapper) Reset() {
 	*x = SchemaValidationErrorMessageArrayWrapper{}
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[7]
+	mi := &file_mock_v4_error_error_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -538,7 +437,7 @@ func (x *SchemaValidationErrorMessageArrayWrapper) String() string {
 func (*SchemaValidationErrorMessageArrayWrapper) ProtoMessage() {}
 
 func (x *SchemaValidationErrorMessageArrayWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[7]
+	mi := &file_mock_v4_error_error_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -551,7 +450,7 @@ func (x *SchemaValidationErrorMessageArrayWrapper) ProtoReflect() protoreflect.M
 
 // Deprecated: Use SchemaValidationErrorMessageArrayWrapper.ProtoReflect.Descriptor instead.
 func (*SchemaValidationErrorMessageArrayWrapper) Descriptor() ([]byte, []int) {
-	return file_swagger_mock_v4_error_error_proto_rawDescGZIP(), []int{7}
+	return file_mock_v4_error_error_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *SchemaValidationErrorMessageArrayWrapper) GetValue() []*SchemaValidationErrorMessage {
@@ -581,7 +480,7 @@ type SchemaValidationError struct {
 
 func (x *SchemaValidationError) Reset() {
 	*x = SchemaValidationError{}
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[8]
+	mi := &file_mock_v4_error_error_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -593,7 +492,7 @@ func (x *SchemaValidationError) String() string {
 func (*SchemaValidationError) ProtoMessage() {}
 
 func (x *SchemaValidationError) ProtoReflect() protoreflect.Message {
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[8]
+	mi := &file_mock_v4_error_error_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -606,7 +505,7 @@ func (x *SchemaValidationError) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SchemaValidationError.ProtoReflect.Descriptor instead.
 func (*SchemaValidationError) Descriptor() ([]byte, []int) {
-	return file_swagger_mock_v4_error_error_proto_rawDescGZIP(), []int{8}
+	return file_mock_v4_error_error_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *SchemaValidationError) GetTimestamp() *timestamppb.Timestamp {
@@ -667,7 +566,7 @@ type SchemaValidationErrorMessage struct {
 
 func (x *SchemaValidationErrorMessage) Reset() {
 	*x = SchemaValidationErrorMessage{}
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[9]
+	mi := &file_mock_v4_error_error_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -679,7 +578,7 @@ func (x *SchemaValidationErrorMessage) String() string {
 func (*SchemaValidationErrorMessage) ProtoMessage() {}
 
 func (x *SchemaValidationErrorMessage) ProtoReflect() protoreflect.Message {
-	mi := &file_swagger_mock_v4_error_error_proto_msgTypes[9]
+	mi := &file_mock_v4_error_error_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -692,7 +591,7 @@ func (x *SchemaValidationErrorMessage) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SchemaValidationErrorMessage.ProtoReflect.Descriptor instead.
 func (*SchemaValidationErrorMessage) Descriptor() ([]byte, []int) {
-	return file_swagger_mock_v4_error_error_proto_rawDescGZIP(), []int{9}
+	return file_mock_v4_error_error_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *SchemaValidationErrorMessage) GetLocation() string {
@@ -723,11 +622,11 @@ func (x *SchemaValidationErrorMessage) GetXReserved() *ObjectMapWrapper {
 	return nil
 }
 
-var File_swagger_mock_v4_error_error_proto protoreflect.FileDescriptor
+var File_mock_v4_error_error_proto protoreflect.FileDescriptor
 
-const file_swagger_mock_v4_error_error_proto_rawDesc = "" +
+const file_mock_v4_error_error_proto_rawDesc = "" +
 	"\n" +
-	"!swagger/mock/v4/error/error.proto\x12\rmock.v4.error\x1a\x19google/protobuf/any.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x8f\x01\n" +
+	"\x19mock/v4/error/error.proto\x12\rmock.v4.error\x1a\x1dgithub.com/nutanix/ntnx-api-golang-mock-pc/generated-code/protobuf/common/v1/config/config.proto\x1a\x19google/protobuf/any.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x8f\x01\n" +
 	"\x10StringMapWrapper\x12A\n" +
 	"\x05value\x18\xe8\a \x03(\v2*.mock.v4.error.StringMapWrapper.ValueEntryR\x05value\x1a8\n" +
 	"\n" +
@@ -739,11 +638,11 @@ const file_swagger_mock_v4_error_error_proto_rawDesc = "" +
 	"\n" +
 	"ValueEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12*\n" +
-	"\x05value\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\x05value:\x028\x01\"\xd9\x02\n" +
+	"\x05value\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\x05value:\x028\x01\"\xdc\x02\n" +
 	"\n" +
 	"AppMessage\x12\x19\n" +
-	"\amessage\x18\xc9\x01 \x01(\tR\amessage\x12R\n" +
-	"\bseverity\x18\xca\x01 \x01(\x0e25.mock.v4.error.MessageSeverityMessage.MessageSeverityR\bseverity\x12\x13\n" +
+	"\amessage\x18\xc9\x01 \x01(\tR\amessage\x12U\n" +
+	"\bseverity\x18\xca\x01 \x01(\x0e28.common.v1.config.MessageSeverityMessage.MessageSeverityR\bseverity\x12\x13\n" +
 	"\x04code\x18\xcb\x01 \x01(\tR\x04code\x12\x1e\n" +
 	"\x06locale\x18\xcc\x01 \x01(\t:\x05en_USR\x06locale\x12 \n" +
 	"\verror_group\x18\xcd\x01 \x01(\tR\n" +
@@ -758,15 +657,7 @@ const file_swagger_mock_v4_error_error_proto_rawDesc = "" +
 	"\x17app_message_array_error\x18\xc9\x01 \x01(\v2%.mock.v4.error.AppMessageArrayWrapperH\x00R\x14appMessageArrayError\x12q\n" +
 	"\x1dschema_validation_error_error\x18\xca\x01 \x01(\v2+.mock.v4.error.SchemaValidationErrorWrapperH\x00R\x1aschemaValidationErrorError\x12>\n" +
 	"\t_reserved\x18\xa0\xf76 \x01(\v2\x1f.mock.v4.error.ObjectMapWrapperR\bReservedB\a\n" +
-	"\x05error\"m\n" +
-	"\x16MessageSeverityMessage\"S\n" +
-	"\x0fMessageSeverity\x12\f\n" +
-	"\aUNKNOWN\x10\xc9\x01\x12\r\n" +
-	"\bREDACTED\x10\xca\x01\x12\t\n" +
-	"\x04INFO\x10\xcb\x01\x12\f\n" +
-	"\aWARNING\x10\xcc\x01\x12\n" +
-	"\n" +
-	"\x05ERROR\x10\xcd\x01\"n\n" +
+	"\x05error\"n\n" +
 	"(SchemaValidationErrorMessageArrayWrapper\x12B\n" +
 	"\x05value\x18\xe8\a \x03(\v2+.mock.v4.error.SchemaValidationErrorMessageR\x05value\"\xd6\x02\n" +
 	"\x15SchemaValidationError\x129\n" +
@@ -785,53 +676,51 @@ const file_swagger_mock_v4_error_error_proto_rawDesc = "" +
 	"\rmock.v4.errorP\x01Z\rmock/v4/error"
 
 var (
-	file_swagger_mock_v4_error_error_proto_rawDescOnce sync.Once
-	file_swagger_mock_v4_error_error_proto_rawDescData []byte
+	file_mock_v4_error_error_proto_rawDescOnce sync.Once
+	file_mock_v4_error_error_proto_rawDescData []byte
 )
 
-func file_swagger_mock_v4_error_error_proto_rawDescGZIP() []byte {
-	file_swagger_mock_v4_error_error_proto_rawDescOnce.Do(func() {
-		file_swagger_mock_v4_error_error_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_swagger_mock_v4_error_error_proto_rawDesc), len(file_swagger_mock_v4_error_error_proto_rawDesc)))
+func file_mock_v4_error_error_proto_rawDescGZIP() []byte {
+	file_mock_v4_error_error_proto_rawDescOnce.Do(func() {
+		file_mock_v4_error_error_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_mock_v4_error_error_proto_rawDesc), len(file_mock_v4_error_error_proto_rawDesc)))
 	})
-	return file_swagger_mock_v4_error_error_proto_rawDescData
+	return file_mock_v4_error_error_proto_rawDescData
 }
 
-var file_swagger_mock_v4_error_error_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_swagger_mock_v4_error_error_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
-var file_swagger_mock_v4_error_error_proto_goTypes = []any{
-	(MessageSeverityMessage_MessageSeverity)(0),      // 0: mock.v4.error.MessageSeverityMessage.MessageSeverity
-	(*StringMapWrapper)(nil),                         // 1: mock.v4.error.StringMapWrapper
-	(*ObjectMapWrapper)(nil),                         // 2: mock.v4.error.ObjectMapWrapper
-	(*AppMessage)(nil),                               // 3: mock.v4.error.AppMessage
-	(*AppMessageArrayWrapper)(nil),                   // 4: mock.v4.error.AppMessageArrayWrapper
-	(*SchemaValidationErrorWrapper)(nil),             // 5: mock.v4.error.SchemaValidationErrorWrapper
-	(*ErrorResponse)(nil),                            // 6: mock.v4.error.ErrorResponse
-	(*MessageSeverityMessage)(nil),                   // 7: mock.v4.error.MessageSeverityMessage
-	(*SchemaValidationErrorMessageArrayWrapper)(nil), // 8: mock.v4.error.SchemaValidationErrorMessageArrayWrapper
-	(*SchemaValidationError)(nil),                    // 9: mock.v4.error.SchemaValidationError
-	(*SchemaValidationErrorMessage)(nil),             // 10: mock.v4.error.SchemaValidationErrorMessage
-	nil,                                              // 11: mock.v4.error.StringMapWrapper.ValueEntry
-	nil,                                              // 12: mock.v4.error.ObjectMapWrapper.ValueEntry
-	(*timestamppb.Timestamp)(nil),                    // 13: google.protobuf.Timestamp
-	(*anypb.Any)(nil),                                // 14: google.protobuf.Any
+var file_mock_v4_error_error_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_mock_v4_error_error_proto_goTypes = []any{
+	(*StringMapWrapper)(nil),                         // 0: mock.v4.error.StringMapWrapper
+	(*ObjectMapWrapper)(nil),                         // 1: mock.v4.error.ObjectMapWrapper
+	(*AppMessage)(nil),                               // 2: mock.v4.error.AppMessage
+	(*AppMessageArrayWrapper)(nil),                   // 3: mock.v4.error.AppMessageArrayWrapper
+	(*SchemaValidationErrorWrapper)(nil),             // 4: mock.v4.error.SchemaValidationErrorWrapper
+	(*ErrorResponse)(nil),                            // 5: mock.v4.error.ErrorResponse
+	(*SchemaValidationErrorMessageArrayWrapper)(nil), // 6: mock.v4.error.SchemaValidationErrorMessageArrayWrapper
+	(*SchemaValidationError)(nil),                    // 7: mock.v4.error.SchemaValidationError
+	(*SchemaValidationErrorMessage)(nil),             // 8: mock.v4.error.SchemaValidationErrorMessage
+	nil,                                              // 9: mock.v4.error.StringMapWrapper.ValueEntry
+	nil,                                              // 10: mock.v4.error.ObjectMapWrapper.ValueEntry
+	(config.MessageSeverityMessage_MessageSeverity)(0), // 11: common.v1.config.MessageSeverityMessage.MessageSeverity
+	(*timestamppb.Timestamp)(nil),                      // 12: google.protobuf.Timestamp
+	(*anypb.Any)(nil),                                  // 13: google.protobuf.Any
 }
-var file_swagger_mock_v4_error_error_proto_depIdxs = []int32{
-	11, // 0: mock.v4.error.StringMapWrapper.value:type_name -> mock.v4.error.StringMapWrapper.ValueEntry
-	12, // 1: mock.v4.error.ObjectMapWrapper.value:type_name -> mock.v4.error.ObjectMapWrapper.ValueEntry
-	0,  // 2: mock.v4.error.AppMessage.severity:type_name -> mock.v4.error.MessageSeverityMessage.MessageSeverity
-	1,  // 3: mock.v4.error.AppMessage.arguments_map:type_name -> mock.v4.error.StringMapWrapper
-	2,  // 4: mock.v4.error.AppMessage._reserved:type_name -> mock.v4.error.ObjectMapWrapper
-	3,  // 5: mock.v4.error.AppMessageArrayWrapper.value:type_name -> mock.v4.error.AppMessage
-	9,  // 6: mock.v4.error.SchemaValidationErrorWrapper.value:type_name -> mock.v4.error.SchemaValidationError
-	4,  // 7: mock.v4.error.ErrorResponse.app_message_array_error:type_name -> mock.v4.error.AppMessageArrayWrapper
-	5,  // 8: mock.v4.error.ErrorResponse.schema_validation_error_error:type_name -> mock.v4.error.SchemaValidationErrorWrapper
-	2,  // 9: mock.v4.error.ErrorResponse._reserved:type_name -> mock.v4.error.ObjectMapWrapper
-	10, // 10: mock.v4.error.SchemaValidationErrorMessageArrayWrapper.value:type_name -> mock.v4.error.SchemaValidationErrorMessage
-	13, // 11: mock.v4.error.SchemaValidationError.timestamp:type_name -> google.protobuf.Timestamp
-	8,  // 12: mock.v4.error.SchemaValidationError.validation_error_messages:type_name -> mock.v4.error.SchemaValidationErrorMessageArrayWrapper
-	2,  // 13: mock.v4.error.SchemaValidationError._reserved:type_name -> mock.v4.error.ObjectMapWrapper
-	2,  // 14: mock.v4.error.SchemaValidationErrorMessage._reserved:type_name -> mock.v4.error.ObjectMapWrapper
-	14, // 15: mock.v4.error.ObjectMapWrapper.ValueEntry.value:type_name -> google.protobuf.Any
+var file_mock_v4_error_error_proto_depIdxs = []int32{
+	9,  // 0: mock.v4.error.StringMapWrapper.value:type_name -> mock.v4.error.StringMapWrapper.ValueEntry
+	10, // 1: mock.v4.error.ObjectMapWrapper.value:type_name -> mock.v4.error.ObjectMapWrapper.ValueEntry
+	11, // 2: mock.v4.error.AppMessage.severity:type_name -> common.v1.config.MessageSeverityMessage.MessageSeverity
+	0,  // 3: mock.v4.error.AppMessage.arguments_map:type_name -> mock.v4.error.StringMapWrapper
+	1,  // 4: mock.v4.error.AppMessage._reserved:type_name -> mock.v4.error.ObjectMapWrapper
+	2,  // 5: mock.v4.error.AppMessageArrayWrapper.value:type_name -> mock.v4.error.AppMessage
+	7,  // 6: mock.v4.error.SchemaValidationErrorWrapper.value:type_name -> mock.v4.error.SchemaValidationError
+	3,  // 7: mock.v4.error.ErrorResponse.app_message_array_error:type_name -> mock.v4.error.AppMessageArrayWrapper
+	4,  // 8: mock.v4.error.ErrorResponse.schema_validation_error_error:type_name -> mock.v4.error.SchemaValidationErrorWrapper
+	1,  // 9: mock.v4.error.ErrorResponse._reserved:type_name -> mock.v4.error.ObjectMapWrapper
+	8,  // 10: mock.v4.error.SchemaValidationErrorMessageArrayWrapper.value:type_name -> mock.v4.error.SchemaValidationErrorMessage
+	12, // 11: mock.v4.error.SchemaValidationError.timestamp:type_name -> google.protobuf.Timestamp
+	6,  // 12: mock.v4.error.SchemaValidationError.validation_error_messages:type_name -> mock.v4.error.SchemaValidationErrorMessageArrayWrapper
+	1,  // 13: mock.v4.error.SchemaValidationError._reserved:type_name -> mock.v4.error.ObjectMapWrapper
+	1,  // 14: mock.v4.error.SchemaValidationErrorMessage._reserved:type_name -> mock.v4.error.ObjectMapWrapper
+	13, // 15: mock.v4.error.ObjectMapWrapper.ValueEntry.value:type_name -> google.protobuf.Any
 	16, // [16:16] is the sub-list for method output_type
 	16, // [16:16] is the sub-list for method input_type
 	16, // [16:16] is the sub-list for extension type_name
@@ -839,12 +728,12 @@ var file_swagger_mock_v4_error_error_proto_depIdxs = []int32{
 	0,  // [0:16] is the sub-list for field type_name
 }
 
-func init() { file_swagger_mock_v4_error_error_proto_init() }
-func file_swagger_mock_v4_error_error_proto_init() {
-	if File_swagger_mock_v4_error_error_proto != nil {
+func init() { file_mock_v4_error_error_proto_init() }
+func file_mock_v4_error_error_proto_init() {
+	if File_mock_v4_error_error_proto != nil {
 		return
 	}
-	file_swagger_mock_v4_error_error_proto_msgTypes[5].OneofWrappers = []any{
+	file_mock_v4_error_error_proto_msgTypes[5].OneofWrappers = []any{
 		(*ErrorResponse_AppMessageArrayError)(nil),
 		(*ErrorResponse_SchemaValidationErrorError)(nil),
 	}
@@ -852,18 +741,17 @@ func file_swagger_mock_v4_error_error_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_swagger_mock_v4_error_error_proto_rawDesc), len(file_swagger_mock_v4_error_error_proto_rawDesc)),
-			NumEnums:      1,
-			NumMessages:   12,
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_mock_v4_error_error_proto_rawDesc), len(file_mock_v4_error_error_proto_rawDesc)),
+			NumEnums:      0,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_swagger_mock_v4_error_error_proto_goTypes,
-		DependencyIndexes: file_swagger_mock_v4_error_error_proto_depIdxs,
-		EnumInfos:         file_swagger_mock_v4_error_error_proto_enumTypes,
-		MessageInfos:      file_swagger_mock_v4_error_error_proto_msgTypes,
+		GoTypes:           file_mock_v4_error_error_proto_goTypes,
+		DependencyIndexes: file_mock_v4_error_error_proto_depIdxs,
+		MessageInfos:      file_mock_v4_error_error_proto_msgTypes,
 	}.Build()
-	File_swagger_mock_v4_error_error_proto = out.File
-	file_swagger_mock_v4_error_error_proto_goTypes = nil
-	file_swagger_mock_v4_error_error_proto_depIdxs = nil
+	File_mock_v4_error_error_proto = out.File
+	file_mock_v4_error_error_proto_goTypes = nil
+	file_mock_v4_error_error_proto_depIdxs = nil
 }

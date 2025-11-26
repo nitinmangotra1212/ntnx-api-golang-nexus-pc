@@ -1,0 +1,208 @@
+/*
+ * Generated file common/v1/config/config.proto.
+ *
+ * Product version: 1.0.0-SNAPSHOT
+ *
+ * Part of the GoLang Mock API - REST API for Mock Cat Service
+ *
+ * (c) 2025 Nutanix Inc.  All rights reserved
+ *
+ */
+
+syntax = "proto2";
+
+package common.v1.config;
+
+option java_multiple_files = true;
+option java_package = "common.v1.config";
+option go_package = "common/v1/config";
+
+
+/*
+ * Many entities in the Nutanix APIs carry flags.  This object captures all the flags associated with that entity through this object.  The field that hosts this type of object must have an attribute called x-bounded-map-keys that tells which flags are actually present for that entity. 
+ */
+message Flag {
+  /*
+   * Name of the flag. 
+   */
+  optional string name = 1001;
+  /*
+   * Value of the flag. 
+   */
+  optional bool value = 1002 [default = false];
+}
+/*
+ * OneOf item wrapper message
+ */
+message StringWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  optional string value = 1000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message IntegerWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  optional int32 value = 1000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message BooleanWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  optional bool value = 1000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message StringArrayWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  repeated string value = 1000;
+}
+/*
+ * Map wrapper message
+ */
+message StringMapWrapper {
+  /*
+   * Value field in wrapper message
+   */
+  map<string, string> value = 1000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message MapOfStringWrapperArrayWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  repeated common.v1.config.MapOfStringWrapper value = 1000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message IntegerArrayWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  repeated int32 value = 1000;
+}
+/*
+ * A map describing a set of keys and their corresponding values. 
+ */
+message KVPair {
+  /*
+   * A map describing a set of keys and their corresponding values. 
+   */
+  oneof value {
+    /*
+     * A string value in a key-value pair. 
+     */
+    common.v1.config.StringWrapper string_value = 1002;
+    /*
+     * An integer value in a key-value pair. 
+     */
+    common.v1.config.IntegerWrapper integer_value = 1003;
+    /*
+     * An boolean value in a key-value pair. 
+     */
+    common.v1.config.BooleanWrapper boolean_value = 1004;
+    /*
+     * A value in a key-value pair that represents a list of strings. 
+     */
+    common.v1.config.StringArrayWrapper string_array_value = 1005;
+    /*
+     * A value in a key-value pair that represents a map of string keys and values. 
+     */
+    common.v1.config.StringMapWrapper string_map_value = 1006;
+    /*
+     * A value in a key-value pair that represents an array of maps of string keys and values. 
+     */
+    common.v1.config.MapOfStringWrapperArrayWrapper map_of_string_wrapper_array_value = 1007;
+    /*
+     * A value in a key-value pair that represents a list of integers. 
+     */
+    common.v1.config.IntegerArrayWrapper integer_array_value = 1008;
+  }
+  /*
+   * The key of the key-value pair. 
+   */
+  optional string name = 1001;
+}
+/*
+ * A wrapper schema containing a map with string keys and values. 
+ */
+message MapOfStringWrapper {
+  /*
+   * A map with string keys and values. 
+   */
+  optional common.v1.config.StringMapWrapper map = 1001;
+}
+/*
+ * 
+ */
+message Message {
+  /*
+   * A code that uniquely identifies a message. 
+   */
+  optional string code = 1001;
+  /*
+   * The description of the message. 
+   */
+  optional string message = 1002;
+  /*
+   * The locale for the message description. 
+   */
+  optional string locale = 1003 [default = "en_US"];
+  /*
+   * 
+   */
+  optional common.v1.config.MessageSeverityMessage.MessageSeverity severity = 1004;
+}
+/*
+ * The message severity. 
+ */
+message MessageSeverityMessage {
+  enum MessageSeverity {
+    UNKNOWN = 0;
+    REDACTED = 1;
+    INFO = 1001;
+    WARNING = 1002;
+    ERROR = 1003;
+  }
+}
+
+/*
+ * Array wrapper message
+ */
+message FlagArrayWrapper {
+  /*
+   * Value field in wrapper message
+   */
+  repeated common.v1.config.Flag value = 1000;
+}
+/*
+ * Array wrapper message
+ */
+message MessageArrayWrapper {
+  /*
+   * Value field in wrapper message
+   */
+  repeated common.v1.config.Message value = 1000;
+}
+/*
+ * Array wrapper message
+ */
+message KVPairArrayWrapper {
+  /*
+   * Value field in wrapper message
+   */
+  repeated common.v1.config.KVPair value = 1000;
+}

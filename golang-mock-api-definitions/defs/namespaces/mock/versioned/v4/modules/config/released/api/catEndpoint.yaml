@@ -17,6 +17,7 @@ paths:
                   $ref: "ModelRef({/namespaces/mock/versioned/v4/modules/config/released/models/Cat})"
         x-api-responses:
           responseModelName: "ListCatsApiResponse"
+          template: ext:common:/namespaces/common/versioned/v1/modules/response/released/models/apiResponse
         x-codegen-hint:
           $any:
             - type: entity-identifier

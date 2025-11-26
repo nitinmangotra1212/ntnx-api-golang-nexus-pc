@@ -14,6 +14,7 @@
 */
 package config
 import (
+  import2 "github.com/nutanix/ntnx-api-golang-mock-pc/generated-code/dto/models/common/v1/response"
   "encoding/json"
   "errors"
   "fmt"
@@ -266,7 +267,9 @@ func NewCountry() *Country {
 
 
 
-
+/*
+REST response for all response codes in API path /mock/v4.1/config/cats Get operation
+*/
 type ListCatsApiResponse struct {
   
   ObjectType_ *string `json:"$objectType,omitempty"`
@@ -274,10 +277,14 @@ type ListCatsApiResponse struct {
   Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  /*
   
+  */
   DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
   
   Data *OneOfListCatsApiResponseData `json:"data,omitempty"`
+  
+  Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func (p *ListCatsApiResponse) MarshalJSON() ([]byte, error) {
@@ -338,6 +345,9 @@ func (p *ListCatsApiResponse) UnmarshalJSON(b []byte) error {
     if known.Data != nil {
         p.Data = known.Data
     }
+    if known.Metadata != nil {
+        p.Metadata = known.Metadata
+    }
 
     // Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -345,6 +355,7 @@ func (p *ListCatsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$unknownFields")
 	delete(allFields, "$dataItemDiscriminator")
 	delete(allFields, "data")
+	delete(allFields, "metadata")
 
     // Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {

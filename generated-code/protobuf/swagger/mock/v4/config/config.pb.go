@@ -12,14 +12,16 @@
 // versions:
 // 	protoc-gen-go v1.36.10
 // 	protoc        v6.33.0
-// source: swagger/mock/v4/config/config.proto
+// source: mock/v4/config/config.proto
 
 package config
 
 import (
+	response "github.com/nutanix/ntnx-api-golang-mock-pc/generated-code/protobuf/common/v1/response"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
+	error1 "github.com/nutanix/ntnx-api-golang-mock-pc/generated-code/protobuf/mock/v4/error"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -43,7 +45,7 @@ type ObjectMapWrapper struct {
 
 func (x *ObjectMapWrapper) Reset() {
 	*x = ObjectMapWrapper{}
-	mi := &file_swagger_mock_v4_config_config_proto_msgTypes[0]
+	mi := &file_mock_v4_config_config_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -55,7 +57,7 @@ func (x *ObjectMapWrapper) String() string {
 func (*ObjectMapWrapper) ProtoMessage() {}
 
 func (x *ObjectMapWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_swagger_mock_v4_config_config_proto_msgTypes[0]
+	mi := &file_mock_v4_config_config_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -68,7 +70,7 @@ func (x *ObjectMapWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ObjectMapWrapper.ProtoReflect.Descriptor instead.
 func (*ObjectMapWrapper) Descriptor() ([]byte, []int) {
-	return file_swagger_mock_v4_config_config_proto_rawDescGZIP(), []int{0}
+	return file_mock_v4_config_config_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *ObjectMapWrapper) GetValue() map[string]*anypb.Any {
@@ -99,7 +101,7 @@ type Cat struct {
 
 func (x *Cat) Reset() {
 	*x = Cat{}
-	mi := &file_swagger_mock_v4_config_config_proto_msgTypes[1]
+	mi := &file_mock_v4_config_config_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -111,7 +113,7 @@ func (x *Cat) String() string {
 func (*Cat) ProtoMessage() {}
 
 func (x *Cat) ProtoReflect() protoreflect.Message {
-	mi := &file_swagger_mock_v4_config_config_proto_msgTypes[1]
+	mi := &file_mock_v4_config_config_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -124,7 +126,7 @@ func (x *Cat) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Cat.ProtoReflect.Descriptor instead.
 func (*Cat) Descriptor() ([]byte, []int) {
-	return file_swagger_mock_v4_config_config_proto_rawDescGZIP(), []int{1}
+	return file_mock_v4_config_config_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *Cat) GetCatId() int32 {
@@ -188,7 +190,7 @@ type Country struct {
 
 func (x *Country) Reset() {
 	*x = Country{}
-	mi := &file_swagger_mock_v4_config_config_proto_msgTypes[2]
+	mi := &file_mock_v4_config_config_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -200,7 +202,7 @@ func (x *Country) String() string {
 func (*Country) ProtoMessage() {}
 
 func (x *Country) ProtoReflect() protoreflect.Message {
-	mi := &file_swagger_mock_v4_config_config_proto_msgTypes[2]
+	mi := &file_mock_v4_config_config_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -213,7 +215,7 @@ func (x *Country) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Country.ProtoReflect.Descriptor instead.
 func (*Country) Descriptor() ([]byte, []int) {
-	return file_swagger_mock_v4_config_config_proto_rawDescGZIP(), []int{2}
+	return file_mock_v4_config_config_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *Country) GetState() string {
@@ -230,6 +232,199 @@ func (x *Country) GetXReserved() *ObjectMapWrapper {
 	return nil
 }
 
+// OneOf item wrapper message
+type CatArrayWrapper struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Value field in oneOf item wrapper message
+	Value         []*Cat `protobuf:"bytes,1000,rep,name=value" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CatArrayWrapper) Reset() {
+	*x = CatArrayWrapper{}
+	mi := &file_mock_v4_config_config_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CatArrayWrapper) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CatArrayWrapper) ProtoMessage() {}
+
+func (x *CatArrayWrapper) ProtoReflect() protoreflect.Message {
+	mi := &file_mock_v4_config_config_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CatArrayWrapper.ProtoReflect.Descriptor instead.
+func (*CatArrayWrapper) Descriptor() ([]byte, []int) {
+	return file_mock_v4_config_config_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *CatArrayWrapper) GetValue() []*Cat {
+	if x != nil {
+		return x.Value
+	}
+	return nil
+}
+
+// OneOf item wrapper message
+type ErrorResponseWrapper struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Value field in oneOf item wrapper message
+	Value         *error1.ErrorResponse `protobuf:"bytes,1000,opt,name=value" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ErrorResponseWrapper) Reset() {
+	*x = ErrorResponseWrapper{}
+	mi := &file_mock_v4_config_config_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ErrorResponseWrapper) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ErrorResponseWrapper) ProtoMessage() {}
+
+func (x *ErrorResponseWrapper) ProtoReflect() protoreflect.Message {
+	mi := &file_mock_v4_config_config_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ErrorResponseWrapper.ProtoReflect.Descriptor instead.
+func (*ErrorResponseWrapper) Descriptor() ([]byte, []int) {
+	return file_mock_v4_config_config_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ErrorResponseWrapper) GetValue() *error1.ErrorResponse {
+	if x != nil {
+		return x.Value
+	}
+	return nil
+}
+
+// REST response for all response codes in API path /mock/v4.1/config/cats Get operation
+type ListCatsApiResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// REST response for all response codes in API path /mock/v4.1/config/cats Get operation
+	//
+	// Types that are valid to be assigned to Data:
+	//
+	//	*ListCatsApiResponse_CatArrayData
+	//	*ListCatsApiResponse_ErrorResponseData
+	Data isListCatsApiResponse_Data `protobuf_oneof:"data"`
+	Metadata *response.ApiResponseMetadata `protobuf:"bytes,1001,opt,name=metadata" json:"metadata,omitempty"`
+	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListCatsApiResponse) Reset() {
+	*x = ListCatsApiResponse{}
+	mi := &file_mock_v4_config_config_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListCatsApiResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListCatsApiResponse) ProtoMessage() {}
+
+func (x *ListCatsApiResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_mock_v4_config_config_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListCatsApiResponse.ProtoReflect.Descriptor instead.
+func (*ListCatsApiResponse) Descriptor() ([]byte, []int) {
+	return file_mock_v4_config_config_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ListCatsApiResponse) GetData() isListCatsApiResponse_Data {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+func (x *ListCatsApiResponse) GetCatArrayData() *CatArrayWrapper {
+	if x != nil {
+		if x, ok := x.Data.(*ListCatsApiResponse_CatArrayData); ok {
+			return x.CatArrayData
+		}
+	}
+	return nil
+}
+
+func (x *ListCatsApiResponse) GetErrorResponseData() *ErrorResponseWrapper {
+	if x != nil {
+		if x, ok := x.Data.(*ListCatsApiResponse_ErrorResponseData); ok {
+			return x.ErrorResponseData
+		}
+	}
+	return nil
+}
+
+func (x *ListCatsApiResponse) GetMetadata() *response.ApiResponseMetadata {
+	if x != nil {
+		return x.Metadata
+	}
+	return nil
+}
+
+func (x *ListCatsApiResponse) GetXReserved() *ObjectMapWrapper {
+	if x != nil {
+		return x.XReserved
+	}
+	return nil
+}
+
+type isListCatsApiResponse_Data interface {
+	isListCatsApiResponse_Data()
+}
+
+type ListCatsApiResponse_CatArrayData struct {
+	CatArrayData *CatArrayWrapper `protobuf:"bytes,2001,opt,name=cat_array_data,json=catArrayData,oneof"`
+}
+
+type ListCatsApiResponse_ErrorResponseData struct {
+	ErrorResponseData *ErrorResponseWrapper `protobuf:"bytes,400,opt,name=error_response_data,json=errorResponseData,oneof"`
+}
+
+func (*ListCatsApiResponse_CatArrayData) isListCatsApiResponse_Data() {}
+
+func (*ListCatsApiResponse_ErrorResponseData) isListCatsApiResponse_Data() {}
+
 // Geographical location information
 type Location struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
@@ -245,7 +440,7 @@ type Location struct {
 
 func (x *Location) Reset() {
 	*x = Location{}
-	mi := &file_swagger_mock_v4_config_config_proto_msgTypes[3]
+	mi := &file_mock_v4_config_config_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -257,7 +452,7 @@ func (x *Location) String() string {
 func (*Location) ProtoMessage() {}
 
 func (x *Location) ProtoReflect() protoreflect.Message {
-	mi := &file_swagger_mock_v4_config_config_proto_msgTypes[3]
+	mi := &file_mock_v4_config_config_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -270,7 +465,7 @@ func (x *Location) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Location.ProtoReflect.Descriptor instead.
 func (*Location) Descriptor() ([]byte, []int) {
-	return file_swagger_mock_v4_config_config_proto_rawDescGZIP(), []int{3}
+	return file_mock_v4_config_config_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *Location) GetCountry() *Country {
@@ -301,11 +496,11 @@ func (x *Location) GetXReserved() *ObjectMapWrapper {
 	return nil
 }
 
-var File_swagger_mock_v4_config_config_proto protoreflect.FileDescriptor
+var File_mock_v4_config_config_proto protoreflect.FileDescriptor
 
-const file_swagger_mock_v4_config_config_proto_rawDesc = "" +
+const file_mock_v4_config_config_proto_rawDesc = "" +
 	"\n" +
-	"#swagger/mock/v4/config/config.proto\x12\x0emock.v4.config\x1a\x19google/protobuf/any.proto\"\xa6\x01\n" +
+	"\x1bmock/v4/config/config.proto\x12\x0emock.v4.config\x1a\x19google/protobuf/any.proto\x1a\x19mock/v4/error/error.proto\x1a!github.com/nutanix/ntnx-api-golang-mock-pc/generated-code/protobuf/common/v1/response/response.proto\"\xa6\x01\n" +
 	"\x10ObjectMapWrapper\x12B\n" +
 	"\x05value\x18\xe8\a \x03(\v2+.mock.v4.config.ObjectMapWrapper.ValueEntryR\x05value\x1aN\n" +
 	"\n" +
@@ -322,7 +517,17 @@ const file_swagger_mock_v4_config_config_proto_rawDesc = "" +
 	"\t_reserved\x18\xa0\xf76 \x01(\v2 .mock.v4.config.ObjectMapWrapperR\bReserved\"a\n" +
 	"\aCountry\x12\x15\n" +
 	"\x05state\x18\xd1\x0f \x01(\tR\x05state\x12?\n" +
-	"\t_reserved\x18\xa0\xf76 \x01(\v2 .mock.v4.config.ObjectMapWrapperR\bReserved\"\xa7\x01\n" +
+	"\t_reserved\x18\xa0\xf76 \x01(\v2 .mock.v4.config.ObjectMapWrapperR\bReserved\"=\n" +
+	"\x0fCatArrayWrapper\x12*\n" +
+	"\x05value\x18\xe8\a \x03(\v2\x13.mock.v4.config.CatR\x05value\"K\n" +
+	"\x14ErrorResponseWrapper\x123\n" +
+	"\x05value\x18\xe8\a \x01(\v2\x1c.mock.v4.error.ErrorResponseR\x05value\"\xc7\x02\n" +
+	"\x13ListCatsApiResponse\x12H\n" +
+	"\x0ecat_array_data\x18\xd1\x0f \x01(\v2\x1f.mock.v4.config.CatArrayWrapperH\x00R\fcatArrayData\x12W\n" +
+	"\x13error_response_data\x18\x90\x03 \x01(\v2$.mock.v4.config.ErrorResponseWrapperH\x00R\x11errorResponseData\x12D\n" +
+	"\bmetadata\x18\xe9\a \x01(\v2'.common.v1.response.ApiResponseMetadataR\bmetadata\x12?\n" +
+	"\t_reserved\x18\xa0\xf76 \x01(\v2 .mock.v4.config.ObjectMapWrapperR\bReservedB\x06\n" +
+	"\x04data\"\xa7\x01\n" +
 	"\bLocation\x122\n" +
 	"\acountry\x18\xd1\x0f \x01(\v2\x17.mock.v4.config.CountryR\acountry\x12\x13\n" +
 	"\x04city\x18\xd2\x0f \x01(\tR\x04city\x12\x11\n" +
@@ -331,61 +536,76 @@ const file_swagger_mock_v4_config_config_proto_rawDesc = "" +
 	"\x0emock.v4.configP\x01Z\x0emock/v4/config"
 
 var (
-	file_swagger_mock_v4_config_config_proto_rawDescOnce sync.Once
-	file_swagger_mock_v4_config_config_proto_rawDescData []byte
+	file_mock_v4_config_config_proto_rawDescOnce sync.Once
+	file_mock_v4_config_config_proto_rawDescData []byte
 )
 
-func file_swagger_mock_v4_config_config_proto_rawDescGZIP() []byte {
-	file_swagger_mock_v4_config_config_proto_rawDescOnce.Do(func() {
-		file_swagger_mock_v4_config_config_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_swagger_mock_v4_config_config_proto_rawDesc), len(file_swagger_mock_v4_config_config_proto_rawDesc)))
+func file_mock_v4_config_config_proto_rawDescGZIP() []byte {
+	file_mock_v4_config_config_proto_rawDescOnce.Do(func() {
+		file_mock_v4_config_config_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_mock_v4_config_config_proto_rawDesc), len(file_mock_v4_config_config_proto_rawDesc)))
 	})
-	return file_swagger_mock_v4_config_config_proto_rawDescData
+	return file_mock_v4_config_config_proto_rawDescData
 }
 
-var file_swagger_mock_v4_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_swagger_mock_v4_config_config_proto_goTypes = []any{
-	(*ObjectMapWrapper)(nil), // 0: mock.v4.config.ObjectMapWrapper
-	(*Cat)(nil),              // 1: mock.v4.config.Cat
-	(*Country)(nil),          // 2: mock.v4.config.Country
-	(*Location)(nil),         // 3: mock.v4.config.Location
-	nil,                      // 4: mock.v4.config.ObjectMapWrapper.ValueEntry
-	(*anypb.Any)(nil),        // 5: google.protobuf.Any
+var file_mock_v4_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_mock_v4_config_config_proto_goTypes = []any{
+	(*ObjectMapWrapper)(nil),             // 0: mock.v4.config.ObjectMapWrapper
+	(*Cat)(nil),                          // 1: mock.v4.config.Cat
+	(*Country)(nil),                      // 2: mock.v4.config.Country
+	(*CatArrayWrapper)(nil),              // 3: mock.v4.config.CatArrayWrapper
+	(*ErrorResponseWrapper)(nil),         // 4: mock.v4.config.ErrorResponseWrapper
+	(*ListCatsApiResponse)(nil),          // 5: mock.v4.config.ListCatsApiResponse
+	(*Location)(nil),                     // 6: mock.v4.config.Location
+	nil,                                  // 7: mock.v4.config.ObjectMapWrapper.ValueEntry
+	(*error1.ErrorResponse)(nil),         // 8: mock.v4.error.ErrorResponse
+	(*response.ApiResponseMetadata)(nil), // 9: common.v1.response.ApiResponseMetadata
+	(*anypb.Any)(nil),                    // 10: google.protobuf.Any
 }
-var file_swagger_mock_v4_config_config_proto_depIdxs = []int32{
-	4, // 0: mock.v4.config.ObjectMapWrapper.value:type_name -> mock.v4.config.ObjectMapWrapper.ValueEntry
-	3, // 1: mock.v4.config.Cat.location:type_name -> mock.v4.config.Location
-	0, // 2: mock.v4.config.Cat._reserved:type_name -> mock.v4.config.ObjectMapWrapper
-	0, // 3: mock.v4.config.Country._reserved:type_name -> mock.v4.config.ObjectMapWrapper
-	2, // 4: mock.v4.config.Location.country:type_name -> mock.v4.config.Country
-	0, // 5: mock.v4.config.Location._reserved:type_name -> mock.v4.config.ObjectMapWrapper
-	5, // 6: mock.v4.config.ObjectMapWrapper.ValueEntry.value:type_name -> google.protobuf.Any
-	7, // [7:7] is the sub-list for method output_type
-	7, // [7:7] is the sub-list for method input_type
-	7, // [7:7] is the sub-list for extension type_name
-	7, // [7:7] is the sub-list for extension extendee
-	0, // [0:7] is the sub-list for field type_name
+var file_mock_v4_config_config_proto_depIdxs = []int32{
+	7,  // 0: mock.v4.config.ObjectMapWrapper.value:type_name -> mock.v4.config.ObjectMapWrapper.ValueEntry
+	6,  // 1: mock.v4.config.Cat.location:type_name -> mock.v4.config.Location
+	0,  // 2: mock.v4.config.Cat._reserved:type_name -> mock.v4.config.ObjectMapWrapper
+	0,  // 3: mock.v4.config.Country._reserved:type_name -> mock.v4.config.ObjectMapWrapper
+	1,  // 4: mock.v4.config.CatArrayWrapper.value:type_name -> mock.v4.config.Cat
+	8,  // 5: mock.v4.config.ErrorResponseWrapper.value:type_name -> mock.v4.error.ErrorResponse
+	3,  // 6: mock.v4.config.ListCatsApiResponse.cat_array_data:type_name -> mock.v4.config.CatArrayWrapper
+	4,  // 7: mock.v4.config.ListCatsApiResponse.error_response_data:type_name -> mock.v4.config.ErrorResponseWrapper
+	9,  // 8: mock.v4.config.ListCatsApiResponse.metadata:type_name -> common.v1.response.ApiResponseMetadata
+	0,  // 9: mock.v4.config.ListCatsApiResponse._reserved:type_name -> mock.v4.config.ObjectMapWrapper
+	2,  // 10: mock.v4.config.Location.country:type_name -> mock.v4.config.Country
+	0,  // 11: mock.v4.config.Location._reserved:type_name -> mock.v4.config.ObjectMapWrapper
+	10, // 12: mock.v4.config.ObjectMapWrapper.ValueEntry.value:type_name -> google.protobuf.Any
+	13, // [13:13] is the sub-list for method output_type
+	13, // [13:13] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
-func init() { file_swagger_mock_v4_config_config_proto_init() }
-func file_swagger_mock_v4_config_config_proto_init() {
-	if File_swagger_mock_v4_config_config_proto != nil {
+func init() { file_mock_v4_config_config_proto_init() }
+func file_mock_v4_config_config_proto_init() {
+	if File_mock_v4_config_config_proto != nil {
 		return
+	}
+	file_mock_v4_config_config_proto_msgTypes[5].OneofWrappers = []any{
+		(*ListCatsApiResponse_CatArrayData)(nil),
+		(*ListCatsApiResponse_ErrorResponseData)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_swagger_mock_v4_config_config_proto_rawDesc), len(file_swagger_mock_v4_config_config_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_mock_v4_config_config_proto_rawDesc), len(file_mock_v4_config_config_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_swagger_mock_v4_config_config_proto_goTypes,
-		DependencyIndexes: file_swagger_mock_v4_config_config_proto_depIdxs,
-		MessageInfos:      file_swagger_mock_v4_config_config_proto_msgTypes,
+		GoTypes:           file_mock_v4_config_config_proto_goTypes,
+		DependencyIndexes: file_mock_v4_config_config_proto_depIdxs,
+		MessageInfos:      file_mock_v4_config_config_proto_msgTypes,
 	}.Build()
-	File_swagger_mock_v4_config_config_proto = out.File
-	file_swagger_mock_v4_config_config_proto_goTypes = nil
-	file_swagger_mock_v4_config_config_proto_depIdxs = nil
+	File_mock_v4_config_config_proto = out.File
+	file_mock_v4_config_config_proto_goTypes = nil
+	file_mock_v4_config_config_proto_depIdxs = nil
 }

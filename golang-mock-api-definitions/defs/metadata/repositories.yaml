@@ -1,0 +1,7 @@
+- name: "common"
+  type: "git"
+  uri: "https://github.com/nutanix-core/ntnx-api-dev-platform.git"
+  ref: "refs/tags/17.6.0.9581-RELEASE"
+  baseDir: "ntnx-api-common/common-api-definitions/defs"
+  authRequired: false
+

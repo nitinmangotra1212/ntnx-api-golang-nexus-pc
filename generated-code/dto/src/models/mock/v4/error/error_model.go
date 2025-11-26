@@ -14,7 +14,7 @@
 */
 package error
 import (
-  "bytes"
+  import1 "github.com/nutanix/ntnx-api-golang-mock-pc/generated-code/dto/models/common/v1/config"
   "encoding/json"
   "errors"
   "fmt"
@@ -51,7 +51,7 @@ type AppMessage struct {
   */
   Message *string `json:"message,omitempty"`
   
-  Severity *MessageSeverity `json:"severity,omitempty"`
+  Severity *import1.MessageSeverity `json:"severity,omitempty"`
 }
 
 func (p *AppMessage) MarshalJSON() ([]byte, error) {
@@ -285,90 +285,6 @@ func (p *ErrorResponse) SetError(v interface{}) error {
   return e
 }
 
-
-
-/*
-Enum schema MessageSeverity
-*/
-type MessageSeverity int
-
-const(
-  MESSAGESEVERITY_UNKNOWN MessageSeverity = 0
-  MESSAGESEVERITY_REDACTED MessageSeverity = 1
-  MESSAGESEVERITY_INFO MessageSeverity = 2
-  MESSAGESEVERITY_WARNING MessageSeverity = 3
-  MESSAGESEVERITY_ERROR MessageSeverity = 4
-)
-
-// Returns the name of the enum given an ordinal number
-//
-// Deprecated: Please use GetName instead of name
-func (e *MessageSeverity) name(index int) string {
-  names := [...]string {
-    "$UNKNOWN",
-    "$REDACTED",
-    "INFO",
-    "WARNING",
-    "ERROR",
-  }
-  if index < 0 || index >= len(names) {
-    return "$UNKNOWN"
-  }
-  return names[index]
-}
-
-// Returns the name of the enum
-func (e MessageSeverity) GetName() string {
-  index := int(e)
-  names := [...]string {
-    "$UNKNOWN",
-    "$REDACTED",
-    "INFO",
-    "WARNING",
-    "ERROR",
-  }
-  if index < 0 || index >= len(names) {
-    return "$UNKNOWN"
-  }
-  return names[index]
-}
-
-// Returns the enum type given a string value
-func (e *MessageSeverity) index(name string) MessageSeverity {
-  names := [...]string {
-    "$UNKNOWN",
-    "$REDACTED",
-    "INFO",
-    "WARNING",
-    "ERROR",
-  }
-  for idx := range names {
-    if names[idx] == name {
-      return MessageSeverity(idx)
-    }
-  }
-  return MESSAGESEVERITY_UNKNOWN
-}
-
-func (e *MessageSeverity) UnmarshalJSON(b []byte) error {
-  var enumStr string
-  if err := json.Unmarshal(b, &enumStr); err != nil {
-    return errors.New(fmt.Sprintf("Unable to unmarshal for MessageSeverity:%s", err))
-  }
-  *e = e.index(enumStr)
-  return nil
-}
-
-func (e *MessageSeverity) MarshalJSON() ([]byte, error) {
-  b := bytes.NewBufferString(`"`)
-  b.WriteString(e.name(int(*e)))
-  b.WriteString(`"`)
-  return b.Bytes(), nil
-}
-
-func (e MessageSeverity) Ref() *MessageSeverity {
-  return &e
-}
 
 /*
 This schema is generated from SchemaValidationError.java

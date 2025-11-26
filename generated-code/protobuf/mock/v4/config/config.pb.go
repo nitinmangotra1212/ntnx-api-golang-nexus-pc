@@ -17,6 +17,7 @@
 package config
 
 import (
+	response "github.com/nutanix/ntnx-api-golang-mock-pc/generated-code/protobuf/common/v1/response"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
@@ -323,13 +324,17 @@ func (x *ErrorResponseWrapper) GetValue() *error1.ErrorResponse {
 	return nil
 }
 
+// REST response for all response codes in API path /mock/v4.1/config/cats Get operation
 type ListCatsApiResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
+	// REST response for all response codes in API path /mock/v4.1/config/cats Get operation
+	//
 	// Types that are valid to be assigned to Data:
 	//
 	//	*ListCatsApiResponse_CatArrayData
 	//	*ListCatsApiResponse_ErrorResponseData
 	Data isListCatsApiResponse_Data `protobuf_oneof:"data"`
+	Metadata *response.ApiResponseMetadata `protobuf:"bytes,1001,opt,name=metadata" json:"metadata,omitempty"`
 	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -386,6 +391,13 @@ func (x *ListCatsApiResponse) GetErrorResponseData() *ErrorResponseWrapper {
 		if x, ok := x.Data.(*ListCatsApiResponse_ErrorResponseData); ok {
 			return x.ErrorResponseData
 		}
+	}
+	return nil
+}
+
+func (x *ListCatsApiResponse) GetMetadata() *response.ApiResponseMetadata {
+	if x != nil {
+		return x.Metadata
 	}
 	return nil
 }
@@ -488,7 +500,7 @@ var File_mock_v4_config_config_proto protoreflect.FileDescriptor
 
 const file_mock_v4_config_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1bmock/v4/config/config.proto\x12\x0emock.v4.config\x1a\x19google/protobuf/any.proto\x1a\x19mock/v4/error/error.proto\"\xa6\x01\n" +
+	"\x1bmock/v4/config/config.proto\x12\x0emock.v4.config\x1a\x19google/protobuf/any.proto\x1a\x19mock/v4/error/error.proto\x1a!common/v1/response/response.proto\"\xa6\x01\n" +
 	"\x10ObjectMapWrapper\x12B\n" +
 	"\x05value\x18\xe8\a \x03(\v2+.mock.v4.config.ObjectMapWrapper.ValueEntryR\x05value\x1aN\n" +
 	"\n" +
@@ -509,10 +521,11 @@ const file_mock_v4_config_config_proto_rawDesc = "" +
 	"\x0fCatArrayWrapper\x12*\n" +
 	"\x05value\x18\xe8\a \x03(\v2\x13.mock.v4.config.CatR\x05value\"K\n" +
 	"\x14ErrorResponseWrapper\x123\n" +
-	"\x05value\x18\xe8\a \x01(\v2\x1c.mock.v4.error.ErrorResponseR\x05value\"\x81\x02\n" +
+	"\x05value\x18\xe8\a \x01(\v2\x1c.mock.v4.error.ErrorResponseR\x05value\"\xc7\x02\n" +
 	"\x13ListCatsApiResponse\x12H\n" +
 	"\x0ecat_array_data\x18\xd1\x0f \x01(\v2\x1f.mock.v4.config.CatArrayWrapperH\x00R\fcatArrayData\x12W\n" +
-	"\x13error_response_data\x18\x90\x03 \x01(\v2$.mock.v4.config.ErrorResponseWrapperH\x00R\x11errorResponseData\x12?\n" +
+	"\x13error_response_data\x18\x90\x03 \x01(\v2$.mock.v4.config.ErrorResponseWrapperH\x00R\x11errorResponseData\x12D\n" +
+	"\bmetadata\x18\xe9\a \x01(\v2'.common.v1.response.ApiResponseMetadataR\bmetadata\x12?\n" +
 	"\t_reserved\x18\xa0\xf76 \x01(\v2 .mock.v4.config.ObjectMapWrapperR\bReservedB\x06\n" +
 	"\x04data\"\xa7\x01\n" +
 	"\bLocation\x122\n" +
@@ -536,16 +549,17 @@ func file_mock_v4_config_config_proto_rawDescGZIP() []byte {
 
 var file_mock_v4_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_mock_v4_config_config_proto_goTypes = []any{
-	(*ObjectMapWrapper)(nil),     // 0: mock.v4.config.ObjectMapWrapper
-	(*Cat)(nil),                  // 1: mock.v4.config.Cat
-	(*Country)(nil),              // 2: mock.v4.config.Country
-	(*CatArrayWrapper)(nil),      // 3: mock.v4.config.CatArrayWrapper
-	(*ErrorResponseWrapper)(nil), // 4: mock.v4.config.ErrorResponseWrapper
-	(*ListCatsApiResponse)(nil),  // 5: mock.v4.config.ListCatsApiResponse
-	(*Location)(nil),             // 6: mock.v4.config.Location
-	nil,                          // 7: mock.v4.config.ObjectMapWrapper.ValueEntry
-	(*error1.ErrorResponse)(nil), // 8: mock.v4.error.ErrorResponse
-	(*anypb.Any)(nil),            // 9: google.protobuf.Any
+	(*ObjectMapWrapper)(nil),             // 0: mock.v4.config.ObjectMapWrapper
+	(*Cat)(nil),                          // 1: mock.v4.config.Cat
+	(*Country)(nil),                      // 2: mock.v4.config.Country
+	(*CatArrayWrapper)(nil),              // 3: mock.v4.config.CatArrayWrapper
+	(*ErrorResponseWrapper)(nil),         // 4: mock.v4.config.ErrorResponseWrapper
+	(*ListCatsApiResponse)(nil),          // 5: mock.v4.config.ListCatsApiResponse
+	(*Location)(nil),                     // 6: mock.v4.config.Location
+	nil,                                  // 7: mock.v4.config.ObjectMapWrapper.ValueEntry
+	(*error1.ErrorResponse)(nil),         // 8: mock.v4.error.ErrorResponse
+	(*response.ApiResponseMetadata)(nil), // 9: common.v1.response.ApiResponseMetadata
+	(*anypb.Any)(nil),                    // 10: google.protobuf.Any
 }
 var file_mock_v4_config_config_proto_depIdxs = []int32{
 	7,  // 0: mock.v4.config.ObjectMapWrapper.value:type_name -> mock.v4.config.ObjectMapWrapper.ValueEntry
@@ -556,15 +570,16 @@ var file_mock_v4_config_config_proto_depIdxs = []int32{
 	8,  // 5: mock.v4.config.ErrorResponseWrapper.value:type_name -> mock.v4.error.ErrorResponse
 	3,  // 6: mock.v4.config.ListCatsApiResponse.cat_array_data:type_name -> mock.v4.config.CatArrayWrapper
 	4,  // 7: mock.v4.config.ListCatsApiResponse.error_response_data:type_name -> mock.v4.config.ErrorResponseWrapper
-	0,  // 8: mock.v4.config.ListCatsApiResponse._reserved:type_name -> mock.v4.config.ObjectMapWrapper
-	2,  // 9: mock.v4.config.Location.country:type_name -> mock.v4.config.Country
-	0,  // 10: mock.v4.config.Location._reserved:type_name -> mock.v4.config.ObjectMapWrapper
-	9,  // 11: mock.v4.config.ObjectMapWrapper.ValueEntry.value:type_name -> google.protobuf.Any
-	12, // [12:12] is the sub-list for method output_type
-	12, // [12:12] is the sub-list for method input_type
-	12, // [12:12] is the sub-list for extension type_name
-	12, // [12:12] is the sub-list for extension extendee
-	0,  // [0:12] is the sub-list for field type_name
+	9,  // 8: mock.v4.config.ListCatsApiResponse.metadata:type_name -> common.v1.response.ApiResponseMetadata
+	0,  // 9: mock.v4.config.ListCatsApiResponse._reserved:type_name -> mock.v4.config.ObjectMapWrapper
+	2,  // 10: mock.v4.config.Location.country:type_name -> mock.v4.config.Country
+	0,  // 11: mock.v4.config.Location._reserved:type_name -> mock.v4.config.ObjectMapWrapper
+	10, // 12: mock.v4.config.ObjectMapWrapper.ValueEntry.value:type_name -> google.protobuf.Any
+	13, // [13:13] is the sub-list for method output_type
+	13, // [13:13] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
 func init() { file_mock_v4_config_config_proto_init() }
