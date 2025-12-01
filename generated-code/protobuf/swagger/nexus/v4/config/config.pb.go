@@ -21,7 +21,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
-	error1 "github.com/nutanix/ntnx-api-golang-nexus-pc/generated-code/protobuf/nexus/v4/error"
+	error1 "nexus/v4/error"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"

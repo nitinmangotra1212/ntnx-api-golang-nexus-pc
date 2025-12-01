@@ -36,7 +36,7 @@ ls -lh target/prism-service-*.jar
 **On your local machine:**
 ```bash
 cd ~/ntnx-api-golang-nexus
-scp golang-nexus-server nutanix@<PC_IP>:~/golang-nexus-build/
+scp golang-nexus-server nutanix@10.124.86.254:~/golang-nexus-build/
 ```
 
 **Example:**
@@ -50,7 +50,7 @@ scp golang-nexus-server nutanix@10.124.86.254:~/golang-nexus-build/
 
 **On PC, SSH into it:**
 ```bash
-ssh nutanix@<PC_IP>
+ssh nutanix@10.124.86.254
 ```
 
 **Stop old service:**
@@ -99,12 +99,12 @@ Registered ItemService with the gRPC server
 ```bash
 # Get auth token
 TOKEN=$(curl -k -u admin:Nutanix.123 -X POST \
-  https://<PC_IP>:9440/api/nutanix/v3/users/me/list 2>/dev/null | \
+  https://10.124.86.254:9440/api/nutanix/v3/users/me/list 2>/dev/null | \
   jq -r '.entities[0].metadata.uuid' || echo "")
 
 # Test basic list
 curl -k -H "Authorization: Bearer $TOKEN" \
-  "https://<PC_IP>:9440/api/nexus/v4.1/config/items?$page=0&$limit=10" | jq
+  "https://10.124.86.254:9440/api/nexus/v4.1/config/items?$page=0&$limit=10" | jq
 ```
 
 **Expected:** Returns 10 items with pagination metadata
@@ -114,7 +114,7 @@ curl -k -H "Authorization: Bearer $TOKEN" \
 ### Test 2: Filter by itemName
 ```bash
 curl -k -H "Authorization: Bearer $TOKEN" \
-  "https://<PC_IP>:9440/api/nexus/v4.1/config/items?$filter=itemName eq 'test item 0'" | jq
+  "https://10.124.86.254:9440/api/nexus/v4.1/config/items?$filter=itemName eq 'test item 0'" | jq
 ```
 
 **Expected:** Returns only items where itemName equals 'test item 0'
@@ -124,7 +124,7 @@ curl -k -H "Authorization: Bearer $TOKEN" \
 ### Test 3: Sort by itemId
 ```bash
 curl -k -H "Authorization: Bearer $TOKEN" \
-  "https://<PC_IP>:9440/api/nexus/v4.1/config/items?$orderby=itemId asc&$limit=5" | jq
+  "https://10.124.86.254:9440/api/nexus/v4.1/config/items?$orderby=itemId asc&$limit=5" | jq
 ```
 
 **Expected:** Returns items sorted by itemId in ascending order
@@ -134,7 +134,7 @@ curl -k -H "Authorization: Bearer $TOKEN" \
 ### Test 4: Combined Filter and Sort
 ```bash
 curl -k -H "Authorization: Bearer $TOKEN" \
-  "https://<PC_IP>:9440/api/nexus/v4.1/config/items?$filter=itemType eq 'TYPE1'&$orderby=itemName asc&$page=0&$limit=10" | jq
+  "https://10.124.86.254:9440/api/nexus/v4.1/config/items?$filter=itemType eq 'TYPE1'&$orderby=itemName asc&$page=0&$limit=10" | jq
 ```
 
 **Expected:** Returns TYPE1 items, sorted by itemName, paginated
@@ -144,7 +144,7 @@ curl -k -H "Authorization: Bearer $TOKEN" \
 ### Test 5: Error Handling (Invalid Query)
 ```bash
 curl -k -H "Authorization: Bearer $TOKEN" \
-  "https://<PC_IP>:9440/api/nexus/v4.1/config/items?$filter=invalidField eq 'test'" | jq
+  "https://10.124.86.254:9440/api/nexus/v4.1/config/items?$filter=invalidField eq 'test'" | jq
 ```
 
 **Expected:** Returns 400 Bad Request with error message:
@@ -218,7 +218,7 @@ tail -100 ~/golang-nexus-build/golang-nexus-server.log | grep -A 5 -B 5 "filter\
 cd ~/ntnx-api-golang-nexus && make build
 
 # Local: Copy to PC
-scp ~/ntnx-api-golang-nexus/golang-nexus-server nutanix@<PC_IP>:~/golang-nexus-build/
+scp ~/ntnx-api-golang-nexus/golang-nexus-server nutanix@10.124.86.254:~/golang-nexus-build/
 
 # PC: Stop and start
 pkill -f golang-nexus-server
@@ -228,7 +228,7 @@ nohup ./golang-nexus-server -port 9090 -idf-host 127.0.0.1 -idf-port 2027 -log-l
 
 # PC: Test
 curl -k -H "Authorization: Bearer $TOKEN" \
-  "https://<PC_IP>:9440/api/nexus/v4.1/config/items?$filter=itemName eq 'test'" | jq
+  "https://10.124.86.254:9440/api/nexus/v4.1/config/items?$filter=itemName eq 'test'" | jq
 ```
 
 ---

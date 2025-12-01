@@ -35,6 +35,21 @@ components:
           type: string
           readOnly: true
           example: "550e8400-e29b-41d4-a716-446655440000"
+      x-filterable-properties:
+        - itemId
+        - itemName
+        - itemType
+        - extId
+      x-sortable-properties:
+        - itemId
+        - itemName
+        - itemType
+      x-selection-properties:
+        - itemId
+        - itemName
+        - itemType
+        - description
+        - extId
       x-codegen-hint:
         $any:
           - type: entity-identifier
