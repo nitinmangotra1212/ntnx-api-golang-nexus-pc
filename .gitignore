@@ -29,3 +29,25 @@ Thumbs.db
 *.bak
 *.swp
 golang-mock-server
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Maven (already covered but being explicit)
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Files with credentials (use environment variables instead)
+# build-with-auth.sh - Keep template but never commit with real credentials

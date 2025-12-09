@@ -31,6 +31,10 @@ type Item struct {
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
   /*
+  Associated entities for this item. This field is only present when $expand=associations is specified in the query.
+  */
+  Associations []ItemAssociation `json:"associations,omitempty"`
+  /*
   Description of the item
   */
   Description *string `json:"description,omitempty"`
@@ -113,6 +117,9 @@ func (p *Item) UnmarshalJSON(b []byte) error {
     if known.UnknownFields_ != nil {
         p.UnknownFields_ = known.UnknownFields_
     }
+    if known.Associations != nil {
+        p.Associations = known.Associations
+    }
     if known.Description != nil {
         p.Description = known.Description
     }
@@ -133,6 +140,7 @@ func (p *Item) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
+	delete(allFields, "associations")
 	delete(allFields, "description")
 	delete(allFields, "extId")
 	delete(allFields, "itemId")
@@ -151,6 +159,399 @@ func NewItem() *Item {
   p := new(Item)
   p.ObjectType_ = new(string)
   *p.ObjectType_ = "nexus.v4.config.Item"
+  p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+  p.UnknownFields_ = map[string]interface{}{}
+
+
+
+  return p
+}
+
+
+
+/*
+Association entity for items, representing related entities associated with an item
+*/
+type ItemAssociation struct {
+  
+  ObjectType_ *string `json:"$objectType,omitempty"`
+  
+  Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+  
+  UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  /*
+  Count of associations of this type
+  */
+  Count *int `json:"count,omitempty"`
+  /*
+  ID of associated entity
+  */
+  EntityId *string `json:"entityId,omitempty"`
+  /*
+  Type of associated entity
+  */
+  EntityType *string `json:"entityType,omitempty"`
+  /*
+  The item ID this association belongs to
+  */
+  ItemId *string `json:"itemId,omitempty"`
+}
+
+func (p *ItemAssociation) MarshalJSON() ([]byte, error) {
+  // Create Alias to avoid infinite recursion
+  type Alias ItemAssociation
+
+  // Step 1: Marshal the known fields
+  known, err := json.Marshal(Alias(*p))
+  if err != nil {
+  	return nil, err
+  }
+
+    // Step 2: Convert known to map for merging
+    var knownMap map[string]interface{}
+    if err := json.Unmarshal(known, &knownMap); err != nil {
+    	return nil, err
+    }
+    delete(knownMap, "$unknownFields")
+  
+    // Step 3: Merge unknown fields
+    for k, v := range p.UnknownFields_ {
+    	knownMap[k] = v
+    }
+  
+    // Step 4: Marshal final merged map
+    return json.Marshal(knownMap)
+}
+
+func (p *ItemAssociation) UnmarshalJSON(b []byte) error {
+    // Step 1: Unmarshal into a generic map to capture all fields
+    var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+    // Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ItemAssociation
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+    // Step 3: Assign known fields
+	*p = *NewItemAssociation()
+
+    if known.ObjectType_ != nil {
+        p.ObjectType_ = known.ObjectType_
+    }
+    if known.Reserved_ != nil {
+        p.Reserved_ = known.Reserved_
+    }
+    if known.UnknownFields_ != nil {
+        p.UnknownFields_ = known.UnknownFields_
+    }
+    if known.Count != nil {
+        p.Count = known.Count
+    }
+    if known.EntityId != nil {
+        p.EntityId = known.EntityId
+    }
+    if known.EntityType != nil {
+        p.EntityType = known.EntityType
+    }
+    if known.ItemId != nil {
+        p.ItemId = known.ItemId
+    }
+
+    // Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "count")
+	delete(allFields, "entityId")
+	delete(allFields, "entityType")
+	delete(allFields, "itemId")
+
+    // Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+      p.UnknownFields_[key] = value
+    }
+
+	return nil
+}
+
+func NewItemAssociation() *ItemAssociation {
+  p := new(ItemAssociation)
+  p.ObjectType_ = new(string)
+  *p.ObjectType_ = "nexus.v4.config.ItemAssociation"
+  p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+  p.UnknownFields_ = map[string]interface{}{}
+
+
+
+  return p
+}
+
+
+
+
+type ItemAssociationProjection struct {
+  
+  ObjectType_ *string `json:"$objectType,omitempty"`
+  
+  Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+  
+  UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  /*
+  Count of associations of this type
+  */
+  Count *int `json:"count,omitempty"`
+  /*
+  ID of associated entity
+  */
+  EntityId *string `json:"entityId,omitempty"`
+  /*
+  Type of associated entity
+  */
+  EntityType *string `json:"entityType,omitempty"`
+  /*
+  The item ID this association belongs to
+  */
+  ItemId *string `json:"itemId,omitempty"`
+}
+
+func (p *ItemAssociationProjection) MarshalJSON() ([]byte, error) {
+  // Create Alias to avoid infinite recursion
+  type Alias ItemAssociationProjection
+
+  // Step 1: Marshal the known fields
+  known, err := json.Marshal(Alias(*p))
+  if err != nil {
+  	return nil, err
+  }
+
+    // Step 2: Convert known to map for merging
+    var knownMap map[string]interface{}
+    if err := json.Unmarshal(known, &knownMap); err != nil {
+    	return nil, err
+    }
+    delete(knownMap, "$unknownFields")
+  
+    // Step 3: Merge unknown fields
+    for k, v := range p.UnknownFields_ {
+    	knownMap[k] = v
+    }
+  
+    // Step 4: Marshal final merged map
+    return json.Marshal(knownMap)
+}
+
+func (p *ItemAssociationProjection) UnmarshalJSON(b []byte) error {
+    // Step 1: Unmarshal into a generic map to capture all fields
+    var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+    // Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ItemAssociationProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+    // Step 3: Assign known fields
+	*p = *NewItemAssociationProjection()
+
+    if known.ObjectType_ != nil {
+        p.ObjectType_ = known.ObjectType_
+    }
+    if known.Reserved_ != nil {
+        p.Reserved_ = known.Reserved_
+    }
+    if known.UnknownFields_ != nil {
+        p.UnknownFields_ = known.UnknownFields_
+    }
+    if known.Count != nil {
+        p.Count = known.Count
+    }
+    if known.EntityId != nil {
+        p.EntityId = known.EntityId
+    }
+    if known.EntityType != nil {
+        p.EntityType = known.EntityType
+    }
+    if known.ItemId != nil {
+        p.ItemId = known.ItemId
+    }
+
+    // Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "count")
+	delete(allFields, "entityId")
+	delete(allFields, "entityType")
+	delete(allFields, "itemId")
+
+    // Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+      p.UnknownFields_[key] = value
+    }
+
+	return nil
+}
+
+func NewItemAssociationProjection() *ItemAssociationProjection {
+  p := new(ItemAssociationProjection)
+  p.ObjectType_ = new(string)
+  *p.ObjectType_ = "nexus.v4.config.ItemAssociationProjection"
+  p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+  p.UnknownFields_ = map[string]interface{}{}
+
+
+
+  return p
+}
+
+
+
+
+type ItemProjection struct {
+  
+  ObjectType_ *string `json:"$objectType,omitempty"`
+  
+  Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+  
+  UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  /*
+  Associated entities for this item. This field is only present when $expand=associations is specified in the query.
+  */
+  Associations []ItemAssociation `json:"associations,omitempty"`
+  /*
+  Description of the item
+  */
+  Description *string `json:"description,omitempty"`
+  /*
+  External identifier for the item (UUID)
+  */
+  ExtId *string `json:"extId,omitempty"`
+  /*
+  Unique identifier for the item
+  */
+  ItemId *int `json:"itemId,omitempty"`
+  /*
+  Name of the item
+  */
+  ItemName *string `json:"itemName"`
+  /*
+  Type of item
+  */
+  ItemType *string `json:"itemType"`
+}
+
+func (p *ItemProjection) MarshalJSON() ([]byte, error) {
+  type ItemProjectionProxy ItemProjection
+
+  // Step 1: Marshal known fields via proxy to enforce required fields
+  baseStruct := struct {
+    *ItemProjectionProxy
+    ItemName *string `json:"itemName,omitempty"`
+    ItemType *string `json:"itemType,omitempty"`
+  }{
+    ItemProjectionProxy : (*ItemProjectionProxy)(p),
+    ItemName : p.ItemName,
+    ItemType : p.ItemType,
+  }
+
+  known, err := json.Marshal(baseStruct)
+  if err != nil {
+  	return nil, err
+  }
+
+    // Step 2: Convert known to map for merging
+    var knownMap map[string]interface{}
+    if err := json.Unmarshal(known, &knownMap); err != nil {
+    	return nil, err
+    }
+    delete(knownMap, "$unknownFields")
+  
+    // Step 3: Merge unknown fields
+    for k, v := range p.UnknownFields_ {
+    	knownMap[k] = v
+    }
+  
+    // Step 4: Marshal final merged map
+    return json.Marshal(knownMap)
+}
+
+func (p *ItemProjection) UnmarshalJSON(b []byte) error {
+    // Step 1: Unmarshal into a generic map to capture all fields
+    var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+    // Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ItemProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+    // Step 3: Assign known fields
+	*p = *NewItemProjection()
+
+    if known.ObjectType_ != nil {
+        p.ObjectType_ = known.ObjectType_
+    }
+    if known.Reserved_ != nil {
+        p.Reserved_ = known.Reserved_
+    }
+    if known.UnknownFields_ != nil {
+        p.UnknownFields_ = known.UnknownFields_
+    }
+    if known.Associations != nil {
+        p.Associations = known.Associations
+    }
+    if known.Description != nil {
+        p.Description = known.Description
+    }
+    if known.ExtId != nil {
+        p.ExtId = known.ExtId
+    }
+    if known.ItemId != nil {
+        p.ItemId = known.ItemId
+    }
+    if known.ItemName != nil {
+        p.ItemName = known.ItemName
+    }
+    if known.ItemType != nil {
+        p.ItemType = known.ItemType
+    }
+
+    // Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "associations")
+	delete(allFields, "description")
+	delete(allFields, "extId")
+	delete(allFields, "itemId")
+	delete(allFields, "itemName")
+	delete(allFields, "itemType")
+
+    // Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+      p.UnknownFields_[key] = value
+    }
+
+	return nil
+}
+
+func NewItemProjection() *ItemProjection {
+  p := new(ItemProjection)
+  p.ObjectType_ = new(string)
+  *p.ObjectType_ = "nexus.v4.config.ItemProjection"
   p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
   p.UnknownFields_ = map[string]interface{}{}
 
@@ -296,6 +697,7 @@ func (p *ListItemsApiResponse) SetData(v interface{}) error {
 type OneOfListItemsApiResponseData struct {
   Discriminator *string `json:"-"`
   ObjectType_ *string `json:"-"`
+  oneOfType401 []ItemProjection `json:"-"`
   oneOfType2001 []Item `json:"-"`
   oneOfType400 *import1.ErrorResponse `json:"-"`
 }
@@ -312,6 +714,12 @@ func (p *OneOfListItemsApiResponseData) SetValue (v interface {}) error {
     return errors.New(fmt.Sprintf("OneOfListItemsApiResponseData is nil"))
   }
   switch v.(type) {
+    case []ItemProjection:
+      p.oneOfType401 = v.([]ItemProjection)
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<nexus.v4.config.ItemProjection>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<nexus.v4.config.ItemProjection>"
     case []Item:
       p.oneOfType2001 = v.([]Item)
       if nil == p.Discriminator {p.Discriminator = new(string)}
@@ -332,6 +740,9 @@ func (p *OneOfListItemsApiResponseData) SetValue (v interface {}) error {
 }
 
 func (p *OneOfListItemsApiResponseData) GetValue() interface{} {
+  if "List<nexus.v4.config.ItemProjection>" == *p.Discriminator {
+    return p.oneOfType401
+  }
   if "List<nexus.v4.config.Item>" == *p.Discriminator {
     return p.oneOfType2001
   }
@@ -342,6 +753,17 @@ func (p *OneOfListItemsApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfListItemsApiResponseData) UnmarshalJSON(b []byte) error {
+  vOneOfType401 := new([]ItemProjection)
+  if err := json.Unmarshal(b, vOneOfType401); err == nil {
+    if len(*vOneOfType401) == 0 || "nexus.v4.config.ItemProjection" == *((*vOneOfType401)[0].ObjectType_) {
+      p.oneOfType401 = *vOneOfType401
+      if nil == p.Discriminator {p.Discriminator = new(string)}
+      *p.Discriminator = "List<nexus.v4.config.ItemProjection>"
+      if nil == p.ObjectType_ {p.ObjectType_ = new(string)}
+      *p.ObjectType_ = "List<nexus.v4.config.ItemProjection>"
+      return nil
+    }
+  }
   vOneOfType2001 := new([]Item)
   if err := json.Unmarshal(b, vOneOfType2001); err == nil {
     if len(*vOneOfType2001) == 0 || "nexus.v4.config.Item" == *((*vOneOfType2001)[0].ObjectType_) {
@@ -369,6 +791,9 @@ func (p *OneOfListItemsApiResponseData) UnmarshalJSON(b []byte) error {
 }
 
 func (p *OneOfListItemsApiResponseData) MarshalJSON() ([]byte, error) {
+  if "List<nexus.v4.config.ItemProjection>" == *p.Discriminator {
+    return json.Marshal(p.oneOfType401)
+  }
   if "List<nexus.v4.config.Item>" == *p.Discriminator {
     return json.Marshal(p.oneOfType2001)
   }

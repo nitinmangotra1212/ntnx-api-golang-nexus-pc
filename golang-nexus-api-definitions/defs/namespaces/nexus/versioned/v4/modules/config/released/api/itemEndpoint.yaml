@@ -6,6 +6,7 @@ paths:
       description: List all items
       summary: List items
       operationId: "listItems"
+      x-support-expand: true
       responses:
         200:
           description: List of items retrieved successfully

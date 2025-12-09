@@ -23,6 +23,9 @@
     <mapstruct-version>1.4.1.Final</mapstruct-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <expose.internal.api>true</expose.internal.api>
+    <!-- Git credentials for JGit (can be overridden via -Dgit.username and -Dgit.password) -->
+    <git.username>${env.GIT_USERNAME}</git.username>
+    <git.password>${env.GIT_PASSWORD}</git.password>
   </properties>
 
   <modules>

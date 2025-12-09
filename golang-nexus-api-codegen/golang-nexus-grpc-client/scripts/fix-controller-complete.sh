@@ -36,11 +36,12 @@ content = re.sub(
 )
 
 # Step 2: Find the method body and replace it completely
-# Pattern: from "return service.listItems()" to "});" (end of method)
-pattern = r'(    log\.debug\("NexusConfigItem Controller -- Request received for nexus\.v4\.config:listItems"\);\s*\n\s*)return service\.listItems\(\)\s*\n\s*\.thenApply\(response -> \{.*?\n\s*\}\);'
+# Pattern: from "return service.listItems(...)" to "});" (end of method)
+# Match method with parameters: listItems($filter, $orderby)
+pattern = r'(    log\.debug\("NexusConfigItem Controller -- Request received for nexus\.v4\.config:listItems"\);\s*\n\s*)return service\.listItems\(([^)]+)\)\s*\n\s*\.thenApply\(response -> \{.*?\n\s*\}\);'
 
 replacement = r'''\1try {
-      var response = service.listItems().get();
+      var response = service.listItems(\2).get();
 
       HttpStatus httpStatus = HttpStatus.valueOf(200);
       httpServletResponse.setStatus(httpStatus.value());

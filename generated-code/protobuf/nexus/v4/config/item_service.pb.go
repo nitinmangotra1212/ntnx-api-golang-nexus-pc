@@ -34,7 +34,12 @@ const (
 
 // message containing all attributes expected in the listItems request
 type ListItemsArg struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// A URL query parameter that allows clients to filter a collection of resources. The expression specified with $filter is evaluated for each resource in the collection, and only items where the expression evaluates to true are included in the response. Expression specified with the $filter must conform to the [OData V4.01](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html) URL conventions.
+	// For example, filter '$filter=name eq 'karbon-ntnx-1.0' would filter the result on cluster name 'karbon-ntnx1.0', filter '$filter=startswith(name, 'C')' would filter on cluster name starting with 'C'.
+	XFilter *string `protobuf:"bytes,101,opt,name=_filter,json=Filter" json:"_filter,omitempty"`
+	// A URL query parameter that allows clients to specify the sort criteria for the returned list of objects. Resources can be sorted in ascending order using asc or descending order using desc. If asc or desc are not specified, the resources will be sorted in ascending order by default. For example, '$orderby=templateName desc' would get all templates sorted by templateName in descending order.
+	XOrderby      *string `protobuf:"bytes,102,opt,name=_orderby,json=Orderby" json:"_orderby,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -67,6 +72,20 @@ func (x *ListItemsArg) ProtoReflect() protoreflect.Message {
 // Deprecated: Use ListItemsArg.ProtoReflect.Descriptor instead.
 func (*ListItemsArg) Descriptor() ([]byte, []int) {
 	return file_nexus_v4_config_item_service_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *ListItemsArg) GetXFilter() string {
+	if x != nil && x.XFilter != nil {
+		return *x.XFilter
+	}
+	return ""
+}
+
+func (x *ListItemsArg) GetXOrderby() string {
+	if x != nil && x.XOrderby != nil {
+		return *x.XOrderby
+	}
+	return ""
 }
 
 // message containing all attributes expected in the listItems response
@@ -128,8 +147,10 @@ var File_nexus_v4_config_item_service_proto protoreflect.FileDescriptor
 
 const file_nexus_v4_config_item_service_proto_rawDesc = "" +
 	"\n" +
-	"\"nexus/v4/config/item_service.proto\x12\x0fnexus.v4.config\x1a\x1anexus/v4/api_version.proto\x1a\"nexus/v4/http_method_options.proto\x1a\x1cnexus/v4/config/config.proto\"\x0e\n" +
-	"\fListItemsArg\"\xd7\x01\n" +
+	"\"nexus/v4/config/item_service.proto\x12\x0fnexus.v4.config\x1a\x1anexus/v4/api_version.proto\x1a\"nexus/v4/http_method_options.proto\x1a\x1cnexus/v4/config/config.proto\"B\n" +
+	"\fListItemsArg\x12\x17\n" +
+	"\a_filter\x18e \x01(\tR\x06Filter\x12\x19\n" +
+	"\b_orderby\x18f \x01(\tR\aOrderby\"\xd7\x01\n" +
 	"\fListItemsRet\x12@\n" +
 	"\acontent\x18\xe7\a \x01(\v2%.nexus.v4.config.ListItemsApiResponseR\acontent\x12H\n" +
 	"\breserved\x18\xe8\a \x03(\v2+.nexus.v4.config.ListItemsRet.ReservedEntryR\breserved\x1a;\n" +

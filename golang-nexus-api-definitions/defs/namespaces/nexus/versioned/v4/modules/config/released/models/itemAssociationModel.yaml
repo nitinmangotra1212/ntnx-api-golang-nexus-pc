@@ -1,0 +1,49 @@
+components:
+  schemas:
+    ItemAssociation:
+      description: Association entity for items, representing related entities associated with an item
+      type: object
+      properties:
+        itemId:
+          description: The item ID this association belongs to
+          type: string
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        entityType:
+          description: Type of associated entity
+          type: string
+          example: "vm"
+        entityId:
+          description: ID of associated entity
+          type: string
+          example: "660e8400-e29b-41d4-a716-446655440001"
+        count:
+          description: Count of associations of this type
+          type: integer
+          format: int32
+      x-filterable-properties:
+        - entityType
+        - count
+      x-property-mapping:
+        - name: itemId
+          value: item_id
+        - name: entityType
+          value: entity_type
+        - name: entityId
+          value: entity_id
+        - name: count
+          value: count
+      x-entity: item_associations
+      x-codegen-hint:
+        $any:
+          - type: entity-identifier
+            properties:
+              identifiers:
+                - name: itemId
+                  index: 3001
+                - name: entityType
+                  index: 3002
+                - name: entityId
+                  index: 3003
+                - name: count
+                  index: 3004
+

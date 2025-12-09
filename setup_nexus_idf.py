@@ -173,8 +173,102 @@ def register_item():
   print(f"\n✅ Successfully created {110} sample items in IDF!")
   print(f"\n🔍 Access IDF data at: http://<PC_IP>:2027/")
 
+def register_item_associations():
+  insights_interface = InsightsInterface("127.0.0.1", "2027")
+  
+  # Step 1: Register Entity Type
+  arg = RegisterEntityTypesArg()
+  query = '''
+    entity_type_info_list {
+      entity_type_name: "item_associations"
+      type_info {
+        suppress_replication : true
+        backup_replication_control {
+          is_backup_required: false
+        }
+        replication_control_list {
+          enable_replication_from : kNDFS
+        }
+        is_evictable: false
+        retain_attributes_on_deletion: false
+        track_attribute_changes : false
+        enable_pulsehd_collection : false
+      }
+    }
+  '''
+  Merge(query, arg)
+  
+  try:
+    ret = insights_interface.RegisterEntityTypes(arg)
+    print("✅ Successfully registered entity type: item_associations")
+  except InsightsInterfaceError as ex:
+    print("❌ Error registering entity type: " + ex.message + "\n")
+    print(ex.ret)
+    return
+  
+  # Step 2: Register Metric Types (Attributes)
+  # 4 columns: item_id, entity_type, entity_id, count
+  arg = RegisterMetricTypesArg()
+  query = '''
+  metric_type_list {
+    is_attribute: true
+    metric_name: "item_id"
+    entity_type_name: "item_associations"
+    user_metadata: "{\\"data_type\\":\\"string\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "entity_type"
+    entity_type_name: "item_associations"
+    user_metadata: "{\\"data_type\\":\\"string\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "entity_id"
+    entity_type_name: "item_associations"
+    user_metadata: "{\\"data_type\\":\\"string\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "count"
+    entity_type_name: "item_associations"
+    user_metadata: "{\\"data_type\\":\\"int64\\"}"
+  }
+  '''
+  Merge(query, arg)
+  
+  try:
+    ret = insights_interface.RegisterMetricTypes(arg)
+    print("✅ Successfully registered metric types (attributes) for item_associations")
+  except InsightsInterfaceError as ex:
+    print("❌ Error registering metric types: " + ex.message + "\n")
+    print(ex.ret)
+    return
+  
+  # Step 3: Create sample associations (optional - for testing)
+  print("\n📝 Creating sample associations in IDF...")
+  # Note: We'll create associations for items that were just created in register_item()
+  # Since we can't easily query IDF from Python, we'll create associations for a few sample item extIds
+  # In production, associations would be created by other services
+  
+  # For testing, create associations for the first 10 items
+  # We'll use a simple approach: create associations with predictable item extIds
+  # In real usage, you'd get these from IDF or from the items you just created
+  
+  print("  ℹ️  Note: Creating sample associations for testing.")
+  print("     In production, associations are created by other services.")
+  print("     For now, we'll skip automatic association creation.")
+  print("     You can manually create associations using UpdateEntity with:")
+  print("       - entity_type_name: 'item_associations'")
+  print("       - attributes: item_id, entity_type, entity_id, count")
+  
+  # Skip automatic creation for now - user can create associations manually if needed
+  print(f"\n✅ Successfully registered item_associations entity type in IDF!")
+
 if __name__ == "__main__":
   with warnings.catch_warnings():
     warnings.simplefilter("ignore")
     register_item()
+    print("\n" + "="*60)
+    register_item_associations()
 

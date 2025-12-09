@@ -22,6 +22,15 @@ import "nexus/v4/error/error.proto";
 import "common/v1/response/response.proto";
 
 /*
+ * Array wrapper message
+ */
+message ItemAssociationArrayWrapper {
+  /*
+   * Value field in wrapper message
+   */
+  repeated nexus.v4.config.ItemAssociation value = 1000;
+}
+/*
  * Map wrapper message
  */
 message ObjectMapWrapper {
@@ -55,9 +64,56 @@ message Item {
    */
   optional string ext_id = 2005;
   /*
+   * Associated entities for this item. This field is only present when $expand=associations is specified in the query.
+   */
+  optional nexus.v4.config.ItemAssociationArrayWrapper associations = 2006;
+  /*
    * 
    */
   optional nexus.v4.config.ObjectMapWrapper _reserved = 900000;
+}
+/*
+ * Association entity for items, representing related entities associated with an item
+ */
+message ItemAssociation {
+  /*
+   * The item ID this association belongs to
+   */
+  optional string item_id = 3001;
+  /*
+   * Type of associated entity
+   */
+  optional string entity_type = 3002;
+  /*
+   * ID of associated entity
+   */
+  optional string entity_id = 3003;
+  /*
+   * Count of associations of this type
+   */
+  optional int32 count = 3004;
+  /*
+   * 
+   */
+  optional nexus.v4.config.ObjectMapWrapper _reserved = 900000;
+}
+/*
+ * 
+ */
+message ItemAssociationProjection {
+  /*
+   * 
+   */
+  optional nexus.v4.config.ItemAssociation base = 100;
+}
+/*
+ * 
+ */
+message ItemProjection {
+  /*
+   * 
+   */
+  optional nexus.v4.config.Item base = 100;
 }
 /*
  * OneOf item wrapper message
@@ -78,6 +134,15 @@ message ErrorResponseWrapper {
   optional nexus.v4.error.ErrorResponse value = 1000;
 }
 /*
+ * OneOf item wrapper message
+ */
+message ItemProjectionArrayWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  repeated nexus.v4.config.ItemProjection value = 1000;
+}
+/*
  * REST response for all response codes in API path /nexus/v4.1/config/items Get operation
  */
 message ListItemsApiResponse {
@@ -93,6 +158,10 @@ message ListItemsApiResponse {
      * 
      */
     nexus.v4.config.ErrorResponseWrapper error_response_data = 400;
+    /*
+     * 
+     */
+    nexus.v4.config.ItemProjectionArrayWrapper item_projection_array_data = 401;
   }
   /*
    * 

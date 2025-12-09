@@ -34,6 +34,52 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// Array wrapper message
+type ItemAssociationArrayWrapper struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Value field in wrapper message
+	Value         []*ItemAssociation `protobuf:"bytes,1000,rep,name=value" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ItemAssociationArrayWrapper) Reset() {
+	*x = ItemAssociationArrayWrapper{}
+	mi := &file_nexus_v4_config_config_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ItemAssociationArrayWrapper) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ItemAssociationArrayWrapper) ProtoMessage() {}
+
+func (x *ItemAssociationArrayWrapper) ProtoReflect() protoreflect.Message {
+	mi := &file_nexus_v4_config_config_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ItemAssociationArrayWrapper.ProtoReflect.Descriptor instead.
+func (*ItemAssociationArrayWrapper) Descriptor() ([]byte, []int) {
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *ItemAssociationArrayWrapper) GetValue() []*ItemAssociation {
+	if x != nil {
+		return x.Value
+	}
+	return nil
+}
+
 // Map wrapper message
 type ObjectMapWrapper struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
@@ -45,7 +91,7 @@ type ObjectMapWrapper struct {
 
 func (x *ObjectMapWrapper) Reset() {
 	*x = ObjectMapWrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[0]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -57,7 +103,7 @@ func (x *ObjectMapWrapper) String() string {
 func (*ObjectMapWrapper) ProtoMessage() {}
 
 func (x *ObjectMapWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[0]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -70,7 +116,7 @@ func (x *ObjectMapWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ObjectMapWrapper.ProtoReflect.Descriptor instead.
 func (*ObjectMapWrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{0}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *ObjectMapWrapper) GetValue() map[string]*anypb.Any {
@@ -93,6 +139,8 @@ type Item struct {
 	Description *string `protobuf:"bytes,2004,opt,name=description" json:"description,omitempty"`
 	// External identifier for the item (UUID)
 	ExtId *string `protobuf:"bytes,2005,opt,name=ext_id,json=extId" json:"ext_id,omitempty"`
+	// Associated entities for this item. This field is only present when $expand=associations is specified in the query.
+	Associations *ItemAssociationArrayWrapper `protobuf:"bytes,2006,opt,name=associations" json:"associations,omitempty"`
 	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -100,7 +148,7 @@ type Item struct {
 
 func (x *Item) Reset() {
 	*x = Item{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[1]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -112,7 +160,7 @@ func (x *Item) String() string {
 func (*Item) ProtoMessage() {}
 
 func (x *Item) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[1]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -125,7 +173,7 @@ func (x *Item) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Item.ProtoReflect.Descriptor instead.
 func (*Item) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{1}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *Item) GetItemId() int32 {
@@ -163,9 +211,185 @@ func (x *Item) GetExtId() string {
 	return ""
 }
 
+func (x *Item) GetAssociations() *ItemAssociationArrayWrapper {
+	if x != nil {
+		return x.Associations
+	}
+	return nil
+}
+
 func (x *Item) GetXReserved() *ObjectMapWrapper {
 	if x != nil {
 		return x.XReserved
+	}
+	return nil
+}
+
+// Association entity for items, representing related entities associated with an item
+type ItemAssociation struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// The item ID this association belongs to
+	ItemId *string `protobuf:"bytes,3001,opt,name=item_id,json=itemId" json:"item_id,omitempty"`
+	// Type of associated entity
+	EntityType *string `protobuf:"bytes,3002,opt,name=entity_type,json=entityType" json:"entity_type,omitempty"`
+	// ID of associated entity
+	EntityId *string `protobuf:"bytes,3003,opt,name=entity_id,json=entityId" json:"entity_id,omitempty"`
+	// Count of associations of this type
+	Count *int32 `protobuf:"varint,3004,opt,name=count" json:"count,omitempty"`
+	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ItemAssociation) Reset() {
+	*x = ItemAssociation{}
+	mi := &file_nexus_v4_config_config_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ItemAssociation) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ItemAssociation) ProtoMessage() {}
+
+func (x *ItemAssociation) ProtoReflect() protoreflect.Message {
+	mi := &file_nexus_v4_config_config_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ItemAssociation.ProtoReflect.Descriptor instead.
+func (*ItemAssociation) Descriptor() ([]byte, []int) {
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *ItemAssociation) GetItemId() string {
+	if x != nil && x.ItemId != nil {
+		return *x.ItemId
+	}
+	return ""
+}
+
+func (x *ItemAssociation) GetEntityType() string {
+	if x != nil && x.EntityType != nil {
+		return *x.EntityType
+	}
+	return ""
+}
+
+func (x *ItemAssociation) GetEntityId() string {
+	if x != nil && x.EntityId != nil {
+		return *x.EntityId
+	}
+	return ""
+}
+
+func (x *ItemAssociation) GetCount() int32 {
+	if x != nil && x.Count != nil {
+		return *x.Count
+	}
+	return 0
+}
+
+func (x *ItemAssociation) GetXReserved() *ObjectMapWrapper {
+	if x != nil {
+		return x.XReserved
+	}
+	return nil
+}
+
+type ItemAssociationProjection struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	Base          *ItemAssociation `protobuf:"bytes,100,opt,name=base" json:"base,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ItemAssociationProjection) Reset() {
+	*x = ItemAssociationProjection{}
+	mi := &file_nexus_v4_config_config_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ItemAssociationProjection) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ItemAssociationProjection) ProtoMessage() {}
+
+func (x *ItemAssociationProjection) ProtoReflect() protoreflect.Message {
+	mi := &file_nexus_v4_config_config_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ItemAssociationProjection.ProtoReflect.Descriptor instead.
+func (*ItemAssociationProjection) Descriptor() ([]byte, []int) {
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ItemAssociationProjection) GetBase() *ItemAssociation {
+	if x != nil {
+		return x.Base
+	}
+	return nil
+}
+
+type ItemProjection struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	Base          *Item `protobuf:"bytes,100,opt,name=base" json:"base,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ItemProjection) Reset() {
+	*x = ItemProjection{}
+	mi := &file_nexus_v4_config_config_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ItemProjection) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ItemProjection) ProtoMessage() {}
+
+func (x *ItemProjection) ProtoReflect() protoreflect.Message {
+	mi := &file_nexus_v4_config_config_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ItemProjection.ProtoReflect.Descriptor instead.
+func (*ItemProjection) Descriptor() ([]byte, []int) {
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ItemProjection) GetBase() *Item {
+	if x != nil {
+		return x.Base
 	}
 	return nil
 }
@@ -181,7 +405,7 @@ type ItemArrayWrapper struct {
 
 func (x *ItemArrayWrapper) Reset() {
 	*x = ItemArrayWrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[2]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -193,7 +417,7 @@ func (x *ItemArrayWrapper) String() string {
 func (*ItemArrayWrapper) ProtoMessage() {}
 
 func (x *ItemArrayWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[2]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -206,7 +430,7 @@ func (x *ItemArrayWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ItemArrayWrapper.ProtoReflect.Descriptor instead.
 func (*ItemArrayWrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{2}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *ItemArrayWrapper) GetValue() []*Item {
@@ -227,7 +451,7 @@ type ErrorResponseWrapper struct {
 
 func (x *ErrorResponseWrapper) Reset() {
 	*x = ErrorResponseWrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[3]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -239,7 +463,7 @@ func (x *ErrorResponseWrapper) String() string {
 func (*ErrorResponseWrapper) ProtoMessage() {}
 
 func (x *ErrorResponseWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[3]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -252,10 +476,56 @@ func (x *ErrorResponseWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ErrorResponseWrapper.ProtoReflect.Descriptor instead.
 func (*ErrorResponseWrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{3}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *ErrorResponseWrapper) GetValue() *error1.ErrorResponse {
+	if x != nil {
+		return x.Value
+	}
+	return nil
+}
+
+// OneOf item wrapper message
+type ItemProjectionArrayWrapper struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Value field in oneOf item wrapper message
+	Value         []*ItemProjection `protobuf:"bytes,1000,rep,name=value" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ItemProjectionArrayWrapper) Reset() {
+	*x = ItemProjectionArrayWrapper{}
+	mi := &file_nexus_v4_config_config_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ItemProjectionArrayWrapper) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ItemProjectionArrayWrapper) ProtoMessage() {}
+
+func (x *ItemProjectionArrayWrapper) ProtoReflect() protoreflect.Message {
+	mi := &file_nexus_v4_config_config_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ItemProjectionArrayWrapper.ProtoReflect.Descriptor instead.
+func (*ItemProjectionArrayWrapper) Descriptor() ([]byte, []int) {
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *ItemProjectionArrayWrapper) GetValue() []*ItemProjection {
 	if x != nil {
 		return x.Value
 	}
@@ -271,6 +541,7 @@ type ListItemsApiResponse struct {
 	//
 	//	*ListItemsApiResponse_ItemArrayData
 	//	*ListItemsApiResponse_ErrorResponseData
+	//	*ListItemsApiResponse_ItemProjectionArrayData
 	Data isListItemsApiResponse_Data `protobuf_oneof:"data"`
 	Metadata *response.ApiResponseMetadata `protobuf:"bytes,1001,opt,name=metadata" json:"metadata,omitempty"`
 	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
@@ -280,7 +551,7 @@ type ListItemsApiResponse struct {
 
 func (x *ListItemsApiResponse) Reset() {
 	*x = ListItemsApiResponse{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[4]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -292,7 +563,7 @@ func (x *ListItemsApiResponse) String() string {
 func (*ListItemsApiResponse) ProtoMessage() {}
 
 func (x *ListItemsApiResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[4]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -305,7 +576,7 @@ func (x *ListItemsApiResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListItemsApiResponse.ProtoReflect.Descriptor instead.
 func (*ListItemsApiResponse) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{4}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *ListItemsApiResponse) GetData() isListItemsApiResponse_Data {
@@ -328,6 +599,15 @@ func (x *ListItemsApiResponse) GetErrorResponseData() *ErrorResponseWrapper {
 	if x != nil {
 		if x, ok := x.Data.(*ListItemsApiResponse_ErrorResponseData); ok {
 			return x.ErrorResponseData
+		}
+	}
+	return nil
+}
+
+func (x *ListItemsApiResponse) GetItemProjectionArrayData() *ItemProjectionArrayWrapper {
+	if x != nil {
+		if x, ok := x.Data.(*ListItemsApiResponse_ItemProjectionArrayData); ok {
+			return x.ItemProjectionArrayData
 		}
 	}
 	return nil
@@ -359,35 +639,58 @@ type ListItemsApiResponse_ErrorResponseData struct {
 	ErrorResponseData *ErrorResponseWrapper `protobuf:"bytes,400,opt,name=error_response_data,json=errorResponseData,oneof"`
 }
 
+type ListItemsApiResponse_ItemProjectionArrayData struct {
+	ItemProjectionArrayData *ItemProjectionArrayWrapper `protobuf:"bytes,401,opt,name=item_projection_array_data,json=itemProjectionArrayData,oneof"`
+}
+
 func (*ListItemsApiResponse_ItemArrayData) isListItemsApiResponse_Data() {}
 
 func (*ListItemsApiResponse_ErrorResponseData) isListItemsApiResponse_Data() {}
+
+func (*ListItemsApiResponse_ItemProjectionArrayData) isListItemsApiResponse_Data() {}
 
 var File_nexus_v4_config_config_proto protoreflect.FileDescriptor
 
 const file_nexus_v4_config_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1cnexus/v4/config/config.proto\x12\x0fnexus.v4.config\x1a\x19google/protobuf/any.proto\x1a\x1anexus/v4/error/error.proto\x1a!common/v1/response/response.proto\"\xa7\x01\n" +
+	"\x1cnexus/v4/config/config.proto\x12\x0fnexus.v4.config\x1a\x19google/protobuf/any.proto\x1a\x1anexus/v4/error/error.proto\x1a!common/v1/response/response.proto\"V\n" +
+	"\x1bItemAssociationArrayWrapper\x127\n" +
+	"\x05value\x18\xe8\a \x03(\v2 .nexus.v4.config.ItemAssociationR\x05value\"\xa7\x01\n" +
 	"\x10ObjectMapWrapper\x12C\n" +
 	"\x05value\x18\xe8\a \x03(\v2,.nexus.v4.config.ObjectMapWrapper.ValueEntryR\x05value\x1aN\n" +
 	"\n" +
 	"ValueEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12*\n" +
-	"\x05value\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\x05value:\x028\x01\"\xd9\x01\n" +
+	"\x05value\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\x05value:\x028\x01\"\xac\x02\n" +
 	"\x04Item\x12\x18\n" +
 	"\aitem_id\x18\xd1\x0f \x01(\x05R\x06itemId\x12\x1c\n" +
 	"\titem_name\x18\xd2\x0f \x01(\tR\bitemName\x12\x1c\n" +
 	"\titem_type\x18\xd3\x0f \x01(\tR\bitemType\x12!\n" +
 	"\vdescription\x18\xd4\x0f \x01(\tR\vdescription\x12\x16\n" +
-	"\x06ext_id\x18\xd5\x0f \x01(\tR\x05extId\x12@\n" +
-	"\t_reserved\x18\xa0\xf76 \x01(\v2!.nexus.v4.config.ObjectMapWrapperR\bReserved\"@\n" +
+	"\x06ext_id\x18\xd5\x0f \x01(\tR\x05extId\x12Q\n" +
+	"\fassociations\x18\xd6\x0f \x01(\v2,.nexus.v4.config.ItemAssociationArrayWrapperR\fassociations\x12@\n" +
+	"\t_reserved\x18\xa0\xf76 \x01(\v2!.nexus.v4.config.ObjectMapWrapperR\bReserved\"\xc4\x01\n" +
+	"\x0fItemAssociation\x12\x18\n" +
+	"\aitem_id\x18\xb9\x17 \x01(\tR\x06itemId\x12 \n" +
+	"\ventity_type\x18\xba\x17 \x01(\tR\n" +
+	"entityType\x12\x1c\n" +
+	"\tentity_id\x18\xbb\x17 \x01(\tR\bentityId\x12\x15\n" +
+	"\x05count\x18\xbc\x17 \x01(\x05R\x05count\x12@\n" +
+	"\t_reserved\x18\xa0\xf76 \x01(\v2!.nexus.v4.config.ObjectMapWrapperR\bReserved\"Q\n" +
+	"\x19ItemAssociationProjection\x124\n" +
+	"\x04base\x18d \x01(\v2 .nexus.v4.config.ItemAssociationR\x04base\";\n" +
+	"\x0eItemProjection\x12)\n" +
+	"\x04base\x18d \x01(\v2\x15.nexus.v4.config.ItemR\x04base\"@\n" +
 	"\x10ItemArrayWrapper\x12,\n" +
 	"\x05value\x18\xe8\a \x03(\v2\x15.nexus.v4.config.ItemR\x05value\"L\n" +
 	"\x14ErrorResponseWrapper\x124\n" +
-	"\x05value\x18\xe8\a \x01(\v2\x1d.nexus.v4.error.ErrorResponseR\x05value\"\xce\x02\n" +
+	"\x05value\x18\xe8\a \x01(\v2\x1d.nexus.v4.error.ErrorResponseR\x05value\"T\n" +
+	"\x1aItemProjectionArrayWrapper\x126\n" +
+	"\x05value\x18\xe8\a \x03(\v2\x1f.nexus.v4.config.ItemProjectionR\x05value\"\xbb\x03\n" +
 	"\x14ListItemsApiResponse\x12L\n" +
 	"\x0fitem_array_data\x18\xd1\x0f \x01(\v2!.nexus.v4.config.ItemArrayWrapperH\x00R\ritemArrayData\x12X\n" +
-	"\x13error_response_data\x18\x90\x03 \x01(\v2%.nexus.v4.config.ErrorResponseWrapperH\x00R\x11errorResponseData\x12D\n" +
+	"\x13error_response_data\x18\x90\x03 \x01(\v2%.nexus.v4.config.ErrorResponseWrapperH\x00R\x11errorResponseData\x12k\n" +
+	"\x1aitem_projection_array_data\x18\x91\x03 \x01(\v2+.nexus.v4.config.ItemProjectionArrayWrapperH\x00R\x17itemProjectionArrayData\x12D\n" +
 	"\bmetadata\x18\xe9\a \x01(\v2'.common.v1.response.ApiResponseMetadataR\bmetadata\x12@\n" +
 	"\t_reserved\x18\xa0\xf76 \x01(\v2!.nexus.v4.config.ObjectMapWrapperR\bReservedB\x06\n" +
 	"\x04dataB$\n" +
@@ -405,33 +708,45 @@ func file_nexus_v4_config_config_proto_rawDescGZIP() []byte {
 	return file_nexus_v4_config_config_proto_rawDescData
 }
 
-var file_nexus_v4_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_nexus_v4_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_nexus_v4_config_config_proto_goTypes = []any{
-	(*ObjectMapWrapper)(nil),             // 0: nexus.v4.config.ObjectMapWrapper
-	(*Item)(nil),                         // 1: nexus.v4.config.Item
-	(*ItemArrayWrapper)(nil),             // 2: nexus.v4.config.ItemArrayWrapper
-	(*ErrorResponseWrapper)(nil),         // 3: nexus.v4.config.ErrorResponseWrapper
-	(*ListItemsApiResponse)(nil),         // 4: nexus.v4.config.ListItemsApiResponse
-	nil,                                  // 5: nexus.v4.config.ObjectMapWrapper.ValueEntry
-	(*error1.ErrorResponse)(nil),         // 6: nexus.v4.error.ErrorResponse
-	(*response.ApiResponseMetadata)(nil), // 7: common.v1.response.ApiResponseMetadata
-	(*anypb.Any)(nil),                    // 8: google.protobuf.Any
+	(*ItemAssociationArrayWrapper)(nil),  // 0: nexus.v4.config.ItemAssociationArrayWrapper
+	(*ObjectMapWrapper)(nil),             // 1: nexus.v4.config.ObjectMapWrapper
+	(*Item)(nil),                         // 2: nexus.v4.config.Item
+	(*ItemAssociation)(nil),              // 3: nexus.v4.config.ItemAssociation
+	(*ItemAssociationProjection)(nil),    // 4: nexus.v4.config.ItemAssociationProjection
+	(*ItemProjection)(nil),               // 5: nexus.v4.config.ItemProjection
+	(*ItemArrayWrapper)(nil),             // 6: nexus.v4.config.ItemArrayWrapper
+	(*ErrorResponseWrapper)(nil),         // 7: nexus.v4.config.ErrorResponseWrapper
+	(*ItemProjectionArrayWrapper)(nil),   // 8: nexus.v4.config.ItemProjectionArrayWrapper
+	(*ListItemsApiResponse)(nil),         // 9: nexus.v4.config.ListItemsApiResponse
+	nil,                                  // 10: nexus.v4.config.ObjectMapWrapper.ValueEntry
+	(*error1.ErrorResponse)(nil),         // 11: nexus.v4.error.ErrorResponse
+	(*response.ApiResponseMetadata)(nil), // 12: common.v1.response.ApiResponseMetadata
+	(*anypb.Any)(nil),                    // 13: google.protobuf.Any
 }
 var file_nexus_v4_config_config_proto_depIdxs = []int32{
-	5, // 0: nexus.v4.config.ObjectMapWrapper.value:type_name -> nexus.v4.config.ObjectMapWrapper.ValueEntry
-	0, // 1: nexus.v4.config.Item._reserved:type_name -> nexus.v4.config.ObjectMapWrapper
-	1, // 2: nexus.v4.config.ItemArrayWrapper.value:type_name -> nexus.v4.config.Item
-	6, // 3: nexus.v4.config.ErrorResponseWrapper.value:type_name -> nexus.v4.error.ErrorResponse
-	2, // 4: nexus.v4.config.ListItemsApiResponse.item_array_data:type_name -> nexus.v4.config.ItemArrayWrapper
-	3, // 5: nexus.v4.config.ListItemsApiResponse.error_response_data:type_name -> nexus.v4.config.ErrorResponseWrapper
-	7, // 6: nexus.v4.config.ListItemsApiResponse.metadata:type_name -> common.v1.response.ApiResponseMetadata
-	0, // 7: nexus.v4.config.ListItemsApiResponse._reserved:type_name -> nexus.v4.config.ObjectMapWrapper
-	8, // 8: nexus.v4.config.ObjectMapWrapper.ValueEntry.value:type_name -> google.protobuf.Any
-	9, // [9:9] is the sub-list for method output_type
-	9, // [9:9] is the sub-list for method input_type
-	9, // [9:9] is the sub-list for extension type_name
-	9, // [9:9] is the sub-list for extension extendee
-	0, // [0:9] is the sub-list for field type_name
+	3,  // 0: nexus.v4.config.ItemAssociationArrayWrapper.value:type_name -> nexus.v4.config.ItemAssociation
+	10, // 1: nexus.v4.config.ObjectMapWrapper.value:type_name -> nexus.v4.config.ObjectMapWrapper.ValueEntry
+	0,  // 2: nexus.v4.config.Item.associations:type_name -> nexus.v4.config.ItemAssociationArrayWrapper
+	1,  // 3: nexus.v4.config.Item._reserved:type_name -> nexus.v4.config.ObjectMapWrapper
+	1,  // 4: nexus.v4.config.ItemAssociation._reserved:type_name -> nexus.v4.config.ObjectMapWrapper
+	3,  // 5: nexus.v4.config.ItemAssociationProjection.base:type_name -> nexus.v4.config.ItemAssociation
+	2,  // 6: nexus.v4.config.ItemProjection.base:type_name -> nexus.v4.config.Item
+	2,  // 7: nexus.v4.config.ItemArrayWrapper.value:type_name -> nexus.v4.config.Item
+	11, // 8: nexus.v4.config.ErrorResponseWrapper.value:type_name -> nexus.v4.error.ErrorResponse
+	5,  // 9: nexus.v4.config.ItemProjectionArrayWrapper.value:type_name -> nexus.v4.config.ItemProjection
+	6,  // 10: nexus.v4.config.ListItemsApiResponse.item_array_data:type_name -> nexus.v4.config.ItemArrayWrapper
+	7,  // 11: nexus.v4.config.ListItemsApiResponse.error_response_data:type_name -> nexus.v4.config.ErrorResponseWrapper
+	8,  // 12: nexus.v4.config.ListItemsApiResponse.item_projection_array_data:type_name -> nexus.v4.config.ItemProjectionArrayWrapper
+	12, // 13: nexus.v4.config.ListItemsApiResponse.metadata:type_name -> common.v1.response.ApiResponseMetadata
+	1,  // 14: nexus.v4.config.ListItemsApiResponse._reserved:type_name -> nexus.v4.config.ObjectMapWrapper
+	13, // 15: nexus.v4.config.ObjectMapWrapper.ValueEntry.value:type_name -> google.protobuf.Any
+	16, // [16:16] is the sub-list for method output_type
+	16, // [16:16] is the sub-list for method input_type
+	16, // [16:16] is the sub-list for extension type_name
+	16, // [16:16] is the sub-list for extension extendee
+	0,  // [0:16] is the sub-list for field type_name
 }
 
 func init() { file_nexus_v4_config_config_proto_init() }
@@ -439,9 +754,10 @@ func file_nexus_v4_config_config_proto_init() {
 	if File_nexus_v4_config_config_proto != nil {
 		return
 	}
-	file_nexus_v4_config_config_proto_msgTypes[4].OneofWrappers = []any{
+	file_nexus_v4_config_config_proto_msgTypes[9].OneofWrappers = []any{
 		(*ListItemsApiResponse_ItemArrayData)(nil),
 		(*ListItemsApiResponse_ErrorResponseData)(nil),
+		(*ListItemsApiResponse_ItemProjectionArrayData)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -449,7 +765,7 @@ func file_nexus_v4_config_config_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_nexus_v4_config_config_proto_rawDesc), len(file_nexus_v4_config_config_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

@@ -1,5 +1,51 @@
 components:
   schemas:
+    ItemAssociation:
+      description: Association entity for items, representing related entities associated with an item
+      type: object
+      properties:
+        itemId:
+          description: The item ID this association belongs to
+          type: string
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        entityType:
+          description: Type of associated entity
+          type: string
+          example: "vm"
+        entityId:
+          description: ID of associated entity
+          type: string
+          example: "660e8400-e29b-41d4-a716-446655440001"
+        count:
+          description: Count of associations of this type
+          type: integer
+          format: int32
+      x-filterable-properties:
+        - entityType
+        - count
+      x-property-mapping:
+        - name: itemId
+          value: item_id
+        - name: entityType
+          value: entity_type
+        - name: entityId
+          value: entity_id
+        - name: count
+          value: count
+      x-entity: item_associations
+      x-codegen-hint:
+        $any:
+          - type: entity-identifier
+            properties:
+              identifiers:
+                - name: itemId
+                  index: 3001
+                - name: entityType
+                  index: 3002
+                - name: entityId
+                  index: 3003
+                - name: count
+                  index: 3004
     Item:
       description: Item entity for mock REST API
       type: object
@@ -35,6 +81,14 @@ components:
           type: string
           readOnly: true
           example: "550e8400-e29b-41d4-a716-446655440000"
+        associations:
+          description: Associated entities for this item. This field is only present when $expand=associations is specified in the query.
+          type: array
+          readOnly: true
+          minItems: 0
+          maxItems: 100
+          items:
+            $ref: ModelRef({./ItemAssociation})
       x-filterable-properties:
         - itemId
         - itemName
@@ -65,3 +119,9 @@ components:
                   index: 2004
                 - name: extId
                   index: 2005
+                - name: associations
+                  index: 2006
+      # x-expand-items temporarily removed - ModelRef resolution issue in plugin
+      # The Go code handles $expand via GraphQL infrastructure
+      # TODO: Re-add when plugin ModelRef resolution is fixed
+      x-entity: item

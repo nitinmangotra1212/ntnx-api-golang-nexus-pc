@@ -89,7 +89,78 @@ func NewItem() *edm.EdmEntityBinding {
   entitySet.Name = "items"
   entitySet.EntityType = edm.GetFullQualifiedName(edm.NamespaceEntities, "item")
   entitySet.IncludeInServiceDocument = true
-  entitySet.TableName = ""
+  entitySet.TableName = "item"
+  p.EntitySet = entitySet
+
+  return p
+}
+
+
+func NewItemAssociation() *edm.EdmEntityBinding {
+
+  p := new(edm.EdmEntityBinding)
+  // set Edm Property Mapping
+  p.PropertyMappings = make(map[string]string)
+  p.PropertyMappings["itemId"] = "item_id"
+  p.PropertyMappings["entityType"] = "entity_type"
+  p.PropertyMappings["count"] = "count"
+  p.PropertyMappings["entityId"] = "entity_id"
+
+  filterProperties := make(map[string]bool)
+  // set filterable properties in a map
+  filterProperties["entityType"] = true
+  filterProperties["count"] = true
+
+
+
+  // set Edm Properties
+  var properties []*edm.EdmProperty
+  itemIdProperty := new(edm.EdmProperty)
+  itemIdProperty.Name = "itemId"
+  itemIdProperty.IsCollection = false
+  itemIdProperty.Type = string(edm.EdmString)
+  itemIdProperty.MappedName = p.PropertyMappings["itemId"]
+  itemIdProperty.IsFilterable = filterProperties["itemId"]
+  properties = append(properties, itemIdProperty)
+
+  entityTypeProperty := new(edm.EdmProperty)
+  entityTypeProperty.Name = "entityType"
+  entityTypeProperty.IsCollection = false
+  entityTypeProperty.Type = string(edm.EdmString)
+  entityTypeProperty.MappedName = p.PropertyMappings["entityType"]
+  entityTypeProperty.IsFilterable = filterProperties["entityType"]
+  properties = append(properties, entityTypeProperty)
+
+  entityIdProperty := new(edm.EdmProperty)
+  entityIdProperty.Name = "entityId"
+  entityIdProperty.IsCollection = false
+  entityIdProperty.Type = string(edm.EdmString)
+  entityIdProperty.MappedName = p.PropertyMappings["entityId"]
+  entityIdProperty.IsFilterable = filterProperties["entityId"]
+  properties = append(properties, entityIdProperty)
+
+  countProperty := new(edm.EdmProperty)
+  countProperty.Name = "count"
+  countProperty.IsCollection = false
+  countProperty.Type = string(edm.EdmInt32)
+  countProperty.MappedName = p.PropertyMappings["count"]
+  countProperty.IsFilterable = filterProperties["count"]
+  properties = append(properties, countProperty)
+
+
+
+  // set Edm Entity Type
+  entityType := new(edm.EdmEntityType)
+  entityType.Name = "itemassociation"
+  entityType.Properties = properties
+  p.EntityType = entityType
+
+  // set Edm Entity Set
+  entitySet := new(edm.EdmEntitySet)
+  entitySet.Name = "itemassociationSet"
+  entitySet.EntityType = edm.GetFullQualifiedName(edm.NamespaceEntities, "itemassociation")
+  entitySet.IncludeInServiceDocument = true
+  entitySet.TableName = "item_associations"
   p.EntitySet = entitySet
 
   return p
@@ -100,5 +171,6 @@ func NewItem() *edm.EdmEntityBinding {
 func GetAllEntityBindings() []*edm.EdmEntityBinding {
   var entityBindingList []*edm.EdmEntityBinding
   entityBindingList = append(entityBindingList, NewItem())
+  entityBindingList = append(entityBindingList, NewItemAssociation())
   return entityBindingList
 }

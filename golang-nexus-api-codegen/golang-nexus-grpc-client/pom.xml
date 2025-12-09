@@ -258,8 +258,22 @@
                                         <include name="**/*.java"/>
                                     </fileset>
                                 </replaceregexp>
-                                <!-- Step 7: Fix controller signature - remove CompletableFuture wrapper -->
-                                <!-- Change: CompletableFuture<ResponseEntity<...>> -> ResponseEntity<...> -->
+                                <!-- Step 7: Fix interface signature - remove CompletableFuture wrapper -->
+                                <replaceregexp byline="true" flags="g">
+                                    <regexp pattern="(CompletableFuture&lt;ResponseEntity&lt;MappingJacksonValue&gt;&gt;|ResponseEntity&lt;MappingJacksonValue&gt;) (listItems|listCats)\(([^)]+)\)"/>
+                                    <substitution expression="ResponseEntity&lt;MappingJacksonValue&gt; $2($3)"/>
+                                    <fileset dir="${project.build.directory}/generated-sources/swagger/src">
+                                        <include name="**/*ControllerInterface.java"/>
+                                    </fileset>
+                                </replaceregexp>
+                                <!-- Step 8: Fix controller signature - remove CompletableFuture wrapper -->
+                                <replaceregexp byline="true" flags="g">
+                                    <regexp pattern="public CompletableFuture&lt;ResponseEntity&lt;MappingJacksonValue&gt;&gt; listItems"/>
+                                    <substitution expression="public ResponseEntity&lt;MappingJacksonValue&gt; listItems"/>
+                                    <fileset dir="${project.build.directory}/generated-sources/swagger/src">
+                                        <include name="**/*Controller.java"/>
+                                    </fileset>
+                                </replaceregexp>
                                 <replaceregexp byline="true" flags="g">
                                     <regexp pattern="public CompletableFuture&lt;ResponseEntity&lt;MappingJacksonValue&gt;&gt; listCats"/>
                                     <substitution expression="public ResponseEntity&lt;MappingJacksonValue&gt; listCats"/>
@@ -267,7 +281,20 @@
                                         <include name="**/*Controller.java"/>
                                     </fileset>
                                 </replaceregexp>
-                                <!-- Step 8: Fix CompletableFuture method body using dedicated script -->
+                                <!-- Fix corrupted method name $1 -> listItems -->
+                                <replaceregexp byline="true" flags="g">
+                                    <regexp pattern="public ResponseEntity&lt;MappingJacksonValue&gt; \$1\("/>
+                                    <substitution expression="public ResponseEntity&lt;MappingJacksonValue&gt; listItems("/>
+                                    <fileset dir="${project.build.directory}/generated-sources/swagger/src">
+                                        <include name="**/*Controller.java"/>
+                                    </fileset>
+                                </replaceregexp>
+                                <!-- Step 9: Fix interface file using script -->
+                                <exec executable="bash" failonerror="false">
+                                    <arg value="${project.basedir}/scripts/fix-interface.sh"/>
+                                    <arg value="${project.build.directory}/generated-sources/swagger/src/nexus/v4/config/ItemApiControllerInterface.java"/>
+                                </exec>
+                                <!-- Step 10: Fix CompletableFuture method body using dedicated script -->
                                 <exec executable="bash" failonerror="false">
                                     <arg value="${project.basedir}/scripts/fix-controller-complete.sh"/>
                                     <arg value="${project.build.directory}/generated-sources/swagger/src/nexus/v4/config/NexusConfigItemController.java"/>
