@@ -106,21 +106,26 @@ if __name__ == "__main__":
     print("   Replace the sample_ext_ids list with actual item extIds from your IDF.")
     print("   You can get item extIds by querying IDF or from your item creation logs.\n")
     
-    # Sample item extIds - extracted from your API response
+    # Item extIds - extracted from your API response
     # These are the actual extIds from your items in IDF
     sample_ext_ids = [
-      "62253556-2475-4f52-84d8-5338cd7895d1",  # item 31
-      "d29433cb-f731-44fa-b1be-7ee20cf5de7b",  # item 67
-      "c506a692-3879-4d30-af99-7c517b6383e7",  # item 61
-      "92dc28f6-6939-4266-8765-55181d8d8594",  # item 6
-      "6ca16ea2-da98-40b7-8a1e-a2249e2ff2d2",  # item 89
-      "2a7ac459-aae5-4c21-84ce-1360253bf7c4",  # item 35
-      "4782ddd4-8f7b-4927-bd8b-d96f34fe03a8",  # item 30
-      "6f454278-ddd9-4df7-a19a-3e078e649699",  # item 79
-      "318c1eda-41e6-4871-ae08-637a6c31d2fd",  # item 82
-      "704379d2-eb68-47a4-b4be-5f8267c1850c",  # item 4
-      "3fcc3a72-6ccc-43fc-8070-fd4957262ce7",  # item 1
-      "e546c48f-83c8-4715-9bb0-1ee7f73412cc",  # item 62
+      "987f4bee-4144-46bc-88a9-0d3d12f2e34e",
+      "1581ca6d-5ee8-4fd2-b4f4-1dbf4130aaaa",
+      "615e9e10-42f5-4253-80fa-d824aeb410e4",
+      "c8dc5c4c-911d-4f03-8f79-79a888212d13",
+      "c4c6571c-4ff9-4d7c-b00d-ff4d1d69b3de",
+      "059d64d7-2d20-4bac-99e8-9973d8af8539",
+      "05aafecf-4a87-44b2-b252-b454db3124df",
+      "abdb4146-7afd-4cea-97fa-7fb888937702",
+      "37580f9c-0132-4ed2-88a8-71e7c95fb1fa",
+      "f0eb604d-c41c-4ffc-8356-e3ef7fc72d71",
+      "6f31eec4-4fa5-4e60-83f3-83935469d80f",
+      "8cb1a935-61e2-4872-82e7-7e969633060a",
+      "44e7ae41-bc7d-4e45-b1a2-8d95464ae3f8",
+      "c8aa2fe6-a737-47cd-b7d1-0a88404b1c68",
+      "652b9fd3-e8ba-449a-9854-78a5d9077065",
+      "2576e2a6-d64f-4617-b533-487fa8258ee4",
+      "8b45bc54-314f-4571-9da1-6c246247f2e3",
     ]
     
     if not sample_ext_ids:

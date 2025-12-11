@@ -53,6 +53,32 @@
         </dependencies>
       </plugin>
 
+      <!-- Copy proto files to generated-api-artifacts before packaging -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
+            <id>copy-proto-files</id>
+            <phase>package</phase>
+            <configuration>
+              <target>
+                <!-- Copy proto files from protobuf generation location to generated-api-artifacts -->
+                <copy todir="${project.build.directory}/generated-api-artifacts" flatten="true">
+                  <fileset dir="${project.basedir}/../generated-code/protobuf/swagger/nexus/v4/config">
+                    <include name="*.proto"/>
+                  </fileset>
+                </copy>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
       <!-- Assembly plugin to create tgz archive -->
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>

@@ -51,3 +51,5 @@ buildNumber.properties
 
 # Files with credentials (use environment variables instead)
 # build-with-auth.sh - Keep template but never commit with real credentials
+.env
+.env.local
