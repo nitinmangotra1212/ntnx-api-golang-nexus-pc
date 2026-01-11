@@ -1,0 +1,46 @@
+components:
+  schemas:
+    File:
+      description: File entity for file transfer operations
+      type: object
+      properties:
+        fileId:
+          description: Unique identifier for the file
+          type: string
+          readOnly: true
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        fileName:
+          description: Name of the file
+          type: string
+          example: "document.pdf"
+        fileSize:
+          description: Size of the file in bytes
+          type: integer
+          format: int64
+          readOnly: true
+          example: 1048576
+        contentType:
+          description: MIME type of the file
+          type: string
+          example: "application/pdf"
+        extId:
+          description: External identifier (UUID)
+          type: string
+          readOnly: true
+          example: "550e8400-e29b-41d4-a716-446655440000"
+      x-codegen-hint:
+        $any:
+          - type: entity-identifier
+            properties:
+              identifiers:
+                - name: fileId
+                  index: 2001
+                - name: fileName
+                  index: 2002
+                - name: fileSize
+                  index: 2003
+                - name: contentType
+                  index: 2004
+                - name: extId
+                  index: 2005
+

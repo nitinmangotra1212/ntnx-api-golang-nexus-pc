@@ -82,6 +82,16 @@ protoc --proto_path="${SWAGGER_PROTO_ROOT}" \
     --go-grpc_opt=paths=source_relative \
     nexus/v4/config/item_service.proto
 
+# Generate for file_service.proto (includes gRPC service definitions for file transfer)
+echo "  → file_service.proto"
+protoc --proto_path="${SWAGGER_PROTO_ROOT}" \
+    --proto_path="$(go env GOROOT)/src" \
+    --go_out="${PROTO_OUT_ROOT}" \
+    --go_opt=paths=source_relative \
+    --go-grpc_out="${PROTO_OUT_ROOT}" \
+    --go-grpc_opt=paths=source_relative \
+    nexus/v4/config/file_service.proto 2>/dev/null || echo "  ⚠️  file_service.proto not found (will be generated after Maven build)"
+
 # Post-process: Fix import paths in generated .pb.go files
 # IMPORTANT: Only fix Go import statements, NOT the raw descriptor (binary data)
 echo ""
@@ -187,6 +197,20 @@ if [ -f "${GRPC_FILE}" ]; then
     fi
 fi
 
+# Fix FileService method names if file_service_grpc.pb.go exists
+FILE_GRPC_FILE="${OUT_DIR}/file_service_grpc.pb.go"
+if [ -f "${FILE_GRPC_FILE}" ]; then
+    if grep -q 'MethodName: "UploadFile"' "${FILE_GRPC_FILE}"; then
+        sed -i '' 's|MethodName: "UploadFile"|MethodName: "uploadFile"|g' "${FILE_GRPC_FILE}"
+        sed -i '' 's|MethodName: "DownloadFile"|MethodName: "downloadFile"|g' "${FILE_GRPC_FILE}"
+        sed -i '' 's|/nexus.v4.config.FileService/UploadFile|/nexus.v4.config.FileService/uploadFile|g' "${FILE_GRPC_FILE}"
+        sed -i '' 's|/nexus.v4.config.FileService/DownloadFile|/nexus.v4.config.FileService/downloadFile|g' "${FILE_GRPC_FILE}"
+        echo "  ✅ Fixed FileService method names to lowercase (uploadFile, downloadFile)"
+    else
+        echo "  ✅ FileService method names already lowercase (no changes needed)"
+    fi
+fi
+
 echo ""
 echo "================================================"
 echo "✅ gRPC code generation complete!"
@@ -198,6 +222,10 @@ echo "📦 Generated files:"
 echo "  - config.pb.go          (protobuf messages)"
 echo "  - item_service.pb.go     (service messages)"
 echo "  - item_service_grpc.pb.go (gRPC service stubs)"
+if [ -f "${OUT_DIR}/file_service_grpc.pb.go" ]; then
+    echo "  - file_service.pb.go     (file service messages)"
+    echo "  - file_service_grpc.pb.go (file service gRPC stubs)"
+fi
 echo ""
 echo "🎉 Ready to implement gRPC servers!"
 

@@ -5,7 +5,7 @@
  *
  * Part of the GoLang Mock API - REST API for Mock Item Service
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -44,10 +44,12 @@ service ItemService {
 /*
  * message containing all attributes expected in the listItems request
  */
+
+
 message ListItemsArg {
   /*
    * A URL query parameter that allows clients to filter a collection of resources. The expression specified with $filter is evaluated for each resource in the collection, and only items where the expression evaluates to true are included in the response. Expression specified with the $filter must conform to the [OData V4.01](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html) URL conventions.
-For example, filter '$filter=name eq 'karbon-ntnx-1.0' would filter the result on cluster name 'karbon-ntnx1.0', filter '$filter=startswith(name, 'C')' would filter on cluster name starting with 'C'.
+For example, filter **$filter=name eq 'karbon-ntnx-1.0'** would filter the result on cluster name 'karbon-ntnx1.0', filter **$filter=startswith(name, 'C')** would filter on cluster name starting with 'C'.
    */
   optional string _filter = 101;
   /*

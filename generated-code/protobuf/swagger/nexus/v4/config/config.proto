@@ -5,7 +5,7 @@
  *
  * Part of the GoLang Mock API - REST API for Mock Item Service
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -22,15 +22,6 @@ import "nexus/v4/error/error.proto";
 import "common/v1/response/response.proto";
 
 /*
- * Array wrapper message
- */
-message ItemAssociationArrayWrapper {
-  /*
-   * Value field in wrapper message
-   */
-  repeated nexus.v4.config.ItemAssociation value = 1000;
-}
-/*
  * Map wrapper message
  */
 message ObjectMapWrapper {
@@ -38,6 +29,44 @@ message ObjectMapWrapper {
    * Value field in wrapper message
    */
   map<string, google.protobuf.Any> value = 1000;
+}
+/*
+ * File entity for file transfer operations
+ */
+message File {
+  /*
+   * Unique identifier for the file
+   */
+  optional string file_id = 2001;
+  /*
+   * Name of the file
+   */
+  optional string file_name = 2002;
+  /*
+   * Size of the file in bytes
+   */
+  optional int64 file_size = 2003;
+  /*
+   * MIME type of the file
+   */
+  optional string content_type = 2004;
+  /*
+   * External identifier (UUID)
+   */
+  optional string ext_id = 2005;
+  /*
+   * 
+   */
+  optional nexus.v4.config.ObjectMapWrapper _reserved = 900000;
+}
+/*
+ * Array wrapper message
+ */
+message ItemAssociationArrayWrapper {
+  /*
+   * Value field in wrapper message
+   */
+  repeated nexus.v4.config.ItemAssociation value = 1000;
 }
 /*
  * Item entity for mock REST API

@@ -265,10 +265,86 @@ def register_item_associations():
   # Skip automatic creation for now - user can create associations manually if needed
   print(f"\n✅ Successfully registered item_associations entity type in IDF!")
 
+def register_file():
+  insights_interface = InsightsInterface("127.0.0.1", "2027")
+  
+  # Step 1: Register Entity Type
+  arg = RegisterEntityTypesArg()
+  query = '''
+    entity_type_info_list {
+      entity_type_name: "file"
+      type_info {
+        suppress_replication : true
+        backup_replication_control {
+          is_backup_required: false
+        }
+        replication_control_list {
+          enable_replication_from : kNDFS
+        }
+        is_evictable: false
+        retain_attributes_on_deletion: false
+        track_attribute_changes : false
+        enable_pulsehd_collection : false
+      }
+    }
+  '''
+  Merge(query, arg)
+  
+  try:
+    ret = insights_interface.RegisterEntityTypes(arg)
+    print("✅ Successfully registered entity type: file")
+  except InsightsInterfaceError as ex:
+    print("❌ Error registering entity type: " + ex.message + "\n")
+    print(ex.ret)
+    return
+  
+  # Step 2: Register Metric Types (Attributes)
+  # Attributes: ext_id, file_name, file_size, content_type
+  arg = RegisterMetricTypesArg()
+  query = '''
+  metric_type_list {
+    is_attribute: true
+    metric_name: "ext_id"
+    entity_type_name: "file"
+    user_metadata: "{\\"data_type\\":\\"string\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "file_name"
+    entity_type_name: "file"
+    user_metadata: "{\\"data_type\\":\\"string\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "file_size"
+    entity_type_name: "file"
+    user_metadata: "{\\"data_type\\":\\"int64\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "content_type"
+    entity_type_name: "file"
+    user_metadata: "{\\"data_type\\":\\"string\\"}"
+  }
+  '''
+  Merge(query, arg)
+  
+  try:
+    ret = insights_interface.RegisterMetricTypes(arg)
+    print("✅ Successfully registered metric types (attributes) for file")
+  except InsightsInterfaceError as ex:
+    print("❌ Error registering metric types: " + ex.message + "\n")
+    print(ex.ret)
+    return
+  
+  print(f"\n✅ Successfully registered file entity type in IDF!")
+
 if __name__ == "__main__":
   with warnings.catch_warnings():
     warnings.simplefilter("ignore")
     register_item()
     print("\n" + "="*60)
     register_item_associations()
+    print("\n" + "="*60)
+    register_file()
 

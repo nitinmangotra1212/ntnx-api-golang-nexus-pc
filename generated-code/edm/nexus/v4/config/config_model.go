@@ -5,7 +5,7 @@
  *
  * Part of the GoLang Mock API - REST API for Mock Item Service
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -92,6 +92,11 @@ func NewItem() *edm.EdmEntityBinding {
   entitySet.TableName = "item"
   p.EntitySet = entitySet
 
+
+  p.RbacEntityName = "Item"
+
+
+
   return p
 }
 
@@ -162,6 +167,11 @@ func NewItemAssociation() *edm.EdmEntityBinding {
   entitySet.IncludeInServiceDocument = true
   entitySet.TableName = "item_associations"
   p.EntitySet = entitySet
+
+
+  p.RbacEntityName = "ItemAssociation"
+
+
 
   return p
 }

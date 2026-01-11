@@ -12,7 +12,7 @@
 
   <properties>
     <service-parent.version>17.6.0.2921-RELEASE</service-parent.version>
-    <openapi-dev-platform.version>17.6.0.9581-RELEASE</openapi-dev-platform.version>
+    <openapi-dev-platform.version>17.6.0.10189-RELEASE</openapi-dev-platform.version>
     <swagger-codegen.version>3.0.10</swagger-codegen.version>
     <platform-tools.version>17.6.0.9581-RELEASE</platform-tools.version>
     <swagger-codegen-version>3.0.10</swagger-codegen-version>

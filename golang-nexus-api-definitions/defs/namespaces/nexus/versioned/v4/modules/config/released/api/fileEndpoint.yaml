@@ -1,0 +1,137 @@
+paths:
+  /upload:
+    x-backend-service-name: golangnexus
+    post:
+      tags:
+        - "ApiEndpoint(File)"
+      summary: Uploads a file
+      operationId: uploadFile
+      consumes:
+        - application/octet-stream
+      requestBody:
+        description: File to upload as binary data
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      x-codegen-hint:
+        spring-mvc:
+          - type: non-blocking
+            properties:
+              non-blocking: true
+        $any:
+          - type: entity-identifier
+            properties:
+              identifiers:
+                - name: extId
+                  index: 1050
+                - name: body
+                  index: 1051
+        stream-api:
+          - type: stream-rpc
+            properties:
+              stream-input: true
+      x-required-headers:
+        - name: NTNX-Request-Id
+          description: Request ID header for tracking requests
+        - name: Content-Length
+          description: Content length of the file in bytes
+        - name: Content-Disposition
+          description: Content disposition header containing filename
+      responses:
+        201:
+          description: File resource created
+          content:
+            application/json:
+              schema:
+                $ref: "ModelRef({/namespaces/nexus/versioned/v4/modules/config/released/models/File})"
+          headers:
+            Location:
+              description: URL of the newly created file resource
+              schema:
+                type: string
+                format: uri
+                example: "/nexus/v4.1/config/download/a1b2c3d4-e5f6-7890-1234-567890abcdef"
+          x-codegen-hint:
+            $any:
+              - type: entity-identifier
+                properties:
+                  identifiers:
+                    - type: string
+                      index: 2080
+          x-api-responses:
+            template: ext:common:/namespaces/common/versioned/v1/modules/response/alpha/models/apiResponse
+            responseModelName: UploadFileApiResponse
+
+  /download/{extId}:
+    x-backend-service-name: golangnexus
+    get:
+      tags:
+        - "ApiEndpoint(File)"
+      summary: Downloads a file
+      operationId: downloadFile
+      produces:
+        - application/octet-stream
+      parameters:
+        - name: extId
+          in: path
+          required: true
+          schema:
+            type: string
+            x-constraints:
+              pattern: ConstantRef({ext:common:/namespaces/common}, uuidPattern)
+      x-codegen-hint:
+        spring-mvc:
+          - type: non-blocking
+            properties:
+              non-blocking: true
+        $any:
+          - type: entity-identifier
+            properties:
+              identifiers:
+                - name: "extId"
+                  index: 2001
+        stream-api:
+          - type: stream-rpc
+            properties:
+              stream-output: true
+      responses:
+        200:
+          description: File downloaded successfully
+          headers:
+            Content-Disposition:
+              description: metadata of file.
+              style: simple
+              explode: false
+              schema:
+                type: string
+            Content-Length:
+              description: File size of attachment returned.
+              schema:
+                type: integer
+                format: int64
+            X-Nutanix-Checksum-Sha256:
+              description: SHA256 checksum of the file
+              schema:
+                type: string
+                x-constraints:
+                  pattern: ConstantRef({ext:common:/namespaces/common}, sha256Pattern)
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+          x-api-responses:
+            template: ext:common:/namespaces/common/versioned/v1/modules/response/beta/models/apiResponse
+            responseModelName: FileDownloadApiResponse
+          x-codegen-hint:
+            $any:
+              - type: entity-identifier
+                properties:
+                  identifiers:
+                    - type: string
+                      format: binary
+                      index: 4000
+

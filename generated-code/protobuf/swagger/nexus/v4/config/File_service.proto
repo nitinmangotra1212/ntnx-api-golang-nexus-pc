@@ -1,0 +1,93 @@
+/*
+ * Generated file nexus/v4/config.proto.
+ *
+ * Product version: 1.0.0-SNAPSHOT
+ *
+ * Part of the GoLang Mock API - REST API for Mock Item Service
+ *
+ * (c) 2026 Nutanix Inc.  All rights reserved
+ *
+ */
+
+syntax = "proto2";
+
+package nexus.v4.config;
+
+option java_multiple_files = true;
+option java_package = "nexus.v4.config";
+option go_package = "nexus/v4/config";
+
+import "nexus/v4/api_version.proto";
+
+import "nexus/v4/http_method_options.proto";
+import "nexus/v4/config/config.proto";
+import "google/protobuf/any.proto";
+
+service FileService {
+    option (ntnx_api_version) = {
+    MAJOR: "4",
+    MINOR: "1"    };
+
+
+  /*
+   * uri: /nexus/v4/config/download/{extId}
+   * http method: GET
+   * Downloads a file
+   * 
+   */
+  rpc downloadFile(DownloadFileArg) returns (stream DownloadFileRet) {
+    option (ntnx_api_http) = {
+      GET: "/nexus/v4/config/download/{extId}"
+    };
+  }
+  /*
+   * uri: /nexus/v4/config/upload
+   * http method: POST
+   * Uploads a file
+   * File to upload as binary data
+   */
+  rpc uploadFile(stream UploadFileArg) returns (UploadFileRet) {
+    option (ntnx_api_http) = {
+      POST: "/nexus/v4/config/upload"
+    };
+  }
+}
+
+/*
+ * message containing all attributes expected in the downloadFile request
+ */
+
+message DownloadFileArg {
+  /*
+  * 
+  */
+  optional string ext_id = 2001;
+}
+
+
+message DownloadFileRet {
+ required bytes data = 1;
+}
+
+/*
+ * message containing all attributes expected in the uploadFile request
+ */
+message UploadFileArg {
+  required bytes data = 1;
+}
+
+
+
+/*
+ * message containing all attributes expected in the uploadFile response
+ */
+message UploadFileRet {
+  /*
+   * field containing expected response content
+   */
+  optional nexus.v4.config.File content = 999;
+  /*
+   * map containing headers expected in response
+   */
+  map<string, string> reserved = 1000;
+}

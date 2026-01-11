@@ -85,6 +85,11 @@
             <groupId>com.nutanix.nutanix-core.ntnx-api.utils</groupId>
             <artifactId>json-utils</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.nutanix.nutanix-core.ntnx-api.dev-platform</groupId>
+            <artifactId>dev-platform-java-models</artifactId>
+            <version>${openapi-dev-platform.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -298,6 +303,16 @@
                                 <exec executable="bash" failonerror="false">
                                     <arg value="${project.basedir}/scripts/fix-controller-complete.sh"/>
                                     <arg value="${project.build.directory}/generated-sources/swagger/src/nexus/v4/config/NexusConfigItemController.java"/>
+                                </exec>
+                                <!-- Step 11: Fix File controller - remove error handling for simple File model -->
+                                <exec executable="bash" failonerror="false">
+                                    <arg value="${project.basedir}/scripts/fix-file-controller.sh"/>
+                                    <arg value="${project.build.directory}/generated-sources/swagger/src/nexus/v4/config/NexusConfigFileController.java"/>
+                                </exec>
+                                <!-- Step 12: Fix File service - add exception handling for getMetadataSync() -->
+                                <exec executable="bash" failonerror="false">
+                                    <arg value="${project.basedir}/scripts/fix-file-service.sh"/>
+                                    <arg value="${project.build.directory}/generated-sources/swagger/src/nexus/v4/config/NexusConfigFileServiceImpl.java"/>
                                 </exec>
                                 <!-- Rename the file -->
                                 <move file="${project.build.directory}/generated-sources/swagger/src/nexus/v4/Golang-mockGrpcConfiguration.java"
