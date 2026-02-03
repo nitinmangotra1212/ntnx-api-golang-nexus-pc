@@ -1,5 +1,5 @@
 /*
- * Generated file nexus/v4/config.proto.
+ * Generated file nexus/v4/stats.proto.
  *
  * Product version: 1.0.0-SNAPSHOT
  *
@@ -11,42 +11,42 @@
 
 syntax = "proto2";
 
-package nexus.v4.config;
+package nexus.v4.stats;
 
 option java_multiple_files = true;
-option java_package = "nexus.v4.config";
-option go_package = "nexus/v4/config";
+option java_package = "nexus.v4.stats";
+option go_package = "nexus/v4/stats";
 
 import "nexus/v4/api_version.proto";
 
 import "nexus/v4/http_method_options.proto";
-import "nexus/v4/config/config.proto";
+import "nexus/v4/stats/stats.proto";
 
-service ItemService {
+service ItemStatsService {
     option (ntnx_api_version) = {
     MAJOR: "4",
     MINOR: "1"    };
 
 
   /*
-   * uri: /nexus/v4/config/items
+   * uri: /nexus/v4/stats/item-stats
    * http method: GET
-   * List items
-   * List all items
+   * List item statistics (Stats)
+   * List item statistics with grouping and filtering capabilities
    */
-  rpc listItems(ListItemsArg) returns (ListItemsRet) {
+  rpc listItemStats(ListItemStatsArg) returns (ListItemStatsRet) {
     option (ntnx_api_http) = {
-      GET: "/nexus/v4/config/items"
+      GET: "/nexus/v4/stats/item-stats"
     };
   }
 }
 
 /*
- * message containing all attributes expected in the listItems request
+ * message containing all attributes expected in the listItemStats request
  */
 
 
-message ListItemsArg {
+message ListItemStatsArg {
   /*
    * A URL query parameter that allows clients to filter a collection of resources. The expression specified with $filter is evaluated for each resource in the collection, and only items where the expression evaluates to true are included in the response. Expression specified with the $filter must conform to the [OData V4.01](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html) URL conventions.
 For example, filter **$filter=name eq 'karbon-ntnx-1.0'** would filter the result on cluster name 'karbon-ntnx1.0', filter **$filter=startswith(name, 'C')** would filter on cluster name starting with 'C'.
@@ -63,13 +63,13 @@ For example, filter **$filter=name eq 'karbon-ntnx-1.0'** would filter the resul
 }
 
 /*
- * message containing all attributes expected in the listItems response
+ * message containing all attributes expected in the listItemStats response
  */
-message ListItemsRet {
+message ListItemStatsRet {
   /*
    * field containing expected response content
    */
-  optional nexus.v4.config.ListItemsApiResponse content = 999;
+  optional nexus.v4.stats.ListItemStatsApiResponse content = 999;
   /*
    * map containing headers expected in response
    */

@@ -81,6 +81,70 @@ components:
           type: string
           readOnly: true
           example: "550e8400-e29b-41d4-a716-446655440000"
+        quantity:
+          description: Quantity/stock count of the item
+          type: integer
+          format: int64
+          example: 100
+        price:
+          description: Price/cost of the item
+          type: number
+          format: double
+          example: 99.99
+        isActive:
+          description: Whether the item is active
+          type: boolean
+          example: true
+        priority:
+          description: Priority level of the item (0-255)
+          type: integer
+          format: byte
+          example: 5
+        status:
+          description: Status of the item (e.g., ACTIVE, INACTIVE, PENDING)
+          type: string
+          enum: [ACTIVE, INACTIVE, PENDING]
+          example: "ACTIVE"
+        stringList:
+          description: List of string values
+          type: array
+          items:
+            type: string
+          example: ["value1", "value2", "value3"]
+        int64List:
+          description: List of integer values (int64)
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: [1, 2, 3, 4, 5]
+        floatList:
+          description: List of floating-point values (double)
+          type: array
+          items:
+            type: number
+            format: double
+          example: [1.5, 2.7, 3.14, 4.9]
+        boolList:
+          description: List of boolean values
+          type: array
+          items:
+            type: boolean
+          example: [true, false, true]
+        byteList:
+          description: List of byte values (0-255)
+          type: array
+          items:
+            type: integer
+            format: byte
+          example: [1, 2, 3, 4, 5]
+        enumList:
+          description: List of enum values (status enum)
+          type: array
+          items:
+            type: string
+            enum: [ACTIVE, INACTIVE, PENDING]
+          example: ["ACTIVE", "INACTIVE", "PENDING"]
         associations:
           description: Associated entities for this item. This field is only present when $expand=associations is specified in the query.
           type: array
@@ -89,21 +153,91 @@ components:
           maxItems: 100
           items:
             $ref: ModelRef({./ItemAssociation})
+        itemStats:
+          description: Statistics data for this item from stats module. This field is only present when $expand=itemStats is specified in the query. One-to-one relationship - each item has at most one stats record.
+          readOnly: true
+          $ref: ModelRef({/namespaces/nexus/versioned/v4/modules/stats/released/models/ItemStats})
       x-filterable-properties:
         - itemId
         - itemName
         - itemType
         - extId
+        - quantity
+        - price
+        - isActive
+        - status
+        - stringList
+        - int64List
+        - floatList
+        - boolList
+        - byteList
+        - enumList
       x-sortable-properties:
         - itemId
         - itemName
         - itemType
+        - quantity
+        - price
+        - priority
       x-selection-properties:
         - itemId
         - itemName
         - itemType
         - description
         - extId
+        - quantity
+        - price
+        - isActive
+        - priority
+        - status
+        - stringList
+        - int64List
+        - floatList
+        - boolList
+        - byteList
+        - enumList
+      x-groupable-properties:
+        - itemType
+        - itemId
+        - quantity
+        - price
+        - isActive
+        - priority
+        - status
+      x-list-endpoint: "items"
+      x-property-mapping:
+        - name: itemId
+          value: item_id
+        - name: itemName
+          value: item_name
+        - name: itemType
+          value: item_type
+        - name: description
+          value: description
+        - name: extId
+          value: ext_id
+        - name: quantity
+          value: quantity
+        - name: price
+          value: price
+        - name: isActive
+          value: is_active
+        - name: priority
+          value: priority
+        - name: status
+          value: status
+        - name: stringList
+          value: string_list
+        - name: int64List
+          value: int64_list
+        - name: floatList
+          value: float_list
+        - name: boolList
+          value: bool_list
+        - name: byteList
+          value: byte_list
+        - name: enumList
+          value: enum_list
       x-codegen-hint:
         $any:
           - type: entity-identifier
@@ -119,8 +253,32 @@ components:
                   index: 2004
                 - name: extId
                   index: 2005
+                - name: quantity
+                  index: 2007
+                - name: price
+                  index: 2008
+                - name: isActive
+                  index: 2009
+                - name: priority
+                  index: 2010
+                - name: status
+                  index: 2011
+                - name: stringList
+                  index: 2013
+                - name: int64List
+                  index: 2014
+                - name: floatList
+                  index: 2015
+                - name: boolList
+                  index: 2016
+                - name: byteList
+                  index: 2017
+                - name: enumList
+                  index: 2018
                 - name: associations
                   index: 2006
+                - name: itemStats
+                  index: 2012
       # x-expand-items temporarily removed - ModelRef resolution issue in plugin
       # The Go code handles $expand via GraphQL infrastructure
       # TODO: Re-add when plugin ModelRef resolution is fixed

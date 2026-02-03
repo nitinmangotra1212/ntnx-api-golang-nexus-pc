@@ -64,6 +64,14 @@ protoc --proto_path="${SWAGGER_PROTO_ROOT}" \
     --go_opt=paths=source_relative \
     nexus/v4/error/error.proto
 
+# Generate stats.proto (needed by config.proto for itemStats navigation property)
+echo "  → stats.proto"
+protoc --proto_path="${SWAGGER_PROTO_ROOT}" \
+    --proto_path="$(go env GOROOT)/src" \
+    --go_out="${PROTO_OUT_ROOT}" \
+    --go_opt=paths=source_relative \
+    nexus/v4/stats/stats.proto 2>/dev/null || echo "  ⚠️  stats.proto not found (will be generated after Maven build)"
+
 # Generate for config.proto
 echo "  → config.proto"
 protoc --proto_path="${SWAGGER_PROTO_ROOT}" \
@@ -91,6 +99,30 @@ protoc --proto_path="${SWAGGER_PROTO_ROOT}" \
     --go-grpc_out="${PROTO_OUT_ROOT}" \
     --go-grpc_opt=paths=source_relative \
     nexus/v4/config/file_service.proto 2>/dev/null || echo "  ⚠️  file_service.proto not found (will be generated after Maven build)"
+
+# Generate for stats module protobufs
+STATS_PROTO_DIR="${SCRIPT_DIR}/generated-code/protobuf/swagger/nexus/v4/stats"
+STATS_OUT_DIR="${SCRIPT_DIR}/generated-code/protobuf/nexus/v4/stats"
+if [ -d "${STATS_PROTO_DIR}" ]; then
+    mkdir -p "${STATS_OUT_DIR}"
+    echo "  → ItemAssociationStats_service.proto"
+    protoc --proto_path="${SWAGGER_PROTO_ROOT}" \
+        --proto_path="$(go env GOROOT)/src" \
+        --go_out="${PROTO_OUT_ROOT}" \
+        --go_opt=paths=source_relative \
+        --go-grpc_out="${PROTO_OUT_ROOT}" \
+        --go-grpc_opt=paths=source_relative \
+        nexus/v4/stats/ItemAssociationStats_service.proto 2>/dev/null || echo "  ⚠️  ItemAssociationStats_service.proto not found"
+    
+    echo "  → ItemStats_service.proto"
+    protoc --proto_path="${SWAGGER_PROTO_ROOT}" \
+        --proto_path="$(go env GOROOT)/src" \
+        --go_out="${PROTO_OUT_ROOT}" \
+        --go_opt=paths=source_relative \
+        --go-grpc_out="${PROTO_OUT_ROOT}" \
+        --go-grpc_opt=paths=source_relative \
+        nexus/v4/stats/ItemStats_service.proto 2>/dev/null || echo "  ⚠️  ItemStats_service.proto not found"
+fi
 
 # Post-process: Fix import paths in generated .pb.go files
 # IMPORTANT: Only fix Go import statements, NOT the raw descriptor (binary data)
@@ -155,13 +187,14 @@ PYEOF
     fi
 done
 
-# Fix common/v1 and nexus/v4/error imports (these are in import statements, safe to fix)
-echo "  🔧 Fixing common/v1 and nexus/v4/error import paths..."
+# Fix common/v1 and nexus/v4/error and nexus/v4/stats imports (these are in import statements, safe to fix)
+echo "  🔧 Fixing common/v1, nexus/v4/error, and nexus/v4/stats import paths..."
 for file in $(find "${PROTO_OUT_DIR}" -name "*.pb.go" -type f); do
     if [[ -f "$file" ]]; then
         sed -i '' 's|response "common/v1/response"|response "github.com/nutanix/ntnx-api-golang-nexus-pc/generated-code/protobuf/common/v1/response"|g' "$file"
         sed -i '' 's|config "common/v1/config"|config "github.com/nutanix/ntnx-api-golang-nexus-pc/generated-code/protobuf/common/v1/config"|g' "$file"
         sed -i '' 's|"nexus/v4/error"|"github.com/nutanix/ntnx-api-golang-nexus-pc/generated-code/protobuf/nexus/v4/error"|g' "$file"
+        sed -i '' 's|stats "nexus/v4/stats"|stats "github.com/nutanix/ntnx-api-golang-nexus-pc/generated-code/protobuf/nexus/v4/stats"|g' "$file"
     fi
 done
 

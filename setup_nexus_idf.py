@@ -56,7 +56,8 @@ def register_item():
     return
   
   # Step 2: Register Metric Types (Attributes)
-  # Only 5 columns: item_id, item_name, item_type, description, ext_id
+  # Original 5 columns: item_id, item_name, item_type, description, ext_id
+  # New GroupBy columns: quantity, price, is_active, priority, status
   arg = RegisterMetricTypesArg()
   query = '''
   metric_type_list {
@@ -89,6 +90,72 @@ def register_item():
     entity_type_name: "item"
     user_metadata: "{\\"data_type\\":\\"string\\"}"
   }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "quantity"
+    entity_type_name: "item"
+    user_metadata: "{\\"data_type\\":\\"int64\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "price"
+    entity_type_name: "item"
+    user_metadata: "{\\"data_type\\":\\"double\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "is_active"
+    entity_type_name: "item"
+    user_metadata: "{\\"data_type\\":\\"bool\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "priority"
+    entity_type_name: "item"
+    user_metadata: "{\\"data_type\\":\\"int64\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "status"
+    entity_type_name: "item"
+    user_metadata: "{\\"data_type\\":\\"string\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "string_list"
+    entity_type_name: "item"
+    user_metadata: "{\\"data_type\\":\\"string_list\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "int64_list"
+    entity_type_name: "item"
+    user_metadata: "{\\"data_type\\":\\"int64_list\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "float_list"
+    entity_type_name: "item"
+    user_metadata: "{\\"data_type\\":\\"double_list\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "bool_list"
+    entity_type_name: "item"
+    user_metadata: "{\\"data_type\\":\\"bool_list\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "byte_list"
+    entity_type_name: "item"
+    user_metadata: "{\\"data_type\\":\\"int64_list\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "enum_list"
+    entity_type_name: "item"
+    user_metadata: "{\\"data_type\\":\\"string_list\\"}"
+  }
   '''
   Merge(query, arg)
   
@@ -102,15 +169,27 @@ def register_item():
   
   # Step 3: Create sample data (optional - for testing)
   print("\n📝 Creating sample items in IDF...")
+  import random
   uuid_list = []
-  for _ in range(110):
+  for _ in range(120):  # 100 TYPE1 + 20 TYPE2
     uuid_list.append(str(uuid.uuid4()))
   
-  for i in range(110):
+  # Status values for variety
+  status_values = ["pending", "active", "inactive"]
+  
+  # Create TYPE1 items (100 items)
+  for i in range(100):
     arg = UpdateEntityArg()
     item_name = "test item " + str(i)
     description = "test item description " + str(i)
     item_uuid = uuid_list[i]
+    
+    # Generate random values for new columns
+    quantity = random.randint(10, 200)
+    price = round(random.uniform(10.0, 50.0), 1)
+    is_active = random.choice([True, False])
+    priority = random.randint(1, 5)
+    status = random.choice(status_values)
     
     query = '''
     entity_guid {
@@ -158,6 +237,254 @@ def register_item():
         }
       }
     }
+    attribute_data_arg_list {
+      attribute_data {
+        name: "quantity"
+        value {
+          int64_value: ''' + str(quantity) + '''
+        }
+      }
+    }
+    attribute_data_arg_list {
+      attribute_data {
+        name: "price"
+        value {
+          double_value: ''' + str(price) + '''
+        }
+      }
+    }
+    attribute_data_arg_list {
+      attribute_data {
+        name: "is_active"
+        value {
+          bool_value: ''' + str(is_active).lower() + '''
+        }
+      }
+    }
+    attribute_data_arg_list {
+      attribute_data {
+        name: "priority"
+        value {
+          int64_value: ''' + str(priority) + '''
+        }
+      }
+    }
+    attribute_data_arg_list {
+      attribute_data {
+        name: "status"
+        value {
+          str_value: "''' + status + '''"
+        }
+      }
+    }
+    '''
+    
+    # Add list attributes with random values for TYPE1 items
+    string_list = [f"tag_{random.randint(1, 10)}", f"label_{random.randint(1, 5)}"]
+    int64_list = [random.randint(100, 200), random.randint(1, 50), random.randint(1, 100)]
+    float_list = [round(random.uniform(10.0, 20.0), 2), round(random.uniform(0.5, 5.0), 2)]
+    bool_list = [random.choice([True, False]), random.choice([True, False]), random.choice([True, False])]
+    byte_list = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
+    enum_list = [random.choice(["ACTIVE", "INACTIVE", "PENDING"]), random.choice(["ACTIVE", "INACTIVE", "PENDING"])]
+    
+    # Add string_list
+    query += '''
+    attribute_data_arg_list {
+      attribute_data {
+        name: "string_list"
+        value {
+          str_list {
+'''
+    for val in string_list:
+      query += f'            value_list: "{val}"\n'
+    query += '''          }
+        }
+      }
+    }
+    '''
+    
+    # Add int64_list
+    query += '''
+    attribute_data_arg_list {
+      attribute_data {
+        name: "int64_list"
+        value {
+          int64_list {
+'''
+    for val in int64_list:
+      query += f'            value_list: {val}\n'
+    query += '''          }
+        }
+      }
+    }
+    '''
+    
+    # Add float_list
+    query += '''
+    attribute_data_arg_list {
+      attribute_data {
+        name: "float_list"
+        value {
+          double_list {
+'''
+    for val in float_list:
+      query += f'            value_list: {val}\n'
+    query += '''          }
+        }
+      }
+    }
+    '''
+    
+    # Add bool_list
+    query += '''
+    attribute_data_arg_list {
+      attribute_data {
+        name: "bool_list"
+        value {
+          bool_list {
+'''
+    for val in bool_list:
+      query += f'            value_list: {str(val).lower()}\n'
+    query += '''          }
+        }
+      }
+    }
+    '''
+    
+    # Add byte_list (stored as int64_list in IDF)
+    query += '''
+    attribute_data_arg_list {
+      attribute_data {
+        name: "byte_list"
+        value {
+          int64_list {
+'''
+    for val in byte_list:
+      query += f'            value_list: {val}\n'
+    query += '''          }
+        }
+      }
+    }
+    '''
+    
+    # Add enum_list
+    query += '''
+    attribute_data_arg_list {
+      attribute_data {
+        name: "enum_list"
+        value {
+          str_list {
+'''
+    for val in enum_list:
+      query += f'            value_list: "{val}"\n'
+    query += '''          }
+        }
+      }
+    }
+    '''
+    
+    # Add list attributes with random values for TYPE1 items
+    string_list = [f"tag_{random.randint(1, 10)}", f"label_{random.randint(1, 5)}"]
+    int64_list = [random.randint(100, 200), random.randint(1, 50), random.randint(1, 100)]
+    float_list = [round(random.uniform(10.0, 20.0), 2), round(random.uniform(0.5, 5.0), 2)]
+    bool_list = [random.choice([True, False]), random.choice([True, False]), random.choice([True, False])]
+    byte_list = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
+    enum_list = [random.choice(["ACTIVE", "INACTIVE", "PENDING"]), random.choice(["ACTIVE", "INACTIVE", "PENDING"])]
+    
+    # Add string_list
+    query += '''
+    attribute_data_arg_list {
+      attribute_data {
+        name: "string_list"
+        value {
+          str_list {
+'''
+    for val in string_list:
+      query += f'            value_list: "{val}"\n'
+    query += '''          }
+        }
+      }
+    }
+    '''
+    
+    # Add int64_list
+    query += '''
+    attribute_data_arg_list {
+      attribute_data {
+        name: "int64_list"
+        value {
+          int64_list {
+'''
+    for val in int64_list:
+      query += f'            value_list: {val}\n'
+    query += '''          }
+        }
+      }
+    }
+    '''
+    
+    # Add float_list
+    query += '''
+    attribute_data_arg_list {
+      attribute_data {
+        name: "float_list"
+        value {
+          double_list {
+'''
+    for val in float_list:
+      query += f'            value_list: {val}\n'
+    query += '''          }
+        }
+      }
+    }
+    '''
+    
+    # Add bool_list
+    query += '''
+    attribute_data_arg_list {
+      attribute_data {
+        name: "bool_list"
+        value {
+          bool_list {
+'''
+    for val in bool_list:
+      query += f'            value_list: {str(val).lower()}\n'
+    query += '''          }
+        }
+      }
+    }
+    '''
+    
+    # Add byte_list (stored as int64_list in IDF)
+    query += '''
+    attribute_data_arg_list {
+      attribute_data {
+        name: "byte_list"
+        value {
+          int64_list {
+'''
+    for val in byte_list:
+      query += f'            value_list: {val}\n'
+    query += '''          }
+        }
+      }
+    }
+    '''
+    
+    # Add enum_list
+    query += '''
+    attribute_data_arg_list {
+      attribute_data {
+        name: "enum_list"
+        value {
+          str_list {
+'''
+    for val in enum_list:
+      query += f'            value_list: "{val}"\n'
+    query += '''          }
+        }
+      }
+    }
     '''
     
     Merge(query, arg)
@@ -165,13 +492,313 @@ def register_item():
     try:
       ret = insights_interface.UpdateEntity(arg)
       if (i + 1) % 10 == 0:
-        print(f"  ✅ Created {i + 1} items...")
+        print(f"  ✅ Created {i + 1} TYPE1 items...")
     except InsightsInterfaceError as ex:
       print(f"❌ Error creating item {i + 1}: " + ex.message + "\n")
       print(ex.ret)
   
-  print(f"\n✅ Successfully created {110} sample items in IDF!")
+  # Create TYPE2 items (20 items) - for GroupBy testing
+  print("\n📝 Creating TYPE2 items for GroupBy testing...")
+  for i in range(20):
+    arg = UpdateEntityArg()
+    item_id = 200 + i + 1  # Start from 201
+    item_name = "TYPE2 Item " + str(i + 1)
+    description = "Description for TYPE2 item " + str(i + 1)
+    item_uuid = uuid_list[100 + i]  # Use remaining UUIDs
+    
+    # Generate values for TYPE2 items
+    quantity = 50 + (i * 5)
+    price = round(20.0 + (i * 0.5), 1)
+    is_active = (i % 2 == 0)  # Alternate true/false
+    priority = 2  # Priority 2 for TYPE2
+    status = status_values[i % 3]  # Rotate through statuses
+    
+    query = '''
+    entity_guid {
+      entity_type_name: "item"
+      entity_id: "''' + item_uuid + '''"
+    }
+    full_update: false
+    attribute_data_arg_list {
+      attribute_data {
+        name: "item_id"
+        value {
+          int64_value: ''' + str(item_id) + '''
+        }
+      }
+    }
+    attribute_data_arg_list {
+      attribute_data {
+        name: "item_name"
+        value {
+          str_value: "''' + item_name + '''"
+        }
+      }
+    }
+    attribute_data_arg_list {
+      attribute_data {
+        name: "item_type"
+        value {
+          str_value: "TYPE2"
+        }
+      }
+    }
+    attribute_data_arg_list {
+      attribute_data {
+        name: "description"
+        value {
+          str_value: "''' + description + '''"
+        }
+      }
+    }
+    attribute_data_arg_list {
+      attribute_data {
+        name: "ext_id"
+        value {
+          str_value: "''' + item_uuid + '''"
+        }
+      }
+    }
+    attribute_data_arg_list {
+      attribute_data {
+        name: "quantity"
+        value {
+          int64_value: ''' + str(quantity) + '''
+        }
+      }
+    }
+    attribute_data_arg_list {
+      attribute_data {
+        name: "price"
+        value {
+          double_value: ''' + str(price) + '''
+        }
+      }
+    }
+    attribute_data_arg_list {
+      attribute_data {
+        name: "is_active"
+        value {
+          bool_value: ''' + str(is_active).lower() + '''
+        }
+      }
+    }
+    attribute_data_arg_list {
+      attribute_data {
+        name: "priority"
+        value {
+          int64_value: ''' + str(priority) + '''
+        }
+      }
+    }
+    attribute_data_arg_list {
+      attribute_data {
+        name: "status"
+        value {
+          str_value: "''' + status + '''"
+        }
+      }
+    }
+    '''
+    
+    # Add list attributes with random values for TYPE2 items
+    import random
+    string_list = [f"tag_{random.randint(1, 10)}", f"label_{random.randint(1, 5)}"]
+    int64_list = [random.randint(100, 200), random.randint(1, 50), random.randint(1, 100)]
+    float_list = [round(random.uniform(10.0, 20.0), 2), round(random.uniform(0.5, 5.0), 2)]
+    bool_list = [random.choice([True, False]), random.choice([True, False]), random.choice([True, False])]
+    byte_list = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
+    enum_list = [random.choice(["ACTIVE", "INACTIVE", "PENDING"]), random.choice(["ACTIVE", "INACTIVE", "PENDING"])]
+    
+    # Add string_list
+    query += '''
+    attribute_data_arg_list {
+      attribute_data {
+        name: "string_list"
+        value {
+          str_list {
+'''
+    for val in string_list:
+      query += f'            value_list: "{val}"\n'
+    query += '''          }
+        }
+      }
+    }
+    '''
+    
+    # Add int64_list
+    query += '''
+    attribute_data_arg_list {
+      attribute_data {
+        name: "int64_list"
+        value {
+          int64_list {
+'''
+    for val in int64_list:
+      query += f'            value_list: {val}\n'
+    query += '''          }
+        }
+      }
+    }
+    '''
+    
+    # Add float_list
+    query += '''
+    attribute_data_arg_list {
+      attribute_data {
+        name: "float_list"
+        value {
+          double_list {
+'''
+    for val in float_list:
+      query += f'            value_list: {val}\n'
+    query += '''          }
+        }
+      }
+    }
+    '''
+    
+    # Add bool_list
+    query += '''
+    attribute_data_arg_list {
+      attribute_data {
+        name: "bool_list"
+        value {
+          bool_list {
+'''
+    for val in bool_list:
+      query += f'            value_list: {str(val).lower()}\n'
+    query += '''          }
+        }
+      }
+    }
+    '''
+    
+    # Add byte_list (stored as int64_list in IDF)
+    query += '''
+    attribute_data_arg_list {
+      attribute_data {
+        name: "byte_list"
+        value {
+          int64_list {
+'''
+    for val in byte_list:
+      query += f'            value_list: {val}\n'
+    query += '''          }
+        }
+      }
+    }
+    '''
+    
+    # Add enum_list
+    query += '''
+    attribute_data_arg_list {
+      attribute_data {
+        name: "enum_list"
+        value {
+          str_list {
+'''
+    for val in enum_list:
+      query += f'            value_list: "{val}"\n'
+    query += '''          }
+        }
+      }
+    }
+    '''
+    
+    Merge(query, arg)
+    
+    try:
+      ret = insights_interface.UpdateEntity(arg)
+      print(f"  ✅ Created TYPE2 item {i + 1}...")
+    except InsightsInterfaceError as ex:
+      print(f"❌ Error creating TYPE2 item {i + 1}: " + ex.message + "\n")
+      print(ex.ret)
+  
+  print(f"\n✅ Successfully created 100 TYPE1 items + 20 TYPE2 items in IDF with all columns including list attributes!")
+  print(f"💡 All items now have list attributes (stringList, int64List, floatList, boolList, byteList, enumList) with random values!")
   print(f"\n🔍 Access IDF data at: http://<PC_IP>:2027/")
+
+def register_item_stats():
+  """Register item_stats entity type and attributes in IDF"""
+  insights_interface = InsightsInterface("127.0.0.1", "2027")
+  
+  # Step 1: Register Entity Type
+  arg = RegisterEntityTypesArg()
+  query = '''
+    entity_type_info_list {
+      entity_type_name: "item_stats"
+      type_info {
+        suppress_replication : true
+        backup_replication_control {
+          is_backup_required: false
+        }
+        replication_control_list {
+          enable_replication_from : kNDFS
+        }
+        is_evictable: false
+        retain_attributes_on_deletion: false
+        track_attribute_changes : false
+        enable_pulsehd_collection : false
+      }
+    }
+  '''
+  Merge(query, arg)
+  
+  try:
+    ret = insights_interface.RegisterEntityTypes(arg)
+    print("✅ Successfully registered entity type: item_stats")
+  except InsightsInterfaceError as ex:
+    print("❌ Error registering entity type: " + ex.message + "\n")
+    print(ex.ret)
+    return
+  
+  # Step 2: Register Metric Types (Attributes)
+  arg = RegisterMetricTypesArg()
+  query = '''
+  metric_type_list {
+    is_attribute: true
+    metric_name: "stats_ext_id"
+    entity_type_name: "item_stats"
+    user_metadata: "{\\"data_type\\":\\"string\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "item_ext_id"
+    entity_type_name: "item_stats"
+    user_metadata: "{\\"data_type\\":\\"string\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "age"
+    entity_type_name: "item_stats"
+    user_metadata: "{\\"data_type\\":\\"int64\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "heart_rate"
+    entity_type_name: "item_stats"
+    user_metadata: "{\\"data_type\\":\\"int64\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "food_intake"
+    entity_type_name: "item_stats"
+    user_metadata: "{\\"data_type\\":\\"double\\"}"
+  }
+  '''
+  Merge(query, arg)
+  
+  try:
+    ret = insights_interface.RegisterMetricTypes(arg)
+    print("✅ Successfully registered metric types for item_stats")
+  except InsightsInterfaceError as ex:
+    print("❌ Error registering metric types: " + ex.message + "\n")
+    print(ex.ret)
+    return
+  
+  print("\n✅ Successfully registered item_stats entity type and attributes in IDF!")
+  print("  ℹ️  Note: To create item_stats records, use create_item_stats.py script with item extIds.")
 
 def register_item_associations():
   insights_interface = InsightsInterface("127.0.0.1", "2027")
@@ -207,7 +834,8 @@ def register_item_associations():
     return
   
   # Step 2: Register Metric Types (Attributes)
-  # 4 columns: item_id, entity_type, entity_id, count
+  # Original 4 columns: item_id, entity_type, entity_id, count
+  # New GroupBy columns: total_count, average_score
   arg = RegisterMetricTypesArg()
   query = '''
   metric_type_list {
@@ -233,6 +861,18 @@ def register_item_associations():
     metric_name: "count"
     entity_type_name: "item_associations"
     user_metadata: "{\\"data_type\\":\\"int64\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "total_count"
+    entity_type_name: "item_associations"
+    user_metadata: "{\\"data_type\\":\\"int64\\"}"
+  }
+  metric_type_list {
+    is_attribute: true
+    metric_name: "average_score"
+    entity_type_name: "item_associations"
+    user_metadata: "{\\"data_type\\":\\"double\\"}"
   }
   '''
   Merge(query, arg)
@@ -345,6 +985,8 @@ if __name__ == "__main__":
     register_item()
     print("\n" + "="*60)
     register_item_associations()
+    print("\n" + "="*60)
+    register_item_stats()  # Registers entity type only; use create_item_stats.py to create records
     print("\n" + "="*60)
     register_file()
 

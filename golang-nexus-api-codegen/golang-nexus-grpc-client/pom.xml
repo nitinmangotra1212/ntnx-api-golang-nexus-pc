@@ -265,7 +265,7 @@
                                 </replaceregexp>
                                 <!-- Step 7: Fix interface signature - remove CompletableFuture wrapper -->
                                 <replaceregexp byline="true" flags="g">
-                                    <regexp pattern="(CompletableFuture&lt;ResponseEntity&lt;MappingJacksonValue&gt;&gt;|ResponseEntity&lt;MappingJacksonValue&gt;) (listItems|listCats)\(([^)]+)\)"/>
+                                    <regexp pattern="(CompletableFuture&lt;ResponseEntity&lt;MappingJacksonValue&gt;&gt;|ResponseEntity&lt;MappingJacksonValue&gt;) (listItems|listCats|listItemAssociationStats|listItemStats)\(([^)]+)\)"/>
                                     <substitution expression="ResponseEntity&lt;MappingJacksonValue&gt; $2($3)"/>
                                     <fileset dir="${project.build.directory}/generated-sources/swagger/src">
                                         <include name="**/*ControllerInterface.java"/>
@@ -282,6 +282,20 @@
                                 <replaceregexp byline="true" flags="g">
                                     <regexp pattern="public CompletableFuture&lt;ResponseEntity&lt;MappingJacksonValue&gt;&gt; listCats"/>
                                     <substitution expression="public ResponseEntity&lt;MappingJacksonValue&gt; listCats"/>
+                                    <fileset dir="${project.build.directory}/generated-sources/swagger/src">
+                                        <include name="**/*Controller.java"/>
+                                    </fileset>
+                                </replaceregexp>
+                                <replaceregexp byline="true" flags="g">
+                                    <regexp pattern="public CompletableFuture&lt;ResponseEntity&lt;MappingJacksonValue&gt;&gt; listItemAssociationStats"/>
+                                    <substitution expression="public ResponseEntity&lt;MappingJacksonValue&gt; listItemAssociationStats"/>
+                                    <fileset dir="${project.build.directory}/generated-sources/swagger/src">
+                                        <include name="**/*Controller.java"/>
+                                    </fileset>
+                                </replaceregexp>
+                                <replaceregexp byline="true" flags="g">
+                                    <regexp pattern="public CompletableFuture&lt;ResponseEntity&lt;MappingJacksonValue&gt;&gt; listItemStats"/>
+                                    <substitution expression="public ResponseEntity&lt;MappingJacksonValue&gt; listItemStats"/>
                                     <fileset dir="${project.build.directory}/generated-sources/swagger/src">
                                         <include name="**/*Controller.java"/>
                                     </fileset>
@@ -303,6 +317,15 @@
                                 <exec executable="bash" failonerror="false">
                                     <arg value="${project.basedir}/scripts/fix-controller-complete.sh"/>
                                     <arg value="${project.build.directory}/generated-sources/swagger/src/nexus/v4/config/NexusConfigItemController.java"/>
+                                </exec>
+                                <!-- Step 10b: Fix stats controllers CompletableFuture method body -->
+                                <exec executable="bash" failonerror="false">
+                                    <arg value="${project.basedir}/scripts/fix-stats-controller.sh"/>
+                                    <arg value="${project.build.directory}/generated-sources/swagger/src/nexus/v4/stats/NexusStatsItemAssociationStatsController.java"/>
+                                </exec>
+                                <exec executable="bash" failonerror="false">
+                                    <arg value="${project.basedir}/scripts/fix-stats-controller.sh"/>
+                                    <arg value="${project.build.directory}/generated-sources/swagger/src/nexus/v4/stats/NexusStatsItemStatsController.java"/>
                                 </exec>
                                 <!-- Step 11: Fix File controller - remove error handling for simple File model -->
                                 <exec executable="bash" failonerror="false">

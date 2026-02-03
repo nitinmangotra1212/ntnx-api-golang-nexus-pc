@@ -1,30 +1,31 @@
 paths:
-  /items:
+  /item-stats:
     get:
       tags:
-        - "ApiEndpoint(Item)"
-      description: List all items
-      summary: List items
-      operationId: "listItems"
+        - "ApiEndpoint(ItemStats)"
+      description: List item statistics with grouping and filtering capabilities
+      summary: List item statistics (Stats)
+      operationId: "listItemStats"
       x-support-expand: true
       x-groupable: true
       responses:
         200:
-          description: List of items retrieved successfully
+          description: List of item statistics retrieved successfully
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "ModelRef({/namespaces/nexus/versioned/v4/modules/config/released/models/Item})"
+                  $ref: "ModelRef({/namespaces/nexus/versioned/v4/modules/stats/released/models/ItemStats})"
         x-api-responses:
-          responseModelName: "ListItemsApiResponse"
+          responseModelName: "ListItemStatsApiResponse"
           template: ext:common:/namespaces/common/versioned/v1/modules/response/released/models/apiResponse
         x-codegen-hint:
           $any:
             - type: entity-identifier
               properties:
                 identifiers:
-                  - type: "ModelRef({/namespaces/nexus/versioned/v4/modules/config/released/models/Item})"
+                  - type: "ModelRef({/namespaces/nexus/versioned/v4/modules/stats/released/models/ItemStats})"
                     container: "array"
                     index: 2001
+

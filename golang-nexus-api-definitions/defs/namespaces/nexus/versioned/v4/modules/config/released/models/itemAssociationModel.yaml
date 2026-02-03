@@ -20,9 +20,38 @@ components:
           description: Count of associations of this type
           type: integer
           format: int32
+        totalCount:
+          description: Total count of associations
+          type: integer
+          format: int64
+          example: 1000
+        averageScore:
+          description: Average score/rating of associations
+          type: number
+          format: double
+          example: 4.5
       x-filterable-properties:
         - entityType
         - count
+        - totalCount
+        - averageScore
+      x-sortable-properties:
+        - entityType
+        - count
+        - totalCount
+        - averageScore
+      x-selection-properties:
+        - itemId
+        - entityType
+        - entityId
+        - count
+        - totalCount
+        - averageScore
+      x-groupable-properties:
+        - entityType
+        - itemId
+        - totalCount
+        - averageScore
       x-property-mapping:
         - name: itemId
           value: item_id
@@ -32,6 +61,10 @@ components:
           value: entity_id
         - name: count
           value: count
+        - name: totalCount
+          value: total_count
+        - name: averageScore
+          value: average_score
       x-entity: item_associations
       x-codegen-hint:
         $any:
@@ -46,4 +79,8 @@ components:
                   index: 3003
                 - name: count
                   index: 3004
+                - name: totalCount
+                  index: 3005
+                - name: averageScore
+                  index: 3006
 

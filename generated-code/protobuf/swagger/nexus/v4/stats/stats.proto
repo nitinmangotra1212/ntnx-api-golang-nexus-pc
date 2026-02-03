@@ -1,0 +1,305 @@
+/*
+ * Generated file nexus/v4/stats/stats.proto.
+ *
+ * Product version: 1.0.0-SNAPSHOT
+ *
+ * Part of the GoLang Mock API - REST API for Mock Item Service
+ *
+ * (c) 2026 Nutanix Inc.  All rights reserved
+ *
+ */
+
+syntax = "proto2";
+
+package nexus.v4.stats;
+
+option java_multiple_files = true;
+option java_package = "nexus.v4.stats";
+option go_package = "nexus/v4/stats";
+
+import "google/protobuf/any.proto";
+import "common/v1/response/response.proto";
+import "nexus/v4/error/error.proto";
+
+/*
+ * Map wrapper message
+ */
+message ObjectMapWrapper {
+  /*
+   * Value field in wrapper message
+   */
+  map<string, google.protobuf.Any> value = 1000;
+}
+/*
+ * Statistics entity for items, representing time-series or analytical data for an item
+ */
+message ItemStats {
+  /*
+   * Unique identifier for the stats record (primary key)
+   */
+  optional string stats_ext_id = 4001;
+  /*
+   * External identifier of the item this stats record belongs to (foreign key to Item.extId)
+   */
+  optional string item_ext_id = 4002;
+  /*
+   * Age of the item
+   */
+  optional int32 age = 4003;
+  /*
+   * Heart rate measurement
+   */
+  optional int32 heart_rate = 4004;
+  /*
+   * Food intake measurement
+   */
+  optional double food_intake = 4005;
+  /*
+   * 
+   */
+  optional nexus.v4.stats.ObjectMapWrapper _reserved = 900000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message Int32Wrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  optional int32 value = 1000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message Int64Wrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  optional int64 value = 1000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message DoubleWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  optional double value = 1000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message ItemStatsTimeValuePairArrayWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  repeated nexus.v4.stats.ItemStatsTimeValuePair value = 1000;
+}
+/*
+ * 
+ */
+message ItemStatsAggregate {
+  /*
+   * 
+   */
+  oneof result {
+    /*
+     * 
+     */
+    nexus.v4.stats.Int32Wrapper int32_result = 2003;
+    /*
+     * 
+     */
+    nexus.v4.stats.Int64Wrapper int64_result = 2004;
+    /*
+     * 
+     */
+    nexus.v4.stats.DoubleWrapper double_result = 2005;
+    /*
+     * 
+     */
+    nexus.v4.stats.ItemStatsTimeValuePairArrayWrapper item_stats_time_value_pair_array_result = 2006;
+  }
+  /*
+   * 
+   */
+  optional string label = 2001;
+  /*
+   * 
+   */
+  optional nexus.v4.stats.ObjectMapWrapper _reserved = 900000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message StringWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  optional string value = 1000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message BooleanWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  optional bool value = 1000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message ItemStatsArrayWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  repeated nexus.v4.stats.ItemStats value = 1000;
+}
+/*
+ * Array wrapper message
+ */
+message ItemStatsAggregateArrayWrapper {
+  /*
+   * Value field in wrapper message
+   */
+  repeated nexus.v4.stats.ItemStatsAggregate value = 1000;
+}
+/*
+ * 
+ */
+message ItemStatsGroup {
+  /*
+   * 
+   */
+  oneof group {
+    /*
+     * 
+     */
+    nexus.v4.stats.StringWrapper string_group = 2002;
+    /*
+     * 
+     */
+    nexus.v4.stats.Int32Wrapper int32_group = 2003;
+    /*
+     * 
+     */
+    nexus.v4.stats.Int64Wrapper int64_group = 2004;
+    /*
+     * 
+     */
+    nexus.v4.stats.DoubleWrapper double_group = 2005;
+    /*
+     * 
+     */
+    nexus.v4.stats.BooleanWrapper boolean_group = 2006;
+  }
+  /*
+   * 
+   */
+  oneof data {
+    /*
+     * 
+     */
+    nexus.v4.stats.ItemStatsArrayWrapper item_stats_array_data = 2008;
+  }
+  /*
+   * 
+   */
+  optional nexus.v4.stats.ItemStatsAggregateArrayWrapper aggregates = 2009;
+  /*
+   * 
+   */
+  optional common.v1.response.ApiResponseMetadata metadata = 2010;
+  /*
+   * 
+   */
+  optional nexus.v4.stats.ObjectMapWrapper _reserved = 900000;
+}
+/*
+ * 
+ */
+message ItemStatsProjection {
+  /*
+   * 
+   */
+  optional nexus.v4.stats.ItemStats base = 100;
+}
+/*
+ * 
+ */
+message ItemStatsTimeValuePair {
+  /*
+   * 
+   */
+  optional int64 time_stamp = 2001;
+  /*
+   * 
+   */
+  optional int64 value = 2002;
+  /*
+   * 
+   */
+  optional nexus.v4.stats.ObjectMapWrapper _reserved = 900000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message ErrorResponseWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  optional nexus.v4.error.ErrorResponse value = 1000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message ItemStatsProjectionArrayWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  repeated nexus.v4.stats.ItemStatsProjection value = 1000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message ItemStatsGroupArrayWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  repeated nexus.v4.stats.ItemStatsGroup value = 1000;
+}
+/*
+ * REST response for all response codes in API path /nexus/v4.1/stats/item-stats Get operation
+ */
+message ListItemStatsApiResponse {
+  /*
+   * REST response for all response codes in API path /nexus/v4.1/stats/item-stats Get operation
+   */
+  oneof data {
+    /*
+     * 
+     */
+    nexus.v4.stats.ItemStatsArrayWrapper item_stats_array_data = 2001;
+    /*
+     * 
+     */
+    nexus.v4.stats.ErrorResponseWrapper error_response_data = 400;
+    /*
+     * 
+     */
+    nexus.v4.stats.ItemStatsProjectionArrayWrapper item_stats_projection_array_data = 401;
+    /*
+     * 
+     */
+    nexus.v4.stats.ItemStatsGroupArrayWrapper item_stats_group_array_data = 402;
+  }
+  /*
+   * 
+   */
+  optional common.v1.response.ApiResponseMetadata metadata = 1001;
+  /*
+   * 
+   */
+  optional nexus.v4.stats.ObjectMapWrapper _reserved = 900000;
+}

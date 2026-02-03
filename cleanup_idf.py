@@ -19,219 +19,224 @@ sys.path.append("/home/nutanix/cluster/bin")
 
 import warnings
 import env
+import gflags
 from google.protobuf.text_format import Merge
 from insights_interface.insights_interface_pb2 import *
 from insights_interface.insights_interface import *
 
+FLAGS = gflags.FLAGS
+
 def delete_all_items():
-  """Delete all items from IDF"""
+  """Delete all items from IDF using QueryEntities to get entity IDs"""
   insights_interface = InsightsInterface("127.0.0.1", "2027")
   
   print("\n🗑️  Deleting all items from IDF...")
   
-  # Use IDF HTTP API to get entity IDs (simpler than query builder)
-  import urllib.request
-  import json
-  
+  # Query IDF to get all item entities
   try:
-    # Query IDF web UI API to get all item entities
-    url = "http://127.0.0.1:2027/entities?type=item"
-    with urllib.request.urlopen(url) as response:
-      html = response.read().decode('utf-8')
-      # Parse HTML to extract entity IDs (IDF web UI returns HTML table)
-      # Entity IDs are in the table rows
-      import re
-      # Find all entity IDs in the HTML (they appear as links or in table cells)
-      # Pattern: entity_id appears in URLs like /entities?type=item&id=<uuid>
-      entity_ids = re.findall(r'entity_id=([a-f0-9\-]{36})', html)
-      # Also try finding UUIDs directly in the page
-      if not entity_ids:
-        entity_ids = re.findall(r'([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})', html, re.IGNORECASE)
-      
-      if not entity_ids:
-        print("  ℹ️  No items found in IDF (or couldn't parse entity IDs from web UI)")
-        return 0
-      
-      print(f"  📋 Found {len(entity_ids)} items to delete...")
-      
+    # Build query to get all items using Merge (text format)
+    query_arg = GetEntitiesWithMetricsArg()
+    query_text = '''
+    entity_type_name: "item"
+    query {
+      group_by {
+        raw_columns {
+          column: "ext_id"
+        }
+        raw_columns {
+          column: "item_id"
+        }
+        raw_limit {
+          limit: 10000
+          offset: 0
+        }
+      }
+    }
+    '''
+    Merge(query_text, query_arg)
+    
+    # Query IDF
+    query_ret = insights_interface.GetEntitiesWithMetricsRet(query_arg)
+    
+    if not query_ret or not query_ret.GroupResultsList:
+      print("  ℹ️  No items found in IDF")
+      return 0
+    
+    # Extract entity IDs from query results
+    entity_ids = []
+    for group_result in query_ret.GroupResultsList:
+      for entity_with_metric in group_result.RawResults:
+        entity = entity_with_metric.Entity
+        if entity and entity.EntityGuid:
+          entity_id = entity.EntityGuid.EntityId
+          if entity_id:
+            entity_ids.append(entity_id)
+    
+    if not entity_ids:
+      print("  ℹ️  No items found in IDF")
+      return 0
+    
+    print(f"  📋 Found {len(entity_ids)} items to delete...")
+    
   except Exception as ex:
-    print(f"  ⚠️  Error querying IDF web UI: {ex}")
-    print(f"  💡 Falling back to manual deletion - check IDF web UI")
+    print(f"  ⚠️  Error querying IDF: {ex}")
+    print(f"  💡 Tip: IDF entities might not be deletable if they're non-CAS")
     return 0
   
-  try:
-    item_count = 0
-    for entity_id in entity_ids:
-      # Delete entity - need to get entity first to get CAS value
-      get_arg = GetEntitiesArg()
-      get_query = '''
-      entity_guid_list {
+  # Try to delete each entity
+  item_count = 0
+  skipped_count = 0
+  
+  for entity_id in entity_ids:
+    try:
+      # For non-CAS entities, try deleting without CAS value first
+      delete_arg = DeleteEntityArg()
+      delete_query = '''
+      entity_guid {
         entity_type_name: "item"
         entity_id: "''' + entity_id + '''"
       }
       '''
-      Merge(get_query, get_arg)
+      Merge(delete_query, delete_arg)
       
-      try:
-        # Try to get entity first to get CAS value
-        try:
-          get_ret = insights_interface.GetEntity(get_arg)
-          # GetEntitiesRet has entity list
-          if hasattr(get_ret, 'entity') and len(get_ret.entity) > 0:
-            entity = get_ret.entity[0]
-            cas_value = entity.cas_value if hasattr(entity, 'cas_value') and entity.cas_value else 1
-          else:
-            cas_value = 1  # Default CAS value
-        except:
-          # If GetEntity fails, try with default CAS
-          cas_value = 1
+      # Try delete without CAS (for non-CAS entities)
+      insights_interface.DeleteEntity(delete_arg)
+      item_count += 1
+      if item_count % 10 == 0:
+        print(f"  ✅ Deleted {item_count} items...")
         
-        # Delete with CAS value
-        delete_arg = DeleteEntityArg()
-        delete_query = '''
-        entity_guid {
-          entity_type_name: "item"
-          entity_id: "''' + entity_id + '''"
-        }
-        cas_value: ''' + str(cas_value) + '''
-        '''
-        Merge(delete_query, delete_arg)
-        
-        insights_interface.DeleteEntity(delete_arg)
-        item_count += 1
-        if item_count % 10 == 0:
-          print(f"  ✅ Deleted {item_count} items...")
-      except InsightsInterfaceError as ex:
-        # Entity might already be deleted, continue
-        if "not found" not in ex.message.lower() and "does not exist" not in ex.message.lower() and "incorrect cas" not in ex.message.lower():
-          # Try with CAS = 1 if CAS error
-          if "incorrect cas" in ex.message.lower():
-            try:
-              delete_arg = DeleteEntityArg()
-              delete_query = '''
-              entity_guid {
-                entity_type_name: "item"
-                entity_id: "''' + entity_id + '''"
-              }
-              cas_value: 1
-              '''
-              Merge(delete_query, delete_arg)
-              insights_interface.DeleteEntity(delete_arg)
-              item_count += 1
-            except:
-              pass  # Skip if still fails
-          else:
-            print(f"  ⚠️  Error deleting item {entity_id}: {ex.message}")
-    
-    print(f"  ✅ Deleted {item_count} items from IDF")
-    return item_count
-  except Exception as ex:
-    print(f"  ⚠️  Error during deletion: {ex}")
-    return item_count if 'item_count' in locals() else 0
+    except InsightsInterfaceError as ex:
+      error_msg = ex.message.lower()
+      # Skip if entity not found or doesn't exist
+      if "not found" in error_msg or "does not exist" in error_msg:
+        skipped_count += 1
+        continue
+      # Skip if non-CAS entity error (these can't be deleted)
+      if "kcasupdatefornoncasentity" in error_msg or "noncas" in error_msg or "cas" in error_msg:
+        skipped_count += 1
+        if skipped_count <= 3:  # Only show first few warnings
+          print(f"  ⚠️  Skipping non-CAS entity {entity_id[:8]}... (cannot be deleted)")
+        continue
+      # Other errors
+      if skipped_count <= 3:
+        print(f"  ⚠️  Error deleting item {entity_id[:8]}...: {ex.message}")
+      skipped_count += 1
+  
+  print(f"  ✅ Deleted {item_count} items from IDF")
+  if skipped_count > 0:
+    print(f"  ⚠️  Skipped {skipped_count} items (non-CAS entities cannot be deleted)")
+    print(f"  💡 Tip: Non-CAS entities will be overwritten when you run setup_nexus_idf.py")
+  
+  return item_count
 
 def delete_all_associations():
-  """Delete all item_associations from IDF"""
+  """Delete all item_associations from IDF using QueryEntities"""
   insights_interface = InsightsInterface("127.0.0.1", "2027")
   
   print("\n🗑️  Deleting all item_associations from IDF...")
   
-  # Use IDF HTTP API to get entity IDs (simpler than query builder)
-  import urllib.request
-  import re
-  
+  # Query IDF to get all association entities
   try:
-    # Query IDF web UI API to get all association entities
-    url = "http://127.0.0.1:2027/entities?type=item_associations"
-    with urllib.request.urlopen(url) as response:
-      html = response.read().decode('utf-8')
-      # Parse HTML to extract entity IDs
-      entity_ids = re.findall(r'entity_id=([a-f0-9\-]{36})', html)
-      if not entity_ids:
-        entity_ids = re.findall(r'([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})', html, re.IGNORECASE)
-      
-      if not entity_ids:
-        print("  ℹ️  No associations found in IDF (or couldn't parse entity IDs from web UI)")
-        return 0
-      
-      print(f"  📋 Found {len(entity_ids)} associations to delete...")
-      
+    # Build query to get all associations using Merge (text format)
+    query_arg = GetEntitiesWithMetricsArg()
+    query_text = '''
+    entity_type_name: "item_associations"
+    query {
+      group_by {
+        raw_columns {
+          column: "item_id"
+        }
+        raw_columns {
+          column: "entity_type"
+        }
+        raw_limit {
+          limit: 10000
+          offset: 0
+        }
+      }
+    }
+    '''
+    Merge(query_text, query_arg)
+    
+    # Query IDF
+    query_ret = insights_interface.GetEntitiesWithMetricsRet(query_arg)
+    
+    if not query_ret or not query_ret.GroupResultsList:
+      print("  ℹ️  No associations found in IDF")
+      return 0
+    
+    # Extract entity IDs from query results
+    entity_ids = []
+    for group_result in query_ret.GroupResultsList:
+      for entity_with_metric in group_result.RawResults:
+        entity = entity_with_metric.Entity
+        if entity and entity.EntityGuid:
+          entity_id = entity.EntityGuid.EntityId
+          if entity_id:
+            entity_ids.append(entity_id)
+    
+    if not entity_ids:
+      print("  ℹ️  No associations found in IDF")
+      return 0
+    
+    print(f"  📋 Found {len(entity_ids)} associations to delete...")
+    
   except Exception as ex:
-    print(f"  ⚠️  Error querying IDF web UI: {ex}")
+    print(f"  ⚠️  Error querying IDF: {ex}")
     return 0
   
-  try:
-    assoc_count = 0
-    for entity_id in entity_ids:
-      # Delete entity - need to get entity first to get CAS value
-      get_arg = GetEntitiesArg()
-      get_query = '''
-      entity_guid_list {
+  # Try to delete each association
+  assoc_count = 0
+  skipped_count = 0
+  
+  for entity_id in entity_ids:
+    try:
+      # For non-CAS entities, try deleting without CAS value
+      delete_arg = DeleteEntityArg()
+      delete_query = '''
+      entity_guid {
         entity_type_name: "item_associations"
         entity_id: "''' + entity_id + '''"
       }
       '''
-      Merge(get_query, get_arg)
+      Merge(delete_query, delete_arg)
       
-      try:
-        # Try to get entity first to get CAS value
-        try:
-          get_ret = insights_interface.GetEntity(get_arg)
-          # GetEntitiesRet has entity list
-          if hasattr(get_ret, 'entity') and len(get_ret.entity) > 0:
-            entity = get_ret.entity[0]
-            cas_value = entity.cas_value if hasattr(entity, 'cas_value') and entity.cas_value else 1
-          else:
-            cas_value = 1  # Default CAS value
-        except:
-          # If GetEntity fails, try with default CAS
-          cas_value = 1
+      insights_interface.DeleteEntity(delete_arg)
+      assoc_count += 1
+      if assoc_count % 10 == 0:
+        print(f"  ✅ Deleted {assoc_count} associations...")
         
-        # Delete with CAS value
-        delete_arg = DeleteEntityArg()
-        delete_query = '''
-        entity_guid {
-          entity_type_name: "item_associations"
-          entity_id: "''' + entity_id + '''"
-        }
-        cas_value: ''' + str(cas_value) + '''
-        '''
-        Merge(delete_query, delete_arg)
-        
-        insights_interface.DeleteEntity(delete_arg)
-        assoc_count += 1
-        if assoc_count % 10 == 0:
-          print(f"  ✅ Deleted {assoc_count} associations...")
-      except InsightsInterfaceError as ex:
-        # Entity might already be deleted, continue
-        if "not found" not in ex.message.lower() and "does not exist" not in ex.message.lower() and "incorrect cas" not in ex.message.lower():
-          # Try with CAS = 1 if CAS error
-          if "incorrect cas" in ex.message.lower():
-            try:
-              delete_arg = DeleteEntityArg()
-              delete_query = '''
-              entity_guid {
-                entity_type_name: "item_associations"
-                entity_id: "''' + entity_id + '''"
-              }
-              cas_value: 1
-              '''
-              Merge(delete_query, delete_arg)
-              insights_interface.DeleteEntity(delete_arg)
-              assoc_count += 1
-            except:
-              pass  # Skip if still fails
-          else:
-            print(f"  ⚠️  Error deleting association {entity_id}: {ex.message}")
-    
-    print(f"  ✅ Deleted {assoc_count} associations from IDF")
-    return assoc_count
-  except Exception as ex:
-    print(f"  ⚠️  Error during deletion: {ex}")
-    return assoc_count if 'assoc_count' in locals() else 0
+    except InsightsInterfaceError as ex:
+      error_msg = ex.message.lower()
+      # Skip if entity not found or doesn't exist
+      if "not found" in error_msg or "does not exist" in error_msg:
+        skipped_count += 1
+        continue
+      # Skip if non-CAS entity error
+      if "kcasupdatefornoncasentity" in error_msg or "noncas" in error_msg or "cas" in error_msg:
+        skipped_count += 1
+        continue
+      # Other errors
+      if skipped_count <= 3:
+        print(f"  ⚠️  Error deleting association {entity_id[:8]}...: {ex.message}")
+      skipped_count += 1
+  
+  print(f"  ✅ Deleted {assoc_count} associations from IDF")
+  if skipped_count > 0:
+    print(f"  ⚠️  Skipped {skipped_count} associations (non-CAS entities cannot be deleted)")
+  
+  return assoc_count
 
 if __name__ == "__main__":
   with warnings.catch_warnings():
     warnings.simplefilter("ignore")
+    
+    # Parse gflags to avoid UnparsedFlagAccessError
+    try:
+      FLAGS(sys.argv)
+    except gflags.FlagsError as e:
+      print('%s\nUsage: %s ARGS\n%s' % (e, sys.argv[0], FLAGS))
+      sys.exit(1)
     
     print("="*60)
     print("🧹 IDF Cleanup Script")
@@ -245,6 +250,53 @@ if __name__ == "__main__":
     # Delete associations first (they reference items)
     assoc_count = delete_all_associations()
     
+    # Delete item_stats (they reference items)
+    print("\n🗑️  Deleting all item_stats from IDF...")
+    stats_count = 0
+    insights_interface = InsightsInterface("127.0.0.1", "2027")
+    try:
+      query_arg = GetEntitiesWithMetricsArg()
+      query_text = '''
+      entity_type_name: "item_stats"
+      query {
+        group_by {
+          raw_columns {
+            column: "stats_ext_id"
+          }
+          raw_limit {
+            limit: 10000
+            offset: 0
+          }
+        }
+      }
+      '''
+      Merge(query_text, query_arg)
+      
+      query_ret = insights_interface.GetEntitiesWithMetricsRet(query_arg)
+      if query_ret and query_ret.GroupResultsList:
+        for group_result in query_ret.GroupResultsList:
+          for entity_with_metric in group_result.RawResults:
+            entity = entity_with_metric.Entity
+            if entity and entity.EntityGuid:
+              entity_id = entity.EntityGuid.EntityId
+              if entity_id:
+                try:
+                  delete_arg = DeleteEntityArg()
+                  delete_query = f'''
+                  entity_guid {{
+                    entity_type_name: "item_stats"
+                    entity_id: "{entity_id}"
+                  }}
+                  '''
+                  Merge(delete_query, delete_arg)
+                  insights_interface.DeleteEntity(delete_arg)
+                  stats_count += 1
+                except:
+                  pass
+      print(f"  ✅ Deleted {stats_count} item_stats from IDF")
+    except Exception as ex:
+      print(f"  ⚠️  Error deleting item_stats: {ex}")
+    
     # Then delete items
     item_count = delete_all_items()
     
@@ -252,8 +304,10 @@ if __name__ == "__main__":
     print(f"✅ Cleanup complete!")
     print(f"   Deleted {item_count} items")
     print(f"   Deleted {assoc_count} associations")
+    print(f"   Deleted {stats_count} item_stats")
     print("="*60)
     print("\n💡 Next steps:")
-    print("   1. Run setup_nexus_idf.py to create fresh data")
-    print("   2. Run create_associations.py to create associations")
+    print("   1. Run setup_nexus_idf.py to create fresh data with list attributes")
+    print("   2. Run create_associations.py to create associations (optional)")
+    print("   3. Run create_item_stats.py to create item stats (optional)")
 

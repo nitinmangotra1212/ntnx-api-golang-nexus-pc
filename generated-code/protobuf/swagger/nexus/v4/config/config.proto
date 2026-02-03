@@ -18,8 +18,9 @@ option java_package = "nexus.v4.config";
 option go_package = "nexus/v4/config";
 
 import "google/protobuf/any.proto";
-import "nexus/v4/error/error.proto";
+import "nexus/v4/stats/stats.proto";
 import "common/v1/response/response.proto";
+import "nexus/v4/error/error.proto";
 
 /*
  * Map wrapper message
@@ -62,6 +63,51 @@ message File {
 /*
  * Array wrapper message
  */
+message StringArrayWrapper {
+  /*
+   * Value field in wrapper message
+   */
+  repeated string value = 1000;
+}
+/*
+ * Array wrapper message
+ */
+message LongArrayWrapper {
+  /*
+   * Value field in wrapper message
+   */
+  repeated int64 value = 1000;
+}
+/*
+ * Array wrapper message
+ */
+message DoubleArrayWrapper {
+  /*
+   * Value field in wrapper message
+   */
+  repeated double value = 1000;
+}
+/*
+ * Array wrapper message
+ */
+message BooleanArrayWrapper {
+  /*
+   * Value field in wrapper message
+   */
+  repeated bool value = 1000;
+}
+/*
+ * Array wrapper message
+ */
+message IntegerArrayWrapper {
+  /*
+   * Value field in wrapper message
+   */
+  repeated int32 value = 1000;
+}
+/*
+ * Array wrapper message
+ */
 message ItemAssociationArrayWrapper {
   /*
    * Value field in wrapper message
@@ -96,6 +142,124 @@ message Item {
    * Associated entities for this item. This field is only present when $expand=associations is specified in the query.
    */
   optional nexus.v4.config.ItemAssociationArrayWrapper associations = 2006;
+  /*
+   * Quantity/stock count of the item
+   */
+  optional int64 quantity = 2007;
+  /*
+   * Price/cost of the item
+   */
+  optional double price = 2008;
+  /*
+   * Whether the item is active
+   */
+  optional bool is_active = 2009;
+  /*
+   * Priority level of the item (0-255)
+   */
+  optional int32 priority = 2010;
+  /*
+   * Status of the item (e.g., ACTIVE, INACTIVE, PENDING)
+   */
+  optional string status = 2011;
+  /*
+   * 
+   */
+  optional nexus.v4.stats.ItemStats item_stats = 2012;
+  /*
+   * List of string values
+   */
+  optional nexus.v4.config.StringArrayWrapper string_list = 2013;
+  /*
+   * List of integer values (int64)
+   */
+  optional nexus.v4.config.LongArrayWrapper int64_list = 2014;
+  /*
+   * List of floating-point values (double)
+   */
+  optional nexus.v4.config.DoubleArrayWrapper float_list = 2015;
+  /*
+   * List of boolean values
+   */
+  optional nexus.v4.config.BooleanArrayWrapper bool_list = 2016;
+  /*
+   * List of byte values (0-255)
+   */
+  optional nexus.v4.config.IntegerArrayWrapper byte_list = 2017;
+  /*
+   * List of enum values (status enum)
+   */
+  optional nexus.v4.config.StringArrayWrapper enum_list = 2018;
+  /*
+   * 
+   */
+  optional nexus.v4.config.ObjectMapWrapper _reserved = 900000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message Int32Wrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  optional int32 value = 1000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message Int64Wrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  optional int64 value = 1000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message DoubleWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  optional double value = 1000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message ItemTimeValuePairArrayWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  repeated nexus.v4.config.ItemTimeValuePair value = 1000;
+}
+/*
+ * 
+ */
+message ItemAggregate {
+  /*
+   * 
+   */
+  oneof result {
+    /*
+     * 
+     */
+    nexus.v4.config.Int32Wrapper int32_result = 2003;
+    /*
+     * 
+     */
+    nexus.v4.config.Int64Wrapper int64_result = 2004;
+    /*
+     * 
+     */
+    nexus.v4.config.DoubleWrapper double_result = 2005;
+    /*
+     * 
+     */
+    nexus.v4.config.ItemTimeValuePairArrayWrapper item_time_value_pair_array_result = 2006;
+  }
+  /*
+   * 
+   */
+  optional string label = 2001;
   /*
    * 
    */
@@ -136,13 +300,22 @@ message ItemAssociationProjection {
   optional nexus.v4.config.ItemAssociation base = 100;
 }
 /*
- * 
+ * OneOf item wrapper message
  */
-message ItemProjection {
+message StringWrapper {
   /*
-   * 
+   * Value field in oneOf item wrapper message
    */
-  optional nexus.v4.config.Item base = 100;
+  optional string value = 1000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message BooleanWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  optional bool value = 1000;
 }
 /*
  * OneOf item wrapper message
@@ -152,6 +325,92 @@ message ItemArrayWrapper {
    * Value field in oneOf item wrapper message
    */
   repeated nexus.v4.config.Item value = 1000;
+}
+/*
+ * Array wrapper message
+ */
+message ItemAggregateArrayWrapper {
+  /*
+   * Value field in wrapper message
+   */
+  repeated nexus.v4.config.ItemAggregate value = 1000;
+}
+/*
+ * 
+ */
+message ItemGroup {
+  /*
+   * 
+   */
+  oneof group {
+    /*
+     * 
+     */
+    nexus.v4.config.StringWrapper string_group = 2002;
+    /*
+     * 
+     */
+    nexus.v4.config.Int32Wrapper int32_group = 2003;
+    /*
+     * 
+     */
+    nexus.v4.config.Int64Wrapper int64_group = 2004;
+    /*
+     * 
+     */
+    nexus.v4.config.DoubleWrapper double_group = 2005;
+    /*
+     * 
+     */
+    nexus.v4.config.BooleanWrapper boolean_group = 2006;
+  }
+  /*
+   * 
+   */
+  oneof data {
+    /*
+     * 
+     */
+    nexus.v4.config.ItemArrayWrapper item_array_data = 2008;
+  }
+  /*
+   * 
+   */
+  optional nexus.v4.config.ItemAggregateArrayWrapper aggregates = 2009;
+  /*
+   * 
+   */
+  optional common.v1.response.ApiResponseMetadata metadata = 2010;
+  /*
+   * 
+   */
+  optional nexus.v4.config.ObjectMapWrapper _reserved = 900000;
+}
+/*
+ * 
+ */
+message ItemProjection {
+  /*
+   * 
+   */
+  optional nexus.v4.config.Item base = 100;
+}
+/*
+ * 
+ */
+message ItemTimeValuePair {
+  /*
+   * 
+   */
+  optional int64 time_stamp = 2001;
+  /*
+   * 
+   */
+  optional int64 value = 2002;
+  /*
+   * 
+   */
+  optional nexus.v4.config.ObjectMapWrapper _reserved = 900000;
 }
 /*
  * OneOf item wrapper message
@@ -170,6 +429,15 @@ message ItemProjectionArrayWrapper {
    * Value field in oneOf item wrapper message
    */
   repeated nexus.v4.config.ItemProjection value = 1000;
+}
+/*
+ * OneOf item wrapper message
+ */
+message ItemGroupArrayWrapper {
+  /*
+   * Value field in oneOf item wrapper message
+   */
+  repeated nexus.v4.config.ItemGroup value = 1000;
 }
 /*
  * REST response for all response codes in API path /nexus/v4.1/config/items Get operation
@@ -191,6 +459,10 @@ message ListItemsApiResponse {
      * 
      */
     nexus.v4.config.ItemProjectionArrayWrapper item_projection_array_data = 401;
+    /*
+     * 
+     */
+    nexus.v4.config.ItemGroupArrayWrapper item_group_array_data = 402;
   }
   /*
    * 

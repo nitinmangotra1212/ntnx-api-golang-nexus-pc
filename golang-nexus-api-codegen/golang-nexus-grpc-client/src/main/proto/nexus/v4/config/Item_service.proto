@@ -56,6 +56,10 @@ For example, filter **$filter=name eq 'karbon-ntnx-1.0'** would filter the resul
    * A URL query parameter that allows clients to specify the sort criteria for the returned list of objects. Resources can be sorted in ascending order using asc or descending order using desc. If asc or desc are not specified, the resources will be sorted in ascending order by default. For example, '$orderby=templateName desc' would get all templates sorted by templateName in descending order.
    */
   optional string _orderby = 102;
+  /*
+   * A URL query parameter that allows clients to specify a sequence of transformations to the entity set, such as groupby, filter, aggregate etc. As of now only support for groupby exists.For example '$apply=groupby((templateName))' would get all templates grouped by templateName.
+   */
+  optional string _apply = 104;
 }
 
 /*

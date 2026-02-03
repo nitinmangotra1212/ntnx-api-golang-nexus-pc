@@ -1,0 +1,80 @@
+components:
+  schemas:
+    ItemStats:
+      description: Statistics entity for items, representing time-series or analytical data for an item
+      type: object
+      properties:
+        statsExtId:
+          description: Unique identifier for the stats record (primary key)
+          type: string
+          readOnly: true
+          example: "660e8400-e29b-41d4-a716-446655440001"
+        itemExtId:
+          description: External identifier of the item this stats record belongs to (foreign key to Item.extId)
+          type: string
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        age:
+          description: Age of the item
+          type: integer
+          format: int32
+          example: 5
+        heartRate:
+          description: Heart rate measurement
+          type: integer
+          format: int32
+          example: 72
+        foodIntake:
+          description: Food intake measurement
+          type: number
+          format: double
+          example: 250.5
+      x-filterable-properties:
+        - itemExtId
+        - age
+        - heartRate
+        - foodIntake
+      x-sortable-properties:
+        - itemExtId
+        - age
+        - heartRate
+        - foodIntake
+      x-selection-properties:
+        - statsExtId
+        - itemExtId
+        - age
+        - heartRate
+        - foodIntake
+      x-groupable-properties:
+        - itemExtId
+        - age
+        - heartRate
+        - foodIntake
+      x-property-mapping:
+        - name: statsExtId
+          value: stats_ext_id
+        - name: itemExtId
+          value: item_ext_id
+        - name: age
+          value: age
+        - name: heartRate
+          value: heart_rate
+        - name: foodIntake
+          value: food_intake
+      x-entity: item_stats
+      x-codegen-hint:
+        $any:
+          - type: entity-identifier
+            properties:
+              identifiers:
+                - name: statsExtId
+                  index: 4001
+                - name: itemExtId
+                  index: 4002
+                - name: age
+                  index: 4003
+                - name: heartRate
+                  index: 4004
+                - name: foodIntake
+                  index: 4005
+
+
