@@ -63,47 +63,11 @@ message File {
 /*
  * Array wrapper message
  */
-message StringArrayWrapper {
-  /*
-   * Value field in wrapper message
-   */
-  repeated string value = 1000;
-}
-/*
- * Array wrapper message
- */
 message LongArrayWrapper {
   /*
    * Value field in wrapper message
    */
   repeated int64 value = 1000;
-}
-/*
- * Array wrapper message
- */
-message DoubleArrayWrapper {
-  /*
-   * Value field in wrapper message
-   */
-  repeated double value = 1000;
-}
-/*
- * Array wrapper message
- */
-message BooleanArrayWrapper {
-  /*
-   * Value field in wrapper message
-   */
-  repeated bool value = 1000;
-}
-/*
- * Array wrapper message
- */
-message IntegerArrayWrapper {
-  /*
-   * Value field in wrapper message
-   */
-  repeated int32 value = 1000;
 }
 /*
  * Array wrapper message
@@ -167,29 +131,9 @@ message Item {
    */
   optional nexus.v4.stats.ItemStats item_stats = 2012;
   /*
-   * List of string values
-   */
-  optional nexus.v4.config.StringArrayWrapper string_list = 2013;
-  /*
    * List of integer values (int64)
    */
   optional nexus.v4.config.LongArrayWrapper int64_list = 2014;
-  /*
-   * List of floating-point values (double)
-   */
-  optional nexus.v4.config.DoubleArrayWrapper float_list = 2015;
-  /*
-   * List of boolean values
-   */
-  optional nexus.v4.config.BooleanArrayWrapper bool_list = 2016;
-  /*
-   * List of byte values (0-255)
-   */
-  optional nexus.v4.config.IntegerArrayWrapper byte_list = 2017;
-  /*
-   * List of enum values (status enum)
-   */
-  optional nexus.v4.config.StringArrayWrapper enum_list = 2018;
   /*
    * 
    */

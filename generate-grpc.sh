@@ -259,6 +259,19 @@ if [ -f "${OUT_DIR}/file_service_grpc.pb.go" ]; then
     echo "  - file_service.pb.go     (file service messages)"
     echo "  - file_service_grpc.pb.go (file service gRPC stubs)"
 fi
+
+# Verify timestamp fields in stats protobuf (if it exists)
+STATS_PB_FILE="${PROTO_OUT_ROOT}/nexus/v4/stats/stats.pb.go"
+if [ -f "${STATS_PB_FILE}" ]; then
+    echo ""
+    echo "🔍 Verifying timestamp support..."
+    if grep -q "AgeTimestamp\|HeartRateTimestamp\|FoodIntakeTimestamp" "${STATS_PB_FILE}" 2>/dev/null; then
+        echo "  ✅ Timestamp fields found in stats.pb.go (ageTimestamp, heartRateTimestamp, foodIntakeTimestamp)"
+    else
+        echo "  ⚠️  Timestamp fields not found (may need Maven rebuild if YAML was updated)"
+    fi
+fi
+
 echo ""
 echo "🎉 Ready to implement gRPC servers!"
 

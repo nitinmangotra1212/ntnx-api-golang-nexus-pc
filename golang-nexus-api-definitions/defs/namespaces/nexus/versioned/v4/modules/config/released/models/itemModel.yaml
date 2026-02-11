@@ -105,12 +105,6 @@ components:
           type: string
           enum: [ACTIVE, INACTIVE, PENDING]
           example: "ACTIVE"
-        stringList:
-          description: List of string values
-          type: array
-          items:
-            type: string
-          example: ["value1", "value2", "value3"]
         int64List:
           description: List of integer values (int64)
           type: array
@@ -118,33 +112,6 @@ components:
             type: integer
             format: int64
           example: [1, 2, 3, 4, 5]
-        floatList:
-          description: List of floating-point values (double)
-          type: array
-          items:
-            type: number
-            format: double
-          example: [1.5, 2.7, 3.14, 4.9]
-        boolList:
-          description: List of boolean values
-          type: array
-          items:
-            type: boolean
-          example: [true, false, true]
-        byteList:
-          description: List of byte values (0-255)
-          type: array
-          items:
-            type: integer
-            format: byte
-          example: [1, 2, 3, 4, 5]
-        enumList:
-          description: List of enum values (status enum)
-          type: array
-          items:
-            type: string
-            enum: [ACTIVE, INACTIVE, PENDING]
-          example: ["ACTIVE", "INACTIVE", "PENDING"]
         associations:
           description: Associated entities for this item. This field is only present when $expand=associations is specified in the query.
           type: array
@@ -166,12 +133,7 @@ components:
         - price
         - isActive
         - status
-        - stringList
         - int64List
-        - floatList
-        - boolList
-        - byteList
-        - enumList
       x-sortable-properties:
         - itemId
         - itemName
@@ -190,20 +152,19 @@ components:
         - isActive
         - priority
         - status
-        - stringList
         - int64List
-        - floatList
-        - boolList
-        - byteList
-        - enumList
       x-groupable-properties:
-        - itemType
         - itemId
+        - itemName
+        - itemType
+        - description
+        - extId
         - quantity
         - price
         - isActive
         - priority
         - status
+        - int64List
       x-list-endpoint: "items"
       x-property-mapping:
         - name: itemId
@@ -226,18 +187,8 @@ components:
           value: priority
         - name: status
           value: status
-        - name: stringList
-          value: string_list
         - name: int64List
           value: int64_list
-        - name: floatList
-          value: float_list
-        - name: boolList
-          value: bool_list
-        - name: byteList
-          value: byte_list
-        - name: enumList
-          value: enum_list
       x-codegen-hint:
         $any:
           - type: entity-identifier
@@ -263,18 +214,8 @@ components:
                   index: 2010
                 - name: status
                   index: 2011
-                - name: stringList
-                  index: 2013
                 - name: int64List
                   index: 2014
-                - name: floatList
-                  index: 2015
-                - name: boolList
-                  index: 2016
-                - name: byteList
-                  index: 2017
-                - name: enumList
-                  index: 2018
                 - name: associations
                   index: 2006
                 - name: itemStats

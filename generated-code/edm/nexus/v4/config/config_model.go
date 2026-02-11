@@ -21,21 +21,16 @@ func NewItem() *edm.EdmEntityBinding {
   p := new(edm.EdmEntityBinding)
   // set Edm Property Mapping
   p.PropertyMappings = make(map[string]string)
-  p.PropertyMappings["itemType"] = "item_type"
-  p.PropertyMappings["quantity"] = "quantity"
-  p.PropertyMappings["int64List"] = "int64_list"
-  p.PropertyMappings["description"] = "description"
-  p.PropertyMappings["isActive"] = "is_active"
-  p.PropertyMappings["priority"] = "priority"
-  p.PropertyMappings["byteList"] = "byte_list"
-  p.PropertyMappings["boolList"] = "bool_list"
-  p.PropertyMappings["enumList"] = "enum_list"
   p.PropertyMappings["itemId"] = "item_id"
   p.PropertyMappings["itemName"] = "item_name"
+  p.PropertyMappings["itemType"] = "item_type"
+  p.PropertyMappings["quantity"] = "quantity"
   p.PropertyMappings["price"] = "price"
-  p.PropertyMappings["stringList"] = "string_list"
-  p.PropertyMappings["floatList"] = "float_list"
+  p.PropertyMappings["int64List"] = "int64_list"
+  p.PropertyMappings["description"] = "description"
   p.PropertyMappings["extId"] = "ext_id"
+  p.PropertyMappings["isActive"] = "is_active"
+  p.PropertyMappings["priority"] = "priority"
   p.PropertyMappings["status"] = "status"
 
   filterProperties := make(map[string]bool)
@@ -48,12 +43,7 @@ func NewItem() *edm.EdmEntityBinding {
   filterProperties["price"] = true
   filterProperties["isActive"] = true
   filterProperties["status"] = true
-  filterProperties["stringList"] = true
   filterProperties["int64List"] = true
-  filterProperties["floatList"] = true
-  filterProperties["boolList"] = true
-  filterProperties["byteList"] = true
-  filterProperties["enumList"] = true
 
   sortableProperties := make(map[string]bool)
   // set sortable properties in a map
@@ -66,13 +56,17 @@ func NewItem() *edm.EdmEntityBinding {
 
   groupableProperties := make(map[string]bool)
   // set groupable properties in a map
-  groupableProperties["itemType"] = true
   groupableProperties["itemId"] = true
+  groupableProperties["itemName"] = true
+  groupableProperties["itemType"] = true
+  groupableProperties["description"] = true
+  groupableProperties["extId"] = true
   groupableProperties["quantity"] = true
   groupableProperties["price"] = true
   groupableProperties["isActive"] = true
   groupableProperties["priority"] = true
   groupableProperties["status"] = true
+  groupableProperties["int64List"] = true
 
   // set Edm Properties
   var properties []*edm.EdmProperty
@@ -176,16 +170,6 @@ func NewItem() *edm.EdmEntityBinding {
   statusProperty.IsGroupable = groupableProperties["status"]
   properties = append(properties, statusProperty)
 
-  stringListProperty := new(edm.EdmProperty)
-  stringListProperty.Name = "stringList"
-  stringListProperty.IsCollection = true
-  stringListProperty.Type = string(edm.EdmString)
-  stringListProperty.MappedName = p.PropertyMappings["stringList"]
-  stringListProperty.IsFilterable = filterProperties["stringList"]
-  stringListProperty.IsSortable = sortableProperties["stringList"]
-  stringListProperty.IsGroupable = groupableProperties["stringList"]
-  properties = append(properties, stringListProperty)
-
   int64ListProperty := new(edm.EdmProperty)
   int64ListProperty.Name = "int64List"
   int64ListProperty.IsCollection = true
@@ -195,46 +179,6 @@ func NewItem() *edm.EdmEntityBinding {
   int64ListProperty.IsSortable = sortableProperties["int64List"]
   int64ListProperty.IsGroupable = groupableProperties["int64List"]
   properties = append(properties, int64ListProperty)
-
-  floatListProperty := new(edm.EdmProperty)
-  floatListProperty.Name = "floatList"
-  floatListProperty.IsCollection = true
-  floatListProperty.Type = string(edm.EdmDouble)
-  floatListProperty.MappedName = p.PropertyMappings["floatList"]
-  floatListProperty.IsFilterable = filterProperties["floatList"]
-  floatListProperty.IsSortable = sortableProperties["floatList"]
-  floatListProperty.IsGroupable = groupableProperties["floatList"]
-  properties = append(properties, floatListProperty)
-
-  boolListProperty := new(edm.EdmProperty)
-  boolListProperty.Name = "boolList"
-  boolListProperty.IsCollection = true
-  boolListProperty.Type = string(edm.EdmBoolean)
-  boolListProperty.MappedName = p.PropertyMappings["boolList"]
-  boolListProperty.IsFilterable = filterProperties["boolList"]
-  boolListProperty.IsSortable = sortableProperties["boolList"]
-  boolListProperty.IsGroupable = groupableProperties["boolList"]
-  properties = append(properties, boolListProperty)
-
-  byteListProperty := new(edm.EdmProperty)
-  byteListProperty.Name = "byteList"
-  byteListProperty.IsCollection = true
-  byteListProperty.Type = string(edm.EdmInt32)
-  byteListProperty.MappedName = p.PropertyMappings["byteList"]
-  byteListProperty.IsFilterable = filterProperties["byteList"]
-  byteListProperty.IsSortable = sortableProperties["byteList"]
-  byteListProperty.IsGroupable = groupableProperties["byteList"]
-  properties = append(properties, byteListProperty)
-
-  enumListProperty := new(edm.EdmProperty)
-  enumListProperty.Name = "enumList"
-  enumListProperty.IsCollection = true
-  enumListProperty.Type = string(edm.EdmString)
-  enumListProperty.MappedName = p.PropertyMappings["enumList"]
-  enumListProperty.IsFilterable = filterProperties["enumList"]
-  enumListProperty.IsSortable = sortableProperties["enumList"]
-  enumListProperty.IsGroupable = groupableProperties["enumList"]
-  properties = append(properties, enumListProperty)
 
 
 

@@ -14,20 +14,20 @@ components:
           type: string
           example: "550e8400-e29b-41d4-a716-446655440000"
         age:
-          description: Age of the item
-          type: integer
-          format: int32
-          example: 5
+          description: Age of the item (time-series data as array of time-value pairs)
+          type: array
+          items:
+            $ref: ModelRef({./IntegerTimeValuePair})
         heartRate:
-          description: Heart rate measurement
-          type: integer
-          format: int32
-          example: 72
+          description: Heart rate measurement (time-series data as array of time-value pairs)
+          type: array
+          items:
+            $ref: ModelRef({./IntegerTimeValuePair})
         foodIntake:
-          description: Food intake measurement
-          type: number
-          format: double
-          example: 250.5
+          description: Food intake measurement (time-series data as array of time-value pairs)
+          type: array
+          items:
+            $ref: ModelRef({./DoubleTimeValuePair})
       x-filterable-properties:
         - itemExtId
         - age
@@ -45,6 +45,7 @@ components:
         - heartRate
         - foodIntake
       x-groupable-properties:
+        - statsExtId
         - itemExtId
         - age
         - heartRate
@@ -76,5 +77,3 @@ components:
                   index: 4004
                 - name: foodIntake
                   index: 4005
-
-

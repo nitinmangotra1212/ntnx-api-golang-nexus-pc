@@ -43,6 +43,7 @@ func NewItemStats() *edm.EdmEntityBinding {
 
   groupableProperties := make(map[string]bool)
   // set groupable properties in a map
+  groupableProperties["statsExtId"] = true
   groupableProperties["itemExtId"] = true
   groupableProperties["age"] = true
   groupableProperties["heartRate"] = true
@@ -72,8 +73,8 @@ func NewItemStats() *edm.EdmEntityBinding {
 
   ageProperty := new(edm.EdmProperty)
   ageProperty.Name = "age"
-  ageProperty.IsCollection = false
-  ageProperty.Type = string(edm.EdmInt32)
+  ageProperty.IsCollection = true
+  ageProperty.Type = string(edm.EdmString)
   ageProperty.MappedName = p.PropertyMappings["age"]
   ageProperty.IsFilterable = filterProperties["age"]
   ageProperty.IsSortable = sortableProperties["age"]
@@ -82,8 +83,8 @@ func NewItemStats() *edm.EdmEntityBinding {
 
   heartRateProperty := new(edm.EdmProperty)
   heartRateProperty.Name = "heartRate"
-  heartRateProperty.IsCollection = false
-  heartRateProperty.Type = string(edm.EdmInt32)
+  heartRateProperty.IsCollection = true
+  heartRateProperty.Type = string(edm.EdmString)
   heartRateProperty.MappedName = p.PropertyMappings["heartRate"]
   heartRateProperty.IsFilterable = filterProperties["heartRate"]
   heartRateProperty.IsSortable = sortableProperties["heartRate"]
@@ -92,8 +93,8 @@ func NewItemStats() *edm.EdmEntityBinding {
 
   foodIntakeProperty := new(edm.EdmProperty)
   foodIntakeProperty.Name = "foodIntake"
-  foodIntakeProperty.IsCollection = false
-  foodIntakeProperty.Type = string(edm.EdmDouble)
+  foodIntakeProperty.IsCollection = true
+  foodIntakeProperty.Type = string(edm.EdmString)
   foodIntakeProperty.MappedName = p.PropertyMappings["foodIntake"]
   foodIntakeProperty.IsFilterable = filterProperties["foodIntake"]
   foodIntakeProperty.IsSortable = sortableProperties["foodIntake"]

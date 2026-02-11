@@ -172,52 +172,6 @@ func (x *File) GetXReserved() *ObjectMapWrapper {
 }
 
 // Array wrapper message
-type StringArrayWrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in wrapper message
-	Value         []string `protobuf:"bytes,1000,rep,name=value" json:"value,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *StringArrayWrapper) Reset() {
-	*x = StringArrayWrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *StringArrayWrapper) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*StringArrayWrapper) ProtoMessage() {}
-
-func (x *StringArrayWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use StringArrayWrapper.ProtoReflect.Descriptor instead.
-func (*StringArrayWrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *StringArrayWrapper) GetValue() []string {
-	if x != nil {
-		return x.Value
-	}
-	return nil
-}
-
-// Array wrapper message
 type LongArrayWrapper struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Value field in wrapper message
@@ -228,7 +182,7 @@ type LongArrayWrapper struct {
 
 func (x *LongArrayWrapper) Reset() {
 	*x = LongArrayWrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[3]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -240,7 +194,7 @@ func (x *LongArrayWrapper) String() string {
 func (*LongArrayWrapper) ProtoMessage() {}
 
 func (x *LongArrayWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[3]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -253,148 +207,10 @@ func (x *LongArrayWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LongArrayWrapper.ProtoReflect.Descriptor instead.
 func (*LongArrayWrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{3}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *LongArrayWrapper) GetValue() []int64 {
-	if x != nil {
-		return x.Value
-	}
-	return nil
-}
-
-// Array wrapper message
-type DoubleArrayWrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in wrapper message
-	Value         []float64 `protobuf:"fixed64,1000,rep,name=value" json:"value,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *DoubleArrayWrapper) Reset() {
-	*x = DoubleArrayWrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[4]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *DoubleArrayWrapper) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DoubleArrayWrapper) ProtoMessage() {}
-
-func (x *DoubleArrayWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[4]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DoubleArrayWrapper.ProtoReflect.Descriptor instead.
-func (*DoubleArrayWrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{4}
-}
-
-func (x *DoubleArrayWrapper) GetValue() []float64 {
-	if x != nil {
-		return x.Value
-	}
-	return nil
-}
-
-// Array wrapper message
-type BooleanArrayWrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in wrapper message
-	Value         []bool `protobuf:"varint,1000,rep,name=value" json:"value,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *BooleanArrayWrapper) Reset() {
-	*x = BooleanArrayWrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[5]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *BooleanArrayWrapper) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*BooleanArrayWrapper) ProtoMessage() {}
-
-func (x *BooleanArrayWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[5]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use BooleanArrayWrapper.ProtoReflect.Descriptor instead.
-func (*BooleanArrayWrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *BooleanArrayWrapper) GetValue() []bool {
-	if x != nil {
-		return x.Value
-	}
-	return nil
-}
-
-// Array wrapper message
-type IntegerArrayWrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in wrapper message
-	Value         []int32 `protobuf:"varint,1000,rep,name=value" json:"value,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *IntegerArrayWrapper) Reset() {
-	*x = IntegerArrayWrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[6]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *IntegerArrayWrapper) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*IntegerArrayWrapper) ProtoMessage() {}
-
-func (x *IntegerArrayWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[6]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use IntegerArrayWrapper.ProtoReflect.Descriptor instead.
-func (*IntegerArrayWrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *IntegerArrayWrapper) GetValue() []int32 {
 	if x != nil {
 		return x.Value
 	}
@@ -412,7 +228,7 @@ type ItemAssociationArrayWrapper struct {
 
 func (x *ItemAssociationArrayWrapper) Reset() {
 	*x = ItemAssociationArrayWrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[7]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -424,7 +240,7 @@ func (x *ItemAssociationArrayWrapper) String() string {
 func (*ItemAssociationArrayWrapper) ProtoMessage() {}
 
 func (x *ItemAssociationArrayWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[7]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -437,7 +253,7 @@ func (x *ItemAssociationArrayWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ItemAssociationArrayWrapper.ProtoReflect.Descriptor instead.
 func (*ItemAssociationArrayWrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{7}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *ItemAssociationArrayWrapper) GetValue() []*ItemAssociation {
@@ -473,18 +289,8 @@ type Item struct {
 	// Status of the item (e.g., ACTIVE, INACTIVE, PENDING)
 	Status *string `protobuf:"bytes,2011,opt,name=status" json:"status,omitempty"`
 	ItemStats *stats.ItemStats `protobuf:"bytes,2012,opt,name=item_stats,json=itemStats" json:"item_stats,omitempty"`
-	// List of string values
-	StringList *StringArrayWrapper `protobuf:"bytes,2013,opt,name=string_list,json=stringList" json:"string_list,omitempty"`
 	// List of integer values (int64)
 	Int64List *LongArrayWrapper `protobuf:"bytes,2014,opt,name=int64_list,json=int64List" json:"int64_list,omitempty"`
-	// List of floating-point values (double)
-	FloatList *DoubleArrayWrapper `protobuf:"bytes,2015,opt,name=float_list,json=floatList" json:"float_list,omitempty"`
-	// List of boolean values
-	BoolList *BooleanArrayWrapper `protobuf:"bytes,2016,opt,name=bool_list,json=boolList" json:"bool_list,omitempty"`
-	// List of byte values (0-255)
-	ByteList *IntegerArrayWrapper `protobuf:"bytes,2017,opt,name=byte_list,json=byteList" json:"byte_list,omitempty"`
-	// List of enum values (status enum)
-	EnumList *StringArrayWrapper `protobuf:"bytes,2018,opt,name=enum_list,json=enumList" json:"enum_list,omitempty"`
 	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -492,7 +298,7 @@ type Item struct {
 
 func (x *Item) Reset() {
 	*x = Item{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[8]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -504,7 +310,7 @@ func (x *Item) String() string {
 func (*Item) ProtoMessage() {}
 
 func (x *Item) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[8]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -517,7 +323,7 @@ func (x *Item) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Item.ProtoReflect.Descriptor instead.
 func (*Item) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{8}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *Item) GetItemId() int32 {
@@ -604,44 +410,9 @@ func (x *Item) GetItemStats() *stats.ItemStats {
 	return nil
 }
 
-func (x *Item) GetStringList() *StringArrayWrapper {
-	if x != nil {
-		return x.StringList
-	}
-	return nil
-}
-
 func (x *Item) GetInt64List() *LongArrayWrapper {
 	if x != nil {
 		return x.Int64List
-	}
-	return nil
-}
-
-func (x *Item) GetFloatList() *DoubleArrayWrapper {
-	if x != nil {
-		return x.FloatList
-	}
-	return nil
-}
-
-func (x *Item) GetBoolList() *BooleanArrayWrapper {
-	if x != nil {
-		return x.BoolList
-	}
-	return nil
-}
-
-func (x *Item) GetByteList() *IntegerArrayWrapper {
-	if x != nil {
-		return x.ByteList
-	}
-	return nil
-}
-
-func (x *Item) GetEnumList() *StringArrayWrapper {
-	if x != nil {
-		return x.EnumList
 	}
 	return nil
 }
@@ -664,7 +435,7 @@ type Int32Wrapper struct {
 
 func (x *Int32Wrapper) Reset() {
 	*x = Int32Wrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[9]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -676,7 +447,7 @@ func (x *Int32Wrapper) String() string {
 func (*Int32Wrapper) ProtoMessage() {}
 
 func (x *Int32Wrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[9]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -689,7 +460,7 @@ func (x *Int32Wrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Int32Wrapper.ProtoReflect.Descriptor instead.
 func (*Int32Wrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{9}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *Int32Wrapper) GetValue() int32 {
@@ -710,7 +481,7 @@ type Int64Wrapper struct {
 
 func (x *Int64Wrapper) Reset() {
 	*x = Int64Wrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[10]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -722,7 +493,7 @@ func (x *Int64Wrapper) String() string {
 func (*Int64Wrapper) ProtoMessage() {}
 
 func (x *Int64Wrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[10]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -735,7 +506,7 @@ func (x *Int64Wrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Int64Wrapper.ProtoReflect.Descriptor instead.
 func (*Int64Wrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{10}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *Int64Wrapper) GetValue() int64 {
@@ -756,7 +527,7 @@ type DoubleWrapper struct {
 
 func (x *DoubleWrapper) Reset() {
 	*x = DoubleWrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[11]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -768,7 +539,7 @@ func (x *DoubleWrapper) String() string {
 func (*DoubleWrapper) ProtoMessage() {}
 
 func (x *DoubleWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[11]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -781,7 +552,7 @@ func (x *DoubleWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DoubleWrapper.ProtoReflect.Descriptor instead.
 func (*DoubleWrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{11}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *DoubleWrapper) GetValue() float64 {
@@ -802,7 +573,7 @@ type ItemTimeValuePairArrayWrapper struct {
 
 func (x *ItemTimeValuePairArrayWrapper) Reset() {
 	*x = ItemTimeValuePairArrayWrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[12]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -814,7 +585,7 @@ func (x *ItemTimeValuePairArrayWrapper) String() string {
 func (*ItemTimeValuePairArrayWrapper) ProtoMessage() {}
 
 func (x *ItemTimeValuePairArrayWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[12]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -827,7 +598,7 @@ func (x *ItemTimeValuePairArrayWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ItemTimeValuePairArrayWrapper.ProtoReflect.Descriptor instead.
 func (*ItemTimeValuePairArrayWrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{12}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *ItemTimeValuePairArrayWrapper) GetValue() []*ItemTimeValuePair {
@@ -854,7 +625,7 @@ type ItemAggregate struct {
 
 func (x *ItemAggregate) Reset() {
 	*x = ItemAggregate{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[13]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -866,7 +637,7 @@ func (x *ItemAggregate) String() string {
 func (*ItemAggregate) ProtoMessage() {}
 
 func (x *ItemAggregate) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[13]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -879,7 +650,7 @@ func (x *ItemAggregate) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ItemAggregate.ProtoReflect.Descriptor instead.
 func (*ItemAggregate) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{13}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *ItemAggregate) GetResult() isItemAggregate_Result {
@@ -985,7 +756,7 @@ type ItemAssociation struct {
 
 func (x *ItemAssociation) Reset() {
 	*x = ItemAssociation{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[14]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -997,7 +768,7 @@ func (x *ItemAssociation) String() string {
 func (*ItemAssociation) ProtoMessage() {}
 
 func (x *ItemAssociation) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[14]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1010,7 +781,7 @@ func (x *ItemAssociation) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ItemAssociation.ProtoReflect.Descriptor instead.
 func (*ItemAssociation) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{14}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *ItemAssociation) GetItemId() string {
@@ -1057,7 +828,7 @@ type ItemAssociationProjection struct {
 
 func (x *ItemAssociationProjection) Reset() {
 	*x = ItemAssociationProjection{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[15]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1069,7 +840,7 @@ func (x *ItemAssociationProjection) String() string {
 func (*ItemAssociationProjection) ProtoMessage() {}
 
 func (x *ItemAssociationProjection) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[15]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1082,7 +853,7 @@ func (x *ItemAssociationProjection) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ItemAssociationProjection.ProtoReflect.Descriptor instead.
 func (*ItemAssociationProjection) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{15}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *ItemAssociationProjection) GetBase() *ItemAssociation {
@@ -1103,7 +874,7 @@ type StringWrapper struct {
 
 func (x *StringWrapper) Reset() {
 	*x = StringWrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[16]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1115,7 +886,7 @@ func (x *StringWrapper) String() string {
 func (*StringWrapper) ProtoMessage() {}
 
 func (x *StringWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[16]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1128,7 +899,7 @@ func (x *StringWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StringWrapper.ProtoReflect.Descriptor instead.
 func (*StringWrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{16}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *StringWrapper) GetValue() string {
@@ -1149,7 +920,7 @@ type BooleanWrapper struct {
 
 func (x *BooleanWrapper) Reset() {
 	*x = BooleanWrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[17]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1161,7 +932,7 @@ func (x *BooleanWrapper) String() string {
 func (*BooleanWrapper) ProtoMessage() {}
 
 func (x *BooleanWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[17]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1174,7 +945,7 @@ func (x *BooleanWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BooleanWrapper.ProtoReflect.Descriptor instead.
 func (*BooleanWrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{17}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *BooleanWrapper) GetValue() bool {
@@ -1195,7 +966,7 @@ type ItemArrayWrapper struct {
 
 func (x *ItemArrayWrapper) Reset() {
 	*x = ItemArrayWrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[18]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1207,7 +978,7 @@ func (x *ItemArrayWrapper) String() string {
 func (*ItemArrayWrapper) ProtoMessage() {}
 
 func (x *ItemArrayWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[18]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1220,7 +991,7 @@ func (x *ItemArrayWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ItemArrayWrapper.ProtoReflect.Descriptor instead.
 func (*ItemArrayWrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{18}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *ItemArrayWrapper) GetValue() []*Item {
@@ -1241,7 +1012,7 @@ type ItemAggregateArrayWrapper struct {
 
 func (x *ItemAggregateArrayWrapper) Reset() {
 	*x = ItemAggregateArrayWrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[19]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1253,7 +1024,7 @@ func (x *ItemAggregateArrayWrapper) String() string {
 func (*ItemAggregateArrayWrapper) ProtoMessage() {}
 
 func (x *ItemAggregateArrayWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[19]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1266,7 +1037,7 @@ func (x *ItemAggregateArrayWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ItemAggregateArrayWrapper.ProtoReflect.Descriptor instead.
 func (*ItemAggregateArrayWrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{19}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *ItemAggregateArrayWrapper) GetValue() []*ItemAggregate {
@@ -1299,7 +1070,7 @@ type ItemGroup struct {
 
 func (x *ItemGroup) Reset() {
 	*x = ItemGroup{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[20]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1311,7 +1082,7 @@ func (x *ItemGroup) String() string {
 func (*ItemGroup) ProtoMessage() {}
 
 func (x *ItemGroup) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[20]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1324,7 +1095,7 @@ func (x *ItemGroup) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ItemGroup.ProtoReflect.Descriptor instead.
 func (*ItemGroup) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{20}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *ItemGroup) GetGroup() isItemGroup_Group {
@@ -1469,7 +1240,7 @@ type ItemProjection struct {
 
 func (x *ItemProjection) Reset() {
 	*x = ItemProjection{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[21]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1481,7 +1252,7 @@ func (x *ItemProjection) String() string {
 func (*ItemProjection) ProtoMessage() {}
 
 func (x *ItemProjection) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[21]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1494,7 +1265,7 @@ func (x *ItemProjection) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ItemProjection.ProtoReflect.Descriptor instead.
 func (*ItemProjection) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{21}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *ItemProjection) GetBase() *Item {
@@ -1515,7 +1286,7 @@ type ItemTimeValuePair struct {
 
 func (x *ItemTimeValuePair) Reset() {
 	*x = ItemTimeValuePair{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[22]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1527,7 +1298,7 @@ func (x *ItemTimeValuePair) String() string {
 func (*ItemTimeValuePair) ProtoMessage() {}
 
 func (x *ItemTimeValuePair) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[22]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1540,7 +1311,7 @@ func (x *ItemTimeValuePair) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ItemTimeValuePair.ProtoReflect.Descriptor instead.
 func (*ItemTimeValuePair) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{22}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *ItemTimeValuePair) GetTimeStamp() int64 {
@@ -1575,7 +1346,7 @@ type ErrorResponseWrapper struct {
 
 func (x *ErrorResponseWrapper) Reset() {
 	*x = ErrorResponseWrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[23]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1587,7 +1358,7 @@ func (x *ErrorResponseWrapper) String() string {
 func (*ErrorResponseWrapper) ProtoMessage() {}
 
 func (x *ErrorResponseWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[23]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1600,7 +1371,7 @@ func (x *ErrorResponseWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ErrorResponseWrapper.ProtoReflect.Descriptor instead.
 func (*ErrorResponseWrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{23}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *ErrorResponseWrapper) GetValue() *error1.ErrorResponse {
@@ -1621,7 +1392,7 @@ type ItemProjectionArrayWrapper struct {
 
 func (x *ItemProjectionArrayWrapper) Reset() {
 	*x = ItemProjectionArrayWrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[24]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1633,7 +1404,7 @@ func (x *ItemProjectionArrayWrapper) String() string {
 func (*ItemProjectionArrayWrapper) ProtoMessage() {}
 
 func (x *ItemProjectionArrayWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[24]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1646,7 +1417,7 @@ func (x *ItemProjectionArrayWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ItemProjectionArrayWrapper.ProtoReflect.Descriptor instead.
 func (*ItemProjectionArrayWrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{24}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *ItemProjectionArrayWrapper) GetValue() []*ItemProjection {
@@ -1667,7 +1438,7 @@ type ItemGroupArrayWrapper struct {
 
 func (x *ItemGroupArrayWrapper) Reset() {
 	*x = ItemGroupArrayWrapper{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[25]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1679,7 +1450,7 @@ func (x *ItemGroupArrayWrapper) String() string {
 func (*ItemGroupArrayWrapper) ProtoMessage() {}
 
 func (x *ItemGroupArrayWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[25]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1692,7 +1463,7 @@ func (x *ItemGroupArrayWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ItemGroupArrayWrapper.ProtoReflect.Descriptor instead.
 func (*ItemGroupArrayWrapper) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{25}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *ItemGroupArrayWrapper) GetValue() []*ItemGroup {
@@ -1722,7 +1493,7 @@ type ListItemsApiResponse struct {
 
 func (x *ListItemsApiResponse) Reset() {
 	*x = ListItemsApiResponse{}
-	mi := &file_nexus_v4_config_config_proto_msgTypes[26]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1734,7 +1505,7 @@ func (x *ListItemsApiResponse) String() string {
 func (*ListItemsApiResponse) ProtoMessage() {}
 
 func (x *ListItemsApiResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_nexus_v4_config_config_proto_msgTypes[26]
+	mi := &file_nexus_v4_config_config_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1747,7 +1518,7 @@ func (x *ListItemsApiResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListItemsApiResponse.ProtoReflect.Descriptor instead.
 func (*ListItemsApiResponse) Descriptor() ([]byte, []int) {
-	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{26}
+	return file_nexus_v4_config_config_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *ListItemsApiResponse) GetData() isListItemsApiResponse_Data {
@@ -1852,19 +1623,11 @@ const file_nexus_v4_config_config_proto_rawDesc = "" +
 	"\tfile_size\x18\xd3\x0f \x01(\x03R\bfileSize\x12\"\n" +
 	"\fcontent_type\x18\xd4\x0f \x01(\tR\vcontentType\x12\x16\n" +
 	"\x06ext_id\x18\xd5\x0f \x01(\tR\x05extId\x12@\n" +
-	"\t_reserved\x18\xa0\xf76 \x01(\v2!.nexus.v4.config.ObjectMapWrapperR\bReserved\"+\n" +
-	"\x12StringArrayWrapper\x12\x15\n" +
-	"\x05value\x18\xe8\a \x03(\tR\x05value\")\n" +
+	"\t_reserved\x18\xa0\xf76 \x01(\v2!.nexus.v4.config.ObjectMapWrapperR\bReserved\")\n" +
 	"\x10LongArrayWrapper\x12\x15\n" +
-	"\x05value\x18\xe8\a \x03(\x03R\x05value\"+\n" +
-	"\x12DoubleArrayWrapper\x12\x15\n" +
-	"\x05value\x18\xe8\a \x03(\x01R\x05value\",\n" +
-	"\x13BooleanArrayWrapper\x12\x15\n" +
-	"\x05value\x18\xe8\a \x03(\bR\x05value\",\n" +
-	"\x13IntegerArrayWrapper\x12\x15\n" +
-	"\x05value\x18\xe8\a \x03(\x05R\x05value\"V\n" +
+	"\x05value\x18\xe8\a \x03(\x03R\x05value\"V\n" +
 	"\x1bItemAssociationArrayWrapper\x127\n" +
-	"\x05value\x18\xe8\a \x03(\v2 .nexus.v4.config.ItemAssociationR\x05value\"\x89\a\n" +
+	"\x05value\x18\xe8\a \x03(\v2 .nexus.v4.config.ItemAssociationR\x05value\"\xb2\x04\n" +
 	"\x04Item\x12\x18\n" +
 	"\aitem_id\x18\xd1\x0f \x01(\x05R\x06itemId\x12\x1c\n" +
 	"\titem_name\x18\xd2\x0f \x01(\tR\bitemName\x12\x1c\n" +
@@ -1878,16 +1641,9 @@ const file_nexus_v4_config_config_proto_rawDesc = "" +
 	"\bpriority\x18\xda\x0f \x01(\x05R\bpriority\x12\x17\n" +
 	"\x06status\x18\xdb\x0f \x01(\tR\x06status\x129\n" +
 	"\n" +
-	"item_stats\x18\xdc\x0f \x01(\v2\x19.nexus.v4.stats.ItemStatsR\titemStats\x12E\n" +
-	"\vstring_list\x18\xdd\x0f \x01(\v2#.nexus.v4.config.StringArrayWrapperR\n" +
-	"stringList\x12A\n" +
+	"item_stats\x18\xdc\x0f \x01(\v2\x19.nexus.v4.stats.ItemStatsR\titemStats\x12A\n" +
 	"\n" +
-	"int64_list\x18\xde\x0f \x01(\v2!.nexus.v4.config.LongArrayWrapperR\tint64List\x12C\n" +
-	"\n" +
-	"float_list\x18\xdf\x0f \x01(\v2#.nexus.v4.config.DoubleArrayWrapperR\tfloatList\x12B\n" +
-	"\tbool_list\x18\xe0\x0f \x01(\v2$.nexus.v4.config.BooleanArrayWrapperR\bboolList\x12B\n" +
-	"\tbyte_list\x18\xe1\x0f \x01(\v2$.nexus.v4.config.IntegerArrayWrapperR\bbyteList\x12A\n" +
-	"\tenum_list\x18\xe2\x0f \x01(\v2#.nexus.v4.config.StringArrayWrapperR\benumList\x12@\n" +
+	"int64_list\x18\xde\x0f \x01(\v2!.nexus.v4.config.LongArrayWrapperR\tint64List\x12@\n" +
 	"\t_reserved\x18\xa0\xf76 \x01(\v2!.nexus.v4.config.ObjectMapWrapperR\bReserved\"%\n" +
 	"\fInt32Wrapper\x12\x15\n" +
 	"\x05value\x18\xe8\a \x01(\x05R\x05value\"%\n" +
@@ -1973,90 +1729,81 @@ func file_nexus_v4_config_config_proto_rawDescGZIP() []byte {
 	return file_nexus_v4_config_config_proto_rawDescData
 }
 
-var file_nexus_v4_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 28)
+var file_nexus_v4_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
 var file_nexus_v4_config_config_proto_goTypes = []any{
 	(*ObjectMapWrapper)(nil),              // 0: nexus.v4.config.ObjectMapWrapper
 	(*File)(nil),                          // 1: nexus.v4.config.File
-	(*StringArrayWrapper)(nil),            // 2: nexus.v4.config.StringArrayWrapper
-	(*LongArrayWrapper)(nil),              // 3: nexus.v4.config.LongArrayWrapper
-	(*DoubleArrayWrapper)(nil),            // 4: nexus.v4.config.DoubleArrayWrapper
-	(*BooleanArrayWrapper)(nil),           // 5: nexus.v4.config.BooleanArrayWrapper
-	(*IntegerArrayWrapper)(nil),           // 6: nexus.v4.config.IntegerArrayWrapper
-	(*ItemAssociationArrayWrapper)(nil),   // 7: nexus.v4.config.ItemAssociationArrayWrapper
-	(*Item)(nil),                          // 8: nexus.v4.config.Item
-	(*Int32Wrapper)(nil),                  // 9: nexus.v4.config.Int32Wrapper
-	(*Int64Wrapper)(nil),                  // 10: nexus.v4.config.Int64Wrapper
-	(*DoubleWrapper)(nil),                 // 11: nexus.v4.config.DoubleWrapper
-	(*ItemTimeValuePairArrayWrapper)(nil), // 12: nexus.v4.config.ItemTimeValuePairArrayWrapper
-	(*ItemAggregate)(nil),                 // 13: nexus.v4.config.ItemAggregate
-	(*ItemAssociation)(nil),               // 14: nexus.v4.config.ItemAssociation
-	(*ItemAssociationProjection)(nil),     // 15: nexus.v4.config.ItemAssociationProjection
-	(*StringWrapper)(nil),                 // 16: nexus.v4.config.StringWrapper
-	(*BooleanWrapper)(nil),                // 17: nexus.v4.config.BooleanWrapper
-	(*ItemArrayWrapper)(nil),              // 18: nexus.v4.config.ItemArrayWrapper
-	(*ItemAggregateArrayWrapper)(nil),     // 19: nexus.v4.config.ItemAggregateArrayWrapper
-	(*ItemGroup)(nil),                     // 20: nexus.v4.config.ItemGroup
-	(*ItemProjection)(nil),                // 21: nexus.v4.config.ItemProjection
-	(*ItemTimeValuePair)(nil),             // 22: nexus.v4.config.ItemTimeValuePair
-	(*ErrorResponseWrapper)(nil),          // 23: nexus.v4.config.ErrorResponseWrapper
-	(*ItemProjectionArrayWrapper)(nil),    // 24: nexus.v4.config.ItemProjectionArrayWrapper
-	(*ItemGroupArrayWrapper)(nil),         // 25: nexus.v4.config.ItemGroupArrayWrapper
-	(*ListItemsApiResponse)(nil),          // 26: nexus.v4.config.ListItemsApiResponse
-	nil,                                   // 27: nexus.v4.config.ObjectMapWrapper.ValueEntry
-	(*stats.ItemStats)(nil),               // 28: nexus.v4.stats.ItemStats
-	(*response.ApiResponseMetadata)(nil),  // 29: common.v1.response.ApiResponseMetadata
-	(*error1.ErrorResponse)(nil),          // 30: nexus.v4.error.ErrorResponse
-	(*anypb.Any)(nil),                     // 31: google.protobuf.Any
+	(*LongArrayWrapper)(nil),              // 2: nexus.v4.config.LongArrayWrapper
+	(*ItemAssociationArrayWrapper)(nil),   // 3: nexus.v4.config.ItemAssociationArrayWrapper
+	(*Item)(nil),                          // 4: nexus.v4.config.Item
+	(*Int32Wrapper)(nil),                  // 5: nexus.v4.config.Int32Wrapper
+	(*Int64Wrapper)(nil),                  // 6: nexus.v4.config.Int64Wrapper
+	(*DoubleWrapper)(nil),                 // 7: nexus.v4.config.DoubleWrapper
+	(*ItemTimeValuePairArrayWrapper)(nil), // 8: nexus.v4.config.ItemTimeValuePairArrayWrapper
+	(*ItemAggregate)(nil),                 // 9: nexus.v4.config.ItemAggregate
+	(*ItemAssociation)(nil),               // 10: nexus.v4.config.ItemAssociation
+	(*ItemAssociationProjection)(nil),     // 11: nexus.v4.config.ItemAssociationProjection
+	(*StringWrapper)(nil),                 // 12: nexus.v4.config.StringWrapper
+	(*BooleanWrapper)(nil),                // 13: nexus.v4.config.BooleanWrapper
+	(*ItemArrayWrapper)(nil),              // 14: nexus.v4.config.ItemArrayWrapper
+	(*ItemAggregateArrayWrapper)(nil),     // 15: nexus.v4.config.ItemAggregateArrayWrapper
+	(*ItemGroup)(nil),                     // 16: nexus.v4.config.ItemGroup
+	(*ItemProjection)(nil),                // 17: nexus.v4.config.ItemProjection
+	(*ItemTimeValuePair)(nil),             // 18: nexus.v4.config.ItemTimeValuePair
+	(*ErrorResponseWrapper)(nil),          // 19: nexus.v4.config.ErrorResponseWrapper
+	(*ItemProjectionArrayWrapper)(nil),    // 20: nexus.v4.config.ItemProjectionArrayWrapper
+	(*ItemGroupArrayWrapper)(nil),         // 21: nexus.v4.config.ItemGroupArrayWrapper
+	(*ListItemsApiResponse)(nil),          // 22: nexus.v4.config.ListItemsApiResponse
+	nil,                                   // 23: nexus.v4.config.ObjectMapWrapper.ValueEntry
+	(*stats.ItemStats)(nil),               // 24: nexus.v4.stats.ItemStats
+	(*response.ApiResponseMetadata)(nil),  // 25: common.v1.response.ApiResponseMetadata
+	(*error1.ErrorResponse)(nil),          // 26: nexus.v4.error.ErrorResponse
+	(*anypb.Any)(nil),                     // 27: google.protobuf.Any
 }
 var file_nexus_v4_config_config_proto_depIdxs = []int32{
-	27, // 0: nexus.v4.config.ObjectMapWrapper.value:type_name -> nexus.v4.config.ObjectMapWrapper.ValueEntry
+	23, // 0: nexus.v4.config.ObjectMapWrapper.value:type_name -> nexus.v4.config.ObjectMapWrapper.ValueEntry
 	0,  // 1: nexus.v4.config.File._reserved:type_name -> nexus.v4.config.ObjectMapWrapper
-	14, // 2: nexus.v4.config.ItemAssociationArrayWrapper.value:type_name -> nexus.v4.config.ItemAssociation
-	7,  // 3: nexus.v4.config.Item.associations:type_name -> nexus.v4.config.ItemAssociationArrayWrapper
-	28, // 4: nexus.v4.config.Item.item_stats:type_name -> nexus.v4.stats.ItemStats
-	2,  // 5: nexus.v4.config.Item.string_list:type_name -> nexus.v4.config.StringArrayWrapper
-	3,  // 6: nexus.v4.config.Item.int64_list:type_name -> nexus.v4.config.LongArrayWrapper
-	4,  // 7: nexus.v4.config.Item.float_list:type_name -> nexus.v4.config.DoubleArrayWrapper
-	5,  // 8: nexus.v4.config.Item.bool_list:type_name -> nexus.v4.config.BooleanArrayWrapper
-	6,  // 9: nexus.v4.config.Item.byte_list:type_name -> nexus.v4.config.IntegerArrayWrapper
-	2,  // 10: nexus.v4.config.Item.enum_list:type_name -> nexus.v4.config.StringArrayWrapper
-	0,  // 11: nexus.v4.config.Item._reserved:type_name -> nexus.v4.config.ObjectMapWrapper
-	22, // 12: nexus.v4.config.ItemTimeValuePairArrayWrapper.value:type_name -> nexus.v4.config.ItemTimeValuePair
-	9,  // 13: nexus.v4.config.ItemAggregate.int32_result:type_name -> nexus.v4.config.Int32Wrapper
-	10, // 14: nexus.v4.config.ItemAggregate.int64_result:type_name -> nexus.v4.config.Int64Wrapper
-	11, // 15: nexus.v4.config.ItemAggregate.double_result:type_name -> nexus.v4.config.DoubleWrapper
-	12, // 16: nexus.v4.config.ItemAggregate.item_time_value_pair_array_result:type_name -> nexus.v4.config.ItemTimeValuePairArrayWrapper
-	0,  // 17: nexus.v4.config.ItemAggregate._reserved:type_name -> nexus.v4.config.ObjectMapWrapper
-	0,  // 18: nexus.v4.config.ItemAssociation._reserved:type_name -> nexus.v4.config.ObjectMapWrapper
-	14, // 19: nexus.v4.config.ItemAssociationProjection.base:type_name -> nexus.v4.config.ItemAssociation
-	8,  // 20: nexus.v4.config.ItemArrayWrapper.value:type_name -> nexus.v4.config.Item
-	13, // 21: nexus.v4.config.ItemAggregateArrayWrapper.value:type_name -> nexus.v4.config.ItemAggregate
-	16, // 22: nexus.v4.config.ItemGroup.string_group:type_name -> nexus.v4.config.StringWrapper
-	9,  // 23: nexus.v4.config.ItemGroup.int32_group:type_name -> nexus.v4.config.Int32Wrapper
-	10, // 24: nexus.v4.config.ItemGroup.int64_group:type_name -> nexus.v4.config.Int64Wrapper
-	11, // 25: nexus.v4.config.ItemGroup.double_group:type_name -> nexus.v4.config.DoubleWrapper
-	17, // 26: nexus.v4.config.ItemGroup.boolean_group:type_name -> nexus.v4.config.BooleanWrapper
-	18, // 27: nexus.v4.config.ItemGroup.item_array_data:type_name -> nexus.v4.config.ItemArrayWrapper
-	19, // 28: nexus.v4.config.ItemGroup.aggregates:type_name -> nexus.v4.config.ItemAggregateArrayWrapper
-	29, // 29: nexus.v4.config.ItemGroup.metadata:type_name -> common.v1.response.ApiResponseMetadata
-	0,  // 30: nexus.v4.config.ItemGroup._reserved:type_name -> nexus.v4.config.ObjectMapWrapper
-	8,  // 31: nexus.v4.config.ItemProjection.base:type_name -> nexus.v4.config.Item
-	0,  // 32: nexus.v4.config.ItemTimeValuePair._reserved:type_name -> nexus.v4.config.ObjectMapWrapper
-	30, // 33: nexus.v4.config.ErrorResponseWrapper.value:type_name -> nexus.v4.error.ErrorResponse
-	21, // 34: nexus.v4.config.ItemProjectionArrayWrapper.value:type_name -> nexus.v4.config.ItemProjection
-	20, // 35: nexus.v4.config.ItemGroupArrayWrapper.value:type_name -> nexus.v4.config.ItemGroup
-	18, // 36: nexus.v4.config.ListItemsApiResponse.item_array_data:type_name -> nexus.v4.config.ItemArrayWrapper
-	23, // 37: nexus.v4.config.ListItemsApiResponse.error_response_data:type_name -> nexus.v4.config.ErrorResponseWrapper
-	24, // 38: nexus.v4.config.ListItemsApiResponse.item_projection_array_data:type_name -> nexus.v4.config.ItemProjectionArrayWrapper
-	25, // 39: nexus.v4.config.ListItemsApiResponse.item_group_array_data:type_name -> nexus.v4.config.ItemGroupArrayWrapper
-	29, // 40: nexus.v4.config.ListItemsApiResponse.metadata:type_name -> common.v1.response.ApiResponseMetadata
-	0,  // 41: nexus.v4.config.ListItemsApiResponse._reserved:type_name -> nexus.v4.config.ObjectMapWrapper
-	31, // 42: nexus.v4.config.ObjectMapWrapper.ValueEntry.value:type_name -> google.protobuf.Any
-	43, // [43:43] is the sub-list for method output_type
-	43, // [43:43] is the sub-list for method input_type
-	43, // [43:43] is the sub-list for extension type_name
-	43, // [43:43] is the sub-list for extension extendee
-	0,  // [0:43] is the sub-list for field type_name
+	10, // 2: nexus.v4.config.ItemAssociationArrayWrapper.value:type_name -> nexus.v4.config.ItemAssociation
+	3,  // 3: nexus.v4.config.Item.associations:type_name -> nexus.v4.config.ItemAssociationArrayWrapper
+	24, // 4: nexus.v4.config.Item.item_stats:type_name -> nexus.v4.stats.ItemStats
+	2,  // 5: nexus.v4.config.Item.int64_list:type_name -> nexus.v4.config.LongArrayWrapper
+	0,  // 6: nexus.v4.config.Item._reserved:type_name -> nexus.v4.config.ObjectMapWrapper
+	18, // 7: nexus.v4.config.ItemTimeValuePairArrayWrapper.value:type_name -> nexus.v4.config.ItemTimeValuePair
+	5,  // 8: nexus.v4.config.ItemAggregate.int32_result:type_name -> nexus.v4.config.Int32Wrapper
+	6,  // 9: nexus.v4.config.ItemAggregate.int64_result:type_name -> nexus.v4.config.Int64Wrapper
+	7,  // 10: nexus.v4.config.ItemAggregate.double_result:type_name -> nexus.v4.config.DoubleWrapper
+	8,  // 11: nexus.v4.config.ItemAggregate.item_time_value_pair_array_result:type_name -> nexus.v4.config.ItemTimeValuePairArrayWrapper
+	0,  // 12: nexus.v4.config.ItemAggregate._reserved:type_name -> nexus.v4.config.ObjectMapWrapper
+	0,  // 13: nexus.v4.config.ItemAssociation._reserved:type_name -> nexus.v4.config.ObjectMapWrapper
+	10, // 14: nexus.v4.config.ItemAssociationProjection.base:type_name -> nexus.v4.config.ItemAssociation
+	4,  // 15: nexus.v4.config.ItemArrayWrapper.value:type_name -> nexus.v4.config.Item
+	9,  // 16: nexus.v4.config.ItemAggregateArrayWrapper.value:type_name -> nexus.v4.config.ItemAggregate
+	12, // 17: nexus.v4.config.ItemGroup.string_group:type_name -> nexus.v4.config.StringWrapper
+	5,  // 18: nexus.v4.config.ItemGroup.int32_group:type_name -> nexus.v4.config.Int32Wrapper
+	6,  // 19: nexus.v4.config.ItemGroup.int64_group:type_name -> nexus.v4.config.Int64Wrapper
+	7,  // 20: nexus.v4.config.ItemGroup.double_group:type_name -> nexus.v4.config.DoubleWrapper
+	13, // 21: nexus.v4.config.ItemGroup.boolean_group:type_name -> nexus.v4.config.BooleanWrapper
+	14, // 22: nexus.v4.config.ItemGroup.item_array_data:type_name -> nexus.v4.config.ItemArrayWrapper
+	15, // 23: nexus.v4.config.ItemGroup.aggregates:type_name -> nexus.v4.config.ItemAggregateArrayWrapper
+	25, // 24: nexus.v4.config.ItemGroup.metadata:type_name -> common.v1.response.ApiResponseMetadata
+	0,  // 25: nexus.v4.config.ItemGroup._reserved:type_name -> nexus.v4.config.ObjectMapWrapper
+	4,  // 26: nexus.v4.config.ItemProjection.base:type_name -> nexus.v4.config.Item
+	0,  // 27: nexus.v4.config.ItemTimeValuePair._reserved:type_name -> nexus.v4.config.ObjectMapWrapper
+	26, // 28: nexus.v4.config.ErrorResponseWrapper.value:type_name -> nexus.v4.error.ErrorResponse
+	17, // 29: nexus.v4.config.ItemProjectionArrayWrapper.value:type_name -> nexus.v4.config.ItemProjection
+	16, // 30: nexus.v4.config.ItemGroupArrayWrapper.value:type_name -> nexus.v4.config.ItemGroup
+	14, // 31: nexus.v4.config.ListItemsApiResponse.item_array_data:type_name -> nexus.v4.config.ItemArrayWrapper
+	19, // 32: nexus.v4.config.ListItemsApiResponse.error_response_data:type_name -> nexus.v4.config.ErrorResponseWrapper
+	20, // 33: nexus.v4.config.ListItemsApiResponse.item_projection_array_data:type_name -> nexus.v4.config.ItemProjectionArrayWrapper
+	21, // 34: nexus.v4.config.ListItemsApiResponse.item_group_array_data:type_name -> nexus.v4.config.ItemGroupArrayWrapper
+	25, // 35: nexus.v4.config.ListItemsApiResponse.metadata:type_name -> common.v1.response.ApiResponseMetadata
+	0,  // 36: nexus.v4.config.ListItemsApiResponse._reserved:type_name -> nexus.v4.config.ObjectMapWrapper
+	27, // 37: nexus.v4.config.ObjectMapWrapper.ValueEntry.value:type_name -> google.protobuf.Any
+	38, // [38:38] is the sub-list for method output_type
+	38, // [38:38] is the sub-list for method input_type
+	38, // [38:38] is the sub-list for extension type_name
+	38, // [38:38] is the sub-list for extension extendee
+	0,  // [0:38] is the sub-list for field type_name
 }
 
 func init() { file_nexus_v4_config_config_proto_init() }
@@ -2064,13 +1811,13 @@ func file_nexus_v4_config_config_proto_init() {
 	if File_nexus_v4_config_config_proto != nil {
 		return
 	}
-	file_nexus_v4_config_config_proto_msgTypes[13].OneofWrappers = []any{
+	file_nexus_v4_config_config_proto_msgTypes[9].OneofWrappers = []any{
 		(*ItemAggregate_Int32Result)(nil),
 		(*ItemAggregate_Int64Result)(nil),
 		(*ItemAggregate_DoubleResult)(nil),
 		(*ItemAggregate_ItemTimeValuePairArrayResult)(nil),
 	}
-	file_nexus_v4_config_config_proto_msgTypes[20].OneofWrappers = []any{
+	file_nexus_v4_config_config_proto_msgTypes[16].OneofWrappers = []any{
 		(*ItemGroup_StringGroup)(nil),
 		(*ItemGroup_Int32Group)(nil),
 		(*ItemGroup_Int64Group)(nil),
@@ -2078,7 +1825,7 @@ func file_nexus_v4_config_config_proto_init() {
 		(*ItemGroup_BooleanGroup)(nil),
 		(*ItemGroup_ItemArrayData)(nil),
 	}
-	file_nexus_v4_config_config_proto_msgTypes[26].OneofWrappers = []any{
+	file_nexus_v4_config_config_proto_msgTypes[22].OneofWrappers = []any{
 		(*ListItemsApiResponse_ItemArrayData)(nil),
 		(*ListItemsApiResponse_ErrorResponseData)(nil),
 		(*ListItemsApiResponse_ItemProjectionArrayData)(nil),
@@ -2090,7 +1837,7 @@ func file_nexus_v4_config_config_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_nexus_v4_config_config_proto_rawDesc), len(file_nexus_v4_config_config_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   28,
+			NumMessages:   24,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

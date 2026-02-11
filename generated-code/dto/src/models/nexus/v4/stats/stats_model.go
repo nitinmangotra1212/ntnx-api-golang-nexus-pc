@@ -19,7 +19,224 @@ import (
   "errors"
   "fmt"
   import2 "github.com/nutanix/ntnx-api-golang-nexus-pc/generated-code/dto/models/nexus/v4/error"
+  "time"
 )
+/*
+Time-value pair for double/float metrics
+*/
+type DoubleTimeValuePair struct {
+  
+  ObjectType_ *string `json:"$objectType,omitempty"`
+  
+  Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+  
+  UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  /*
+  Timestamp when the value was recorded
+  */
+  Timestamp *time.Time `json:"timestamp,omitempty"`
+  /*
+  Double value
+  */
+  Value *float64 `json:"value,omitempty"`
+}
+
+func (p *DoubleTimeValuePair) MarshalJSON() ([]byte, error) {
+  // Create Alias to avoid infinite recursion
+  type Alias DoubleTimeValuePair
+
+  // Step 1: Marshal the known fields
+  known, err := json.Marshal(Alias(*p))
+  if err != nil {
+  	return nil, err
+  }
+
+    // Step 2: Convert known to map for merging
+    var knownMap map[string]interface{}
+    if err := json.Unmarshal(known, &knownMap); err != nil {
+    	return nil, err
+    }
+    delete(knownMap, "$unknownFields")
+  
+    // Step 3: Merge unknown fields
+    for k, v := range p.UnknownFields_ {
+    	knownMap[k] = v
+    }
+  
+    // Step 4: Marshal final merged map
+    return json.Marshal(knownMap)
+}
+
+func (p *DoubleTimeValuePair) UnmarshalJSON(b []byte) error {
+    // Step 1: Unmarshal into a generic map to capture all fields
+    var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+    // Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DoubleTimeValuePair
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+    // Step 3: Assign known fields
+	*p = *NewDoubleTimeValuePair()
+
+    if known.ObjectType_ != nil {
+        p.ObjectType_ = known.ObjectType_
+    }
+    if known.Reserved_ != nil {
+        p.Reserved_ = known.Reserved_
+    }
+    if known.UnknownFields_ != nil {
+        p.UnknownFields_ = known.UnknownFields_
+    }
+    if known.Timestamp != nil {
+        p.Timestamp = known.Timestamp
+    }
+    if known.Value != nil {
+        p.Value = known.Value
+    }
+
+    // Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "timestamp")
+	delete(allFields, "value")
+
+    // Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+      p.UnknownFields_[key] = value
+    }
+
+	return nil
+}
+
+func NewDoubleTimeValuePair() *DoubleTimeValuePair {
+  p := new(DoubleTimeValuePair)
+  p.ObjectType_ = new(string)
+  *p.ObjectType_ = "nexus.v4.stats.DoubleTimeValuePair"
+  p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+  p.UnknownFields_ = map[string]interface{}{}
+
+
+
+  return p
+}
+
+
+
+/*
+Time-value pair for integer metrics
+*/
+type IntegerTimeValuePair struct {
+  
+  ObjectType_ *string `json:"$objectType,omitempty"`
+  
+  Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+  
+  UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+  /*
+  Timestamp when the value was recorded
+  */
+  Timestamp *time.Time `json:"timestamp,omitempty"`
+  /*
+  Integer value
+  */
+  Value *int `json:"value,omitempty"`
+}
+
+func (p *IntegerTimeValuePair) MarshalJSON() ([]byte, error) {
+  // Create Alias to avoid infinite recursion
+  type Alias IntegerTimeValuePair
+
+  // Step 1: Marshal the known fields
+  known, err := json.Marshal(Alias(*p))
+  if err != nil {
+  	return nil, err
+  }
+
+    // Step 2: Convert known to map for merging
+    var knownMap map[string]interface{}
+    if err := json.Unmarshal(known, &knownMap); err != nil {
+    	return nil, err
+    }
+    delete(knownMap, "$unknownFields")
+  
+    // Step 3: Merge unknown fields
+    for k, v := range p.UnknownFields_ {
+    	knownMap[k] = v
+    }
+  
+    // Step 4: Marshal final merged map
+    return json.Marshal(knownMap)
+}
+
+func (p *IntegerTimeValuePair) UnmarshalJSON(b []byte) error {
+    // Step 1: Unmarshal into a generic map to capture all fields
+    var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+    // Step 2: Unmarshal into a temporary struct with known fields
+	type Alias IntegerTimeValuePair
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+    // Step 3: Assign known fields
+	*p = *NewIntegerTimeValuePair()
+
+    if known.ObjectType_ != nil {
+        p.ObjectType_ = known.ObjectType_
+    }
+    if known.Reserved_ != nil {
+        p.Reserved_ = known.Reserved_
+    }
+    if known.UnknownFields_ != nil {
+        p.UnknownFields_ = known.UnknownFields_
+    }
+    if known.Timestamp != nil {
+        p.Timestamp = known.Timestamp
+    }
+    if known.Value != nil {
+        p.Value = known.Value
+    }
+
+    // Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "timestamp")
+	delete(allFields, "value")
+
+    // Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+      p.UnknownFields_[key] = value
+    }
+
+	return nil
+}
+
+func NewIntegerTimeValuePair() *IntegerTimeValuePair {
+  p := new(IntegerTimeValuePair)
+  p.ObjectType_ = new(string)
+  *p.ObjectType_ = "nexus.v4.stats.IntegerTimeValuePair"
+  p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+  p.UnknownFields_ = map[string]interface{}{}
+
+
+
+  return p
+}
+
+
+
 /*
 Statistics entity for items, representing time-series or analytical data for an item
 */
@@ -31,17 +248,17 @@ type ItemStats struct {
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
   /*
-  Age of the item
+  Age of the item (time-series data as array of time-value pairs)
   */
-  Age *int `json:"age,omitempty"`
+  Age []IntegerTimeValuePair `json:"age,omitempty"`
   /*
-  Food intake measurement
+  Food intake measurement (time-series data as array of time-value pairs)
   */
-  FoodIntake *float64 `json:"foodIntake,omitempty"`
+  FoodIntake []DoubleTimeValuePair `json:"foodIntake,omitempty"`
   /*
-  Heart rate measurement
+  Heart rate measurement (time-series data as array of time-value pairs)
   */
-  HeartRate *int `json:"heartRate,omitempty"`
+  HeartRate []IntegerTimeValuePair `json:"heartRate,omitempty"`
   /*
   External identifier of the item this stats record belongs to (foreign key to Item.extId)
   */
@@ -435,17 +652,17 @@ type ItemStatsProjection struct {
   
   UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
   /*
-  Age of the item
+  Age of the item (time-series data as array of time-value pairs)
   */
-  Age *int `json:"age,omitempty"`
+  Age []IntegerTimeValuePair `json:"age,omitempty"`
   /*
-  Food intake measurement
+  Food intake measurement (time-series data as array of time-value pairs)
   */
-  FoodIntake *float64 `json:"foodIntake,omitempty"`
+  FoodIntake []DoubleTimeValuePair `json:"foodIntake,omitempty"`
   /*
-  Heart rate measurement
+  Heart rate measurement (time-series data as array of time-value pairs)
   */
-  HeartRate *int `json:"heartRate,omitempty"`
+  HeartRate []IntegerTimeValuePair `json:"heartRate,omitempty"`
   /*
   External identifier of the item this stats record belongs to (foreign key to Item.extId)
   */

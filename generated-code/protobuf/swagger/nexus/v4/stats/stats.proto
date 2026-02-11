@@ -17,6 +17,7 @@ option java_multiple_files = true;
 option java_package = "nexus.v4.stats";
 option go_package = "nexus/v4/stats";
 
+import "google/protobuf/timestamp.proto";
 import "google/protobuf/any.proto";
 import "common/v1/response/response.proto";
 import "nexus/v4/error/error.proto";
@@ -31,6 +32,58 @@ message ObjectMapWrapper {
   map<string, google.protobuf.Any> value = 1000;
 }
 /*
+ * Time-value pair for double/float metrics
+ */
+message DoubleTimeValuePair {
+  /*
+   * Timestamp when the value was recorded
+   */
+  optional google.protobuf.Timestamp timestamp = 2001;
+  /*
+   * Double value
+   */
+  optional double value = 2002;
+  /*
+   * 
+   */
+  optional nexus.v4.stats.ObjectMapWrapper _reserved = 900000;
+}
+/*
+ * Time-value pair for integer metrics
+ */
+message IntegerTimeValuePair {
+  /*
+   * Timestamp when the value was recorded
+   */
+  optional google.protobuf.Timestamp timestamp = 2001;
+  /*
+   * Integer value
+   */
+  optional int32 value = 2002;
+  /*
+   * 
+   */
+  optional nexus.v4.stats.ObjectMapWrapper _reserved = 900000;
+}
+/*
+ * Array wrapper message
+ */
+message IntegerTimeValuePairArrayWrapper {
+  /*
+   * Value field in wrapper message
+   */
+  repeated nexus.v4.stats.IntegerTimeValuePair value = 1000;
+}
+/*
+ * Array wrapper message
+ */
+message DoubleTimeValuePairArrayWrapper {
+  /*
+   * Value field in wrapper message
+   */
+  repeated nexus.v4.stats.DoubleTimeValuePair value = 1000;
+}
+/*
  * Statistics entity for items, representing time-series or analytical data for an item
  */
 message ItemStats {
@@ -43,17 +96,17 @@ message ItemStats {
    */
   optional string item_ext_id = 4002;
   /*
-   * Age of the item
+   * Age of the item (time-series data as array of time-value pairs)
    */
-  optional int32 age = 4003;
+  optional nexus.v4.stats.IntegerTimeValuePairArrayWrapper age = 4003;
   /*
-   * Heart rate measurement
+   * Heart rate measurement (time-series data as array of time-value pairs)
    */
-  optional int32 heart_rate = 4004;
+  optional nexus.v4.stats.IntegerTimeValuePairArrayWrapper heart_rate = 4004;
   /*
-   * Food intake measurement
+   * Food intake measurement (time-series data as array of time-value pairs)
    */
-  optional double food_intake = 4005;
+  optional nexus.v4.stats.DoubleTimeValuePairArrayWrapper food_intake = 4005;
   /*
    * 
    */

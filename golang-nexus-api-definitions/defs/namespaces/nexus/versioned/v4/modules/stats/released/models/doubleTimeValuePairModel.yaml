@@ -1,0 +1,27 @@
+components:
+  schemas:
+    DoubleTimeValuePair:
+      description: Time-value pair for double/float metrics
+      type: object
+      properties:
+        timestamp:
+          description: Timestamp when the value was recorded
+          type: string
+          format: date-time
+          example: "2026-02-10T16:11:00Z"
+        value:
+          description: Double value
+          type: number
+          format: double
+          example: 250.5
+      x-complex-type-edm: true
+      x-codegen-hint:
+        $any:
+          - type: entity-identifier
+            properties:
+              identifiers:
+                - name: timestamp
+                  index: 2001
+                - name: value
+                  index: 2002
+

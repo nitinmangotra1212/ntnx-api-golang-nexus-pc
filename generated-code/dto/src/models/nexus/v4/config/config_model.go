@@ -168,29 +168,13 @@ type Item struct {
   */
   Associations []ItemAssociation `json:"associations,omitempty"`
   /*
-  List of boolean values
-  */
-  BoolList []bool `json:"boolList,omitempty"`
-  /*
-  List of byte values (0-255)
-  */
-  ByteList []int `json:"byteList,omitempty"`
-  /*
   Description of the item
   */
   Description *string `json:"description,omitempty"`
   /*
-  List of enum values (status enum)
-  */
-  EnumList []string `json:"enumList,omitempty"`
-  /*
   External identifier for the item (UUID)
   */
   ExtId *string `json:"extId,omitempty"`
-  /*
-  List of floating-point values (double)
-  */
-  FloatList []float64 `json:"floatList,omitempty"`
   /*
   List of integer values (int64)
   */
@@ -229,10 +213,6 @@ type Item struct {
   Status of the item (e.g., ACTIVE, INACTIVE, PENDING)
   */
   Status *string `json:"status,omitempty"`
-  /*
-  List of string values
-  */
-  StringList []string `json:"stringList,omitempty"`
 }
 
 func (p *Item) MarshalJSON() ([]byte, error) {
@@ -299,23 +279,11 @@ func (p *Item) UnmarshalJSON(b []byte) error {
     if known.Associations != nil {
         p.Associations = known.Associations
     }
-    if known.BoolList != nil {
-        p.BoolList = known.BoolList
-    }
-    if known.ByteList != nil {
-        p.ByteList = known.ByteList
-    }
     if known.Description != nil {
         p.Description = known.Description
     }
-    if known.EnumList != nil {
-        p.EnumList = known.EnumList
-    }
     if known.ExtId != nil {
         p.ExtId = known.ExtId
-    }
-    if known.FloatList != nil {
-        p.FloatList = known.FloatList
     }
     if known.Int64List != nil {
         p.Int64List = known.Int64List
@@ -347,21 +315,14 @@ func (p *Item) UnmarshalJSON(b []byte) error {
     if known.Status != nil {
         p.Status = known.Status
     }
-    if known.StringList != nil {
-        p.StringList = known.StringList
-    }
 
     // Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
 	delete(allFields, "associations")
-	delete(allFields, "boolList")
-	delete(allFields, "byteList")
 	delete(allFields, "description")
-	delete(allFields, "enumList")
 	delete(allFields, "extId")
-	delete(allFields, "floatList")
 	delete(allFields, "int64List")
 	delete(allFields, "isActive")
 	delete(allFields, "itemId")
@@ -372,7 +333,6 @@ func (p *Item) UnmarshalJSON(b []byte) error {
 	delete(allFields, "priority")
 	delete(allFields, "quantity")
 	delete(allFields, "status")
-	delete(allFields, "stringList")
 
     // Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -929,29 +889,13 @@ type ItemProjection struct {
   */
   Associations []ItemAssociation `json:"associations,omitempty"`
   /*
-  List of boolean values
-  */
-  BoolList []bool `json:"boolList,omitempty"`
-  /*
-  List of byte values (0-255)
-  */
-  ByteList []int `json:"byteList,omitempty"`
-  /*
   Description of the item
   */
   Description *string `json:"description,omitempty"`
   /*
-  List of enum values (status enum)
-  */
-  EnumList []string `json:"enumList,omitempty"`
-  /*
   External identifier for the item (UUID)
   */
   ExtId *string `json:"extId,omitempty"`
-  /*
-  List of floating-point values (double)
-  */
-  FloatList []float64 `json:"floatList,omitempty"`
   /*
   List of integer values (int64)
   */
@@ -990,10 +934,6 @@ type ItemProjection struct {
   Status of the item (e.g., ACTIVE, INACTIVE, PENDING)
   */
   Status *string `json:"status,omitempty"`
-  /*
-  List of string values
-  */
-  StringList []string `json:"stringList,omitempty"`
 }
 
 func (p *ItemProjection) MarshalJSON() ([]byte, error) {
@@ -1060,23 +1000,11 @@ func (p *ItemProjection) UnmarshalJSON(b []byte) error {
     if known.Associations != nil {
         p.Associations = known.Associations
     }
-    if known.BoolList != nil {
-        p.BoolList = known.BoolList
-    }
-    if known.ByteList != nil {
-        p.ByteList = known.ByteList
-    }
     if known.Description != nil {
         p.Description = known.Description
     }
-    if known.EnumList != nil {
-        p.EnumList = known.EnumList
-    }
     if known.ExtId != nil {
         p.ExtId = known.ExtId
-    }
-    if known.FloatList != nil {
-        p.FloatList = known.FloatList
     }
     if known.Int64List != nil {
         p.Int64List = known.Int64List
@@ -1108,21 +1036,14 @@ func (p *ItemProjection) UnmarshalJSON(b []byte) error {
     if known.Status != nil {
         p.Status = known.Status
     }
-    if known.StringList != nil {
-        p.StringList = known.StringList
-    }
 
     // Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
 	delete(allFields, "associations")
-	delete(allFields, "boolList")
-	delete(allFields, "byteList")
 	delete(allFields, "description")
-	delete(allFields, "enumList")
 	delete(allFields, "extId")
-	delete(allFields, "floatList")
 	delete(allFields, "int64List")
 	delete(allFields, "isActive")
 	delete(allFields, "itemId")
@@ -1133,7 +1054,6 @@ func (p *ItemProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "priority")
 	delete(allFields, "quantity")
 	delete(allFields, "status")
-	delete(allFields, "stringList")
 
     // Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
