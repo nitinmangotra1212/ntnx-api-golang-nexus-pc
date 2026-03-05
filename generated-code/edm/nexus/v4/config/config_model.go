@@ -92,8 +92,8 @@ func NewItem() *edm.EdmEntityBinding {
 
   itemTypeProperty := new(edm.EdmProperty)
   itemTypeProperty.Name = "itemType"
+  itemTypeProperty.Type = string(*edm.GetFullQualifiedName("Nexus.Config", "ItemType"))
   itemTypeProperty.IsCollection = false
-  itemTypeProperty.Type = string(edm.EdmString)
   itemTypeProperty.MappedName = p.PropertyMappings["itemType"]
   itemTypeProperty.IsFilterable = filterProperties["itemType"]
   itemTypeProperty.IsSortable = sortableProperties["itemType"]
@@ -184,14 +184,14 @@ func NewItem() *edm.EdmEntityBinding {
 
   // set Edm Entity Type
   entityType := new(edm.EdmEntityType)
-  entityType.Name = "item"
+  entityType.Name = "nexus"+"config"+"item"
   entityType.Properties = properties
   p.EntityType = entityType
 
   // set Edm Entity Set
   entitySet := new(edm.EdmEntitySet)
-  entitySet.Name = "items"
-  entitySet.EntityType = edm.GetFullQualifiedName(edm.NamespaceEntities, "item")
+  entitySet.Name = "nexus"+"config"+"items"
+  entitySet.EntityType = edm.GetFullQualifiedName(edm.NamespaceEntities, "nexus"+"config"+"item")
   entitySet.IncludeInServiceDocument = true
   entitySet.TableName = "item"
   p.EntitySet = entitySet
@@ -200,6 +200,8 @@ func NewItem() *edm.EdmEntityBinding {
   p.RbacEntityName = "Item"
 
 
+  p.Namespace = "nexus"
+  p.Module = "config"
 
   return p
 }
@@ -260,14 +262,14 @@ func NewItemAssociation() *edm.EdmEntityBinding {
 
   // set Edm Entity Type
   entityType := new(edm.EdmEntityType)
-  entityType.Name = "itemassociation"
+  entityType.Name = "nexus"+"config"+"itemassociation"
   entityType.Properties = properties
   p.EntityType = entityType
 
   // set Edm Entity Set
   entitySet := new(edm.EdmEntitySet)
-  entitySet.Name = "itemassociationSet"
-  entitySet.EntityType = edm.GetFullQualifiedName(edm.NamespaceEntities, "itemassociation")
+  entitySet.Name = "nexus"+"config"+"itemassociationSet"
+  entitySet.EntityType = edm.GetFullQualifiedName(edm.NamespaceEntities, "nexus"+"config"+"itemassociation")
   entitySet.IncludeInServiceDocument = true
   entitySet.TableName = "item_associations"
   p.EntitySet = entitySet
@@ -276,6 +278,52 @@ func NewItemAssociation() *edm.EdmEntityBinding {
   p.RbacEntityName = "ItemAssociation"
 
 
+  p.Namespace = "nexus"
+  p.Module = "config"
+
+  return p
+}
+
+
+func NewItemType() *edm.EdmEntityBinding {
+
+  p := new(edm.EdmEntityBinding)
+  // set Edm Property Mapping
+  p.PropertyMappings = make(map[string]string)
+  p.PropertyMappings["TYPE2"] = "2"
+  p.PropertyMappings["$UNKNOWN"] = "3"
+  p.PropertyMappings["TYPE1"] = "1"
+  p.PropertyMappings["$REDACTED"] = "4"
+
+  // set Edm Enum Members
+  var members []*edm.EdmEnumMember
+  type1Member := new(edm.EdmEnumMember)
+  type1Member.Name = "TYPE1"
+  type1Member.Value = p.PropertyMappings["TYPE1"]
+  members = append(members, type1Member)
+  type2Member := new(edm.EdmEnumMember)
+  type2Member.Name = "TYPE2"
+  type2Member.Value = p.PropertyMappings["TYPE2"]
+  members = append(members, type2Member)
+  unknownMember := new(edm.EdmEnumMember)
+  unknownMember.Name = "$UNKNOWN"
+  unknownMember.Value = p.PropertyMappings["$UNKNOWN"]
+  members = append(members, unknownMember)
+  redactedMember := new(edm.EdmEnumMember)
+  redactedMember.Name = "$REDACTED"
+  redactedMember.Value = p.PropertyMappings["$REDACTED"]
+  members = append(members, redactedMember)
+
+  // set Edm Enum Type
+  enumType := new(edm.EdmEnumType)
+  enumType.Name = "ItemType"
+  enumType.Members = members
+  enumType.TypeMapping = "int64"
+  enumType.Namespace = "nexus"
+  enumType.Module = "config"
+  p.EnumType = enumType
+  p.Namespace = "nexus"
+  p.Module = "config"
 
   return p
 }
@@ -286,5 +334,6 @@ func GetAllEntityBindings() []*edm.EdmEntityBinding {
   var entityBindingList []*edm.EdmEntityBinding
   entityBindingList = append(entityBindingList, NewItem())
   entityBindingList = append(entityBindingList, NewItemAssociation())
+  entityBindingList = append(entityBindingList, NewItemType())
   return entityBindingList
 }

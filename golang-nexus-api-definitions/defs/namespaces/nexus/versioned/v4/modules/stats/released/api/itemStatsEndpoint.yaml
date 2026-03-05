@@ -1,13 +1,27 @@
 paths:
   /item-stats:
     get:
+      x-api-features:
+        - ApiFeature(PARAMETERS, {ext:common:/namespaces/common/versioned/v1/modules/config/released/models/Page})
       tags:
         - "ApiEndpoint(ItemStats)"
       description: List item statistics with grouping and filtering capabilities
       summary: List item statistics (Stats)
       operationId: "listItemStats"
       x-support-expand: true
+      x-support-projection: true
       x-groupable: true
+      x-codegen-hint:
+        $any:
+          - type: entity-identifier
+            properties:
+              identifiers:
+                - name: $page
+                  index: 1001
+                - name: $limit
+                  index: 1002
+                - name: $select
+                  index: 201
       responses:
         200:
           description: List of item statistics retrieved successfully
@@ -28,4 +42,3 @@ paths:
                   - type: "ModelRef({/namespaces/nexus/versioned/v4/modules/stats/released/models/ItemStats})"
                     container: "array"
                     index: 2001
-

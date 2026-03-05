@@ -14,6 +14,7 @@
 */
 package config
 import (
+  "bytes"
   import2 "github.com/nutanix/ntnx-api-golang-nexus-pc/generated-code/dto/models/common/v1/response"
   "encoding/json"
   "errors"
@@ -193,10 +194,8 @@ type Item struct {
   ItemName *string `json:"itemName"`
   
   ItemStats *import1.ItemStats `json:"itemStats,omitempty"`
-  /*
-  Type of item
-  */
-  ItemType *string `json:"itemType"`
+  
+  ItemType *ItemType `json:"itemType"`
   /*
   Price/cost of the item
   */
@@ -222,7 +221,7 @@ func (p *Item) MarshalJSON() ([]byte, error) {
   baseStruct := struct {
     *ItemProxy
     ItemName *string `json:"itemName,omitempty"`
-    ItemType *string `json:"itemType,omitempty"`
+    ItemType *ItemType `json:"itemType,omitempty"`
   }{
     ItemProxy : (*ItemProxy)(p),
     ItemName : p.ItemName,
@@ -914,10 +913,8 @@ type ItemProjection struct {
   ItemName *string `json:"itemName"`
   
   ItemStats *import1.ItemStats `json:"itemStats,omitempty"`
-  /*
-  Type of item
-  */
-  ItemType *string `json:"itemType"`
+  
+  ItemType *ItemType `json:"itemType"`
   /*
   Price/cost of the item
   */
@@ -943,7 +940,7 @@ func (p *ItemProjection) MarshalJSON() ([]byte, error) {
   baseStruct := struct {
     *ItemProjectionProxy
     ItemName *string `json:"itemName,omitempty"`
-    ItemType *string `json:"itemType,omitempty"`
+    ItemType *ItemType `json:"itemType,omitempty"`
   }{
     ItemProjectionProxy : (*ItemProjectionProxy)(p),
     ItemName : p.ItemName,
@@ -1178,6 +1175,86 @@ func NewItemTimeValuePair() *ItemTimeValuePair {
 }
 
 
+
+
+/*
+Type classification of an item
+*/
+type ItemType int
+
+const(
+  ITEMTYPE_TYPE1 ItemType = 0
+  ITEMTYPE_TYPE2 ItemType = 1
+  ITEMTYPE_UNKNOWN ItemType = 2
+  ITEMTYPE_REDACTED ItemType = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *ItemType) name(index int) string {
+  names := [...]string {
+    "TYPE1",
+    "TYPE2",
+    "$UNKNOWN",
+    "$REDACTED",
+  }
+  if index < 0 || index >= len(names) {
+    return "$UNKNOWN"
+  }
+  return names[index]
+}
+
+// Returns the name of the enum
+func (e ItemType) GetName() string {
+  index := int(e)
+  names := [...]string {
+    "TYPE1",
+    "TYPE2",
+    "$UNKNOWN",
+    "$REDACTED",
+  }
+  if index < 0 || index >= len(names) {
+    return "$UNKNOWN"
+  }
+  return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *ItemType) index(name string) ItemType {
+  names := [...]string {
+    "TYPE1",
+    "TYPE2",
+    "$UNKNOWN",
+    "$REDACTED",
+  }
+  for idx := range names {
+    if names[idx] == name {
+      return ItemType(idx)
+    }
+  }
+  return ITEMTYPE_UNKNOWN
+}
+
+func (e *ItemType) UnmarshalJSON(b []byte) error {
+  var enumStr string
+  if err := json.Unmarshal(b, &enumStr); err != nil {
+    return errors.New(fmt.Sprintf("Unable to unmarshal for ItemType:%s", err))
+  }
+  *e = e.index(enumStr)
+  return nil
+}
+
+func (e *ItemType) MarshalJSON() ([]byte, error) {
+  b := bytes.NewBufferString(`"`)
+  b.WriteString(e.name(int(*e)))
+  b.WriteString(`"`)
+  return b.Bytes(), nil
+}
+
+func (e ItemType) Ref() *ItemType {
+  return &e
+}
 
 /*
 REST response for all response codes in API path /nexus/v4.1/config/items Get operation

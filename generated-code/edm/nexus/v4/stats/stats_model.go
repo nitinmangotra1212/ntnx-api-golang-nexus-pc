@@ -22,45 +22,29 @@ func NewItemStats() *edm.EdmEntityBinding {
   // set Edm Property Mapping
   p.PropertyMappings = make(map[string]string)
   p.PropertyMappings["heartRate"] = "heart_rate"
-  p.PropertyMappings["statsExtId"] = "stats_ext_id"
   p.PropertyMappings["foodIntake"] = "food_intake"
-  p.PropertyMappings["itemExtId"] = "item_ext_id"
   p.PropertyMappings["age"] = "age"
 
   filterProperties := make(map[string]bool)
   // set filterable properties in a map
-  filterProperties["itemExtId"] = true
   filterProperties["age"] = true
   filterProperties["heartRate"] = true
   filterProperties["foodIntake"] = true
 
   sortableProperties := make(map[string]bool)
   // set sortable properties in a map
-  sortableProperties["itemExtId"] = true
   sortableProperties["age"] = true
   sortableProperties["heartRate"] = true
   sortableProperties["foodIntake"] = true
 
   groupableProperties := make(map[string]bool)
   // set groupable properties in a map
-  groupableProperties["statsExtId"] = true
-  groupableProperties["itemExtId"] = true
   groupableProperties["age"] = true
   groupableProperties["heartRate"] = true
   groupableProperties["foodIntake"] = true
 
   // set Edm Properties
   var properties []*edm.EdmProperty
-  statsExtIdProperty := new(edm.EdmProperty)
-  statsExtIdProperty.Name = "statsExtId"
-  statsExtIdProperty.IsCollection = false
-  statsExtIdProperty.Type = string(edm.EdmString)
-  statsExtIdProperty.MappedName = p.PropertyMappings["statsExtId"]
-  statsExtIdProperty.IsFilterable = filterProperties["statsExtId"]
-  statsExtIdProperty.IsSortable = sortableProperties["statsExtId"]
-  statsExtIdProperty.IsGroupable = groupableProperties["statsExtId"]
-  properties = append(properties, statsExtIdProperty)
-
   itemExtIdProperty := new(edm.EdmProperty)
   itemExtIdProperty.Name = "itemExtId"
   itemExtIdProperty.IsCollection = false
@@ -74,7 +58,7 @@ func NewItemStats() *edm.EdmEntityBinding {
   ageProperty := new(edm.EdmProperty)
   ageProperty.Name = "age"
   ageProperty.IsCollection = true
-  ageProperty.Type = string(edm.EdmString)
+  ageProperty.Type = string(edm.EdmInt64)
   ageProperty.MappedName = p.PropertyMappings["age"]
   ageProperty.IsFilterable = filterProperties["age"]
   ageProperty.IsSortable = sortableProperties["age"]
@@ -84,7 +68,7 @@ func NewItemStats() *edm.EdmEntityBinding {
   heartRateProperty := new(edm.EdmProperty)
   heartRateProperty.Name = "heartRate"
   heartRateProperty.IsCollection = true
-  heartRateProperty.Type = string(edm.EdmString)
+  heartRateProperty.Type = string(edm.EdmInt64)
   heartRateProperty.MappedName = p.PropertyMappings["heartRate"]
   heartRateProperty.IsFilterable = filterProperties["heartRate"]
   heartRateProperty.IsSortable = sortableProperties["heartRate"]
@@ -94,7 +78,7 @@ func NewItemStats() *edm.EdmEntityBinding {
   foodIntakeProperty := new(edm.EdmProperty)
   foodIntakeProperty.Name = "foodIntake"
   foodIntakeProperty.IsCollection = true
-  foodIntakeProperty.Type = string(edm.EdmString)
+  foodIntakeProperty.Type = string(edm.EdmInt64)
   foodIntakeProperty.MappedName = p.PropertyMappings["foodIntake"]
   foodIntakeProperty.IsFilterable = filterProperties["foodIntake"]
   foodIntakeProperty.IsSortable = sortableProperties["foodIntake"]
@@ -105,14 +89,14 @@ func NewItemStats() *edm.EdmEntityBinding {
 
   // set Edm Entity Type
   entityType := new(edm.EdmEntityType)
-  entityType.Name = "itemstat"
+  entityType.Name = "nexus"+"stats"+"itemstat"
   entityType.Properties = properties
   p.EntityType = entityType
 
   // set Edm Entity Set
   entitySet := new(edm.EdmEntitySet)
-  entitySet.Name = "itemstats"
-  entitySet.EntityType = edm.GetFullQualifiedName(edm.NamespaceEntities, "itemstat")
+  entitySet.Name = "nexus"+"stats"+"itemstats"
+  entitySet.EntityType = edm.GetFullQualifiedName(edm.NamespaceEntities, "nexus"+"stats"+"itemstat")
   entitySet.IncludeInServiceDocument = true
   entitySet.TableName = "item_stats"
   p.EntitySet = entitySet
@@ -121,6 +105,8 @@ func NewItemStats() *edm.EdmEntityBinding {
   p.RbacEntityName = "ItemStats"
 
 
+  p.Namespace = "nexus"
+  p.Module = "stats"
 
   return p
 }

@@ -24,8 +24,8 @@
       <artifactId>slf4j-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>javax.validation</groupId>
-      <artifactId>validation-api</artifactId>
+      <groupId>jakarta.validation</groupId>
+      <artifactId>jakarta.validation-api</artifactId>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
@@ -94,6 +94,139 @@
             <version>${openapi-dev-platform.version}</version>
           </dependency>
         </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>replacer</artifactId>
+        <version>1.5.3</version>
+        <executions>
+          <execution>
+            <id>replace-javax-process-sources</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+            <configuration>
+              <includes>
+                <include>${project.build.directory}/generated-sources/swagger/src/**/*.java</include>
+              </includes>
+              <excludes>
+                <exclude>${project.build.directory}/generated-sources/swagger/src/**/ApiClient.java</exclude>
+                <exclude>${project.build.directory}/generated-sources/swagger/src/**/MutualTLSConfig.java</exclude>
+              </excludes>
+              <replacements>
+                <replacement>
+                  <token>@javax.validation.constraints</token>
+                  <value>@jakarta.validation.constraints</value>
+                </replacement>
+                <replacement>
+                  <token>import javax.validation.constraints</token>
+                  <value>import jakarta.validation.constraints</value>
+                </replacement>
+                <replacement>
+                  <token>javax.validation</token>
+                  <value>jakarta.validation</value>
+                </replacement>
+                <replacement>
+                  <token>javax.servlet</token>
+                  <value>jakarta.servlet</value>
+                </replacement>
+                <replacement>
+                  <token>javax.ws.rs</token>
+                  <value>jakarta.ws.rs</value>
+                </replacement>
+                <replacement>
+                  <token>@javax</token>
+                  <value>@jakarta</value>
+                </replacement>
+              </replacements>
+            </configuration>
+          </execution>
+          <execution>
+            <id>replace-javax-package</id>
+            <phase>package</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+            <configuration>
+              <includes>
+                <include>${project.build.directory}/generated-sources/swagger/src/**/*.java</include>
+              </includes>
+              <excludes>
+                <exclude>${project.build.directory}/generated-sources/swagger/src/**/ApiClient.java</exclude>
+                <exclude>${project.build.directory}/generated-sources/swagger/src/**/MutualTLSConfig.java</exclude>
+              </excludes>
+              <replacements>
+                <replacement>
+                  <token>@javax.validation.constraints</token>
+                  <value>@jakarta.validation.constraints</value>
+                </replacement>
+                <replacement>
+                  <token>import javax.validation.constraints</token>
+                  <value>import jakarta.validation.constraints</value>
+                </replacement>
+                <replacement>
+                  <token>javax.validation</token>
+                  <value>jakarta.validation</value>
+                </replacement>
+                <replacement>
+                  <token>javax.servlet</token>
+                  <value>jakarta.servlet</value>
+                </replacement>
+                <replacement>
+                  <token>javax.ws.rs</token>
+                  <value>jakarta.ws.rs</value>
+                </replacement>
+                <replacement>
+                  <token>@javax</token>
+                  <value>@jakarta</value>
+                </replacement>
+              </replacements>
+            </configuration>
+          </execution>
+          <execution>
+            <id>replace-javax-install</id>
+            <phase>install</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+            <configuration>
+              <includes>
+                <include>${project.build.directory}/generated-sources/swagger/src/**/*.java</include>
+              </includes>
+              <excludes>
+                <exclude>${project.build.directory}/generated-sources/swagger/src/**/ApiClient.java</exclude>
+                <exclude>${project.build.directory}/generated-sources/swagger/src/**/MutualTLSConfig.java</exclude>
+              </excludes>
+              <replacements>
+                <replacement>
+                  <token>@javax.validation.constraints</token>
+                  <value>@jakarta.validation.constraints</value>
+                </replacement>
+                <replacement>
+                  <token>import javax.validation.constraints</token>
+                  <value>import jakarta.validation.constraints</value>
+                </replacement>
+                <replacement>
+                  <token>javax.validation</token>
+                  <value>jakarta.validation</value>
+                </replacement>
+                <replacement>
+                  <token>javax.servlet</token>
+                  <value>jakarta.servlet</value>
+                </replacement>
+                <replacement>
+                  <token>javax.ws.rs</token>
+                  <value>jakarta.ws.rs</value>
+                </replacement>
+                <replacement>
+                  <token>@javax</token>
+                  <value>@jakarta</value>
+                </replacement>
+              </replacements>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>

@@ -66,12 +66,7 @@ components:
             minLength: 1
             maxLength: 100
         itemType:
-          description: Type of item
-          type: string
-          example: "Persian"
-          x-constraints:
-            minLength: 1
-            maxLength: 50
+          $ref: ModelRef({./ItemType})
         description:
           description: Description of the item
           type: string
@@ -224,3 +219,41 @@ components:
       # The Go code handles $expand via GraphQL infrastructure
       # TODO: Re-add when plugin ModelRef resolution is fixed
       x-entity: item
+    ItemType:
+      description: Type classification of an item
+      type: "string"
+      enum:
+        - TYPE1
+        - TYPE2
+        - $UNKNOWN
+        - $REDACTED
+      x-property-mapping:
+        - name: TYPE1
+          value: 1
+        - name: TYPE2
+          value: 2
+        - name: $UNKNOWN
+          value: 3
+        - name: $REDACTED
+          value: 4
+      x-type-mapping: int64
+      x-codegen-hint:
+        $any:
+          - type: enum
+            properties:
+              descriptions:
+                - name: TYPE1
+                  description: "Type 1 item classification"
+                - name: TYPE2
+                  description: "Type 2 item classification"
+          - type: entity-identifier
+            properties:
+              identifiers:
+                - value: TYPE1
+                  index: 2001
+                - value: TYPE2
+                  index: 2002
+                - value: $UNKNOWN
+                  index: 2003
+                - value: $REDACTED
+                  index: 2004

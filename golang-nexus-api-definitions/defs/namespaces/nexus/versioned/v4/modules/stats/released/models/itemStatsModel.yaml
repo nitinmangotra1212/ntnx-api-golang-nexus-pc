@@ -4,14 +4,10 @@ components:
       description: Statistics entity for items, representing time-series or analytical data for an item
       type: object
       properties:
-        statsExtId:
-          description: Unique identifier for the stats record (primary key)
-          type: string
-          readOnly: true
-          example: "660e8400-e29b-41d4-a716-446655440001"
         itemExtId:
-          description: External identifier of the item this stats record belongs to (foreign key to Item.extId)
+          description: External identifier of the item this stats record belongs to
           type: string
+          deprecated: true
           example: "550e8400-e29b-41d4-a716-446655440000"
         age:
           description: Age of the item (time-series data as array of time-value pairs)
@@ -29,51 +25,42 @@ components:
           items:
             $ref: ModelRef({./DoubleTimeValuePair})
       x-filterable-properties:
-        - itemExtId
         - age
         - heartRate
         - foodIntake
       x-sortable-properties:
-        - itemExtId
         - age
         - heartRate
         - foodIntake
       x-selection-properties:
-        - statsExtId
-        - itemExtId
         - age
         - heartRate
         - foodIntake
       x-groupable-properties:
-        - statsExtId
-        - itemExtId
         - age
         - heartRate
         - foodIntake
       x-property-mapping:
-        - name: statsExtId
-          value: stats_ext_id
-        - name: itemExtId
-          value: item_ext_id
         - name: age
           value: age
+          stats: true
         - name: heartRate
           value: heart_rate
+          stats: true
         - name: foodIntake
           value: food_intake
+          stats: true
       x-entity: item_stats
       x-codegen-hint:
         $any:
           - type: entity-identifier
             properties:
               identifiers:
-                - name: statsExtId
-                  index: 4001
                 - name: itemExtId
-                  index: 4002
+                  index: 2001
                 - name: age
-                  index: 4003
+                  index: 2002
                 - name: heartRate
-                  index: 4004
+                  index: 2003
                 - name: foodIntake
-                  index: 4005
+                  index: 2004
