@@ -260,13 +260,9 @@ type ItemStats struct {
   */
   HeartRate []IntegerTimeValuePair `json:"heartRate,omitempty"`
   /*
-  External identifier of the item this stats record belongs to (foreign key to Item.extId)
+  External identifier of the item this stats record belongs to
   */
   ItemExtId *string `json:"itemExtId,omitempty"`
-  /*
-  Unique identifier for the stats record (primary key)
-  */
-  StatsExtId *string `json:"statsExtId,omitempty"`
 }
 
 func (p *ItemStats) MarshalJSON() ([]byte, error) {
@@ -333,9 +329,6 @@ func (p *ItemStats) UnmarshalJSON(b []byte) error {
     if known.ItemExtId != nil {
         p.ItemExtId = known.ItemExtId
     }
-    if known.StatsExtId != nil {
-        p.StatsExtId = known.StatsExtId
-    }
 
     // Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -345,7 +338,6 @@ func (p *ItemStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "foodIntake")
 	delete(allFields, "heartRate")
 	delete(allFields, "itemExtId")
-	delete(allFields, "statsExtId")
 
     // Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -664,13 +656,9 @@ type ItemStatsProjection struct {
   */
   HeartRate []IntegerTimeValuePair `json:"heartRate,omitempty"`
   /*
-  External identifier of the item this stats record belongs to (foreign key to Item.extId)
+  External identifier of the item this stats record belongs to
   */
   ItemExtId *string `json:"itemExtId,omitempty"`
-  /*
-  Unique identifier for the stats record (primary key)
-  */
-  StatsExtId *string `json:"statsExtId,omitempty"`
 }
 
 func (p *ItemStatsProjection) MarshalJSON() ([]byte, error) {
@@ -737,9 +725,6 @@ func (p *ItemStatsProjection) UnmarshalJSON(b []byte) error {
     if known.ItemExtId != nil {
         p.ItemExtId = known.ItemExtId
     }
-    if known.StatsExtId != nil {
-        p.StatsExtId = known.StatsExtId
-    }
 
     // Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -749,7 +734,6 @@ func (p *ItemStatsProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "foodIntake")
 	delete(allFields, "heartRate")
 	delete(allFields, "itemExtId")
-	delete(allFields, "statsExtId")
 
     // Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {

@@ -91,9 +91,9 @@ message Item {
    */
   optional string item_name = 2002;
   /*
-   * Type of item
+   * 
    */
-  optional string item_type = 2003;
+  optional nexus.v4.config.ItemTypeMessage.ItemType item_type = 2003;
   /*
    * Description of the item
    */
@@ -356,6 +356,18 @@ message ItemTimeValuePair {
    */
   optional nexus.v4.config.ObjectMapWrapper _reserved = 900000;
 }
+/*
+ * Type classification of an item
+ */
+message ItemTypeMessage {
+  enum ItemType {
+    TYPE1 = 2001;
+    TYPE2 = 2002;
+    UNKNOWN = 2003;
+    REDACTED = 2004;
+  }
+}
+
 /*
  * OneOf item wrapper message
  */

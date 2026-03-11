@@ -1,13 +1,27 @@
 paths:
   /items:
     get:
+      x-api-features:
+        - ApiFeature(PARAMETERS, {ext:common:/namespaces/common/versioned/v1/modules/config/released/models/Page})
       tags:
         - "ApiEndpoint(Item)"
       description: List all items
       summary: List items
       operationId: "listItems"
       x-support-expand: true
+      x-support-projection: true
       x-groupable: true
+      x-codegen-hint:
+        $any:
+          - type: entity-identifier
+            properties:
+              identifiers:
+                - name: $page
+                  index: 1001
+                - name: $limit
+                  index: 1002
+                - name: $select
+                  index: 201
       responses:
         200:
           description: List of items retrieved successfully

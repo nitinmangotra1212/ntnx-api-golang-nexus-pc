@@ -88,11 +88,7 @@ message DoubleTimeValuePairArrayWrapper {
  */
 message ItemStats {
   /*
-   * Unique identifier for the stats record (primary key)
-   */
-  optional string stats_ext_id = 4001;
-  /*
-   * External identifier of the item this stats record belongs to (foreign key to Item.extId)
+   * External identifier of the item this stats record belongs to
    */
   optional string item_ext_id = 4002;
   /*
