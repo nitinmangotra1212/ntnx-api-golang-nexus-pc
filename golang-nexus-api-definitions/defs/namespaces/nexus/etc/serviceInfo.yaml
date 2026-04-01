@@ -3,6 +3,6 @@ backendServices:
   - name: golangnexus
     environments:
       - platform: pc
-        port: 9090
+        port: 9095
         host: localhost
 
