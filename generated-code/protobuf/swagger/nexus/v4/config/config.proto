@@ -29,8 +29,9 @@ message ObjectMapWrapper {
   /*
    * Value field in wrapper message
    */
+
   map<string, google.protobuf.Any> value = 1000;
-}
+  }
 /*
  * File entity for file transfer operations
  */
@@ -38,26 +39,32 @@ message File {
   /*
    * Unique identifier for the file
    */
+
   optional string file_id = 2001;
   /*
    * Name of the file
    */
+
   optional string file_name = 2002;
   /*
    * Size of the file in bytes
    */
+
   optional int64 file_size = 2003;
   /*
    * MIME type of the file
    */
+
   optional string content_type = 2004;
   /*
    * External identifier (UUID)
    */
+
   optional string ext_id = 2005;
   /*
    * 
    */
+
   optional nexus.v4.config.ObjectMapWrapper _reserved = 900000;
 }
 /*
@@ -68,7 +75,7 @@ message LongArrayWrapper {
    * Value field in wrapper message
    */
   repeated int64 value = 1000;
-}
+  }
 /*
  * Array wrapper message
  */
@@ -77,7 +84,7 @@ message ItemAssociationArrayWrapper {
    * Value field in wrapper message
    */
   repeated nexus.v4.config.ItemAssociation value = 1000;
-}
+  }
 /*
  * Item entity for mock REST API
  */
@@ -85,58 +92,72 @@ message Item {
   /*
    * Unique identifier for the item
    */
+
   optional int32 item_id = 2001;
   /*
    * Name of the item
    */
+
   optional string item_name = 2002;
   /*
    * 
    */
+
   optional nexus.v4.config.ItemTypeMessage.ItemType item_type = 2003;
   /*
    * Description of the item
    */
+
   optional string description = 2004;
   /*
    * External identifier for the item (UUID)
    */
+
   optional string ext_id = 2005;
   /*
    * Associated entities for this item. This field is only present when $expand=associations is specified in the query.
    */
+
   optional nexus.v4.config.ItemAssociationArrayWrapper associations = 2006;
   /*
    * Quantity/stock count of the item
    */
+
   optional int64 quantity = 2007;
   /*
    * Price/cost of the item
    */
+
   optional double price = 2008;
   /*
    * Whether the item is active
    */
+
   optional bool is_active = 2009;
   /*
    * Priority level of the item (0-255)
    */
+
   optional int32 priority = 2010;
   /*
    * Status of the item (e.g., ACTIVE, INACTIVE, PENDING)
    */
+
   optional string status = 2011;
   /*
    * 
    */
+
   optional nexus.v4.stats.ItemStats item_stats = 2012;
   /*
    * List of integer values (int64)
    */
+
   optional nexus.v4.config.LongArrayWrapper int64_list = 2014;
   /*
    * 
    */
+
   optional nexus.v4.config.ObjectMapWrapper _reserved = 900000;
 }
 /*
@@ -146,6 +167,7 @@ message Int32Wrapper {
   /*
    * Value field in oneOf item wrapper message
    */
+
   optional int32 value = 1000;
 }
 /*
@@ -155,6 +177,7 @@ message Int64Wrapper {
   /*
    * Value field in oneOf item wrapper message
    */
+
   optional int64 value = 1000;
 }
 /*
@@ -164,6 +187,7 @@ message DoubleWrapper {
   /*
    * Value field in oneOf item wrapper message
    */
+
   optional double value = 1000;
 }
 /*
@@ -174,7 +198,7 @@ message ItemTimeValuePairArrayWrapper {
    * Value field in oneOf item wrapper message
    */
   repeated nexus.v4.config.ItemTimeValuePair value = 1000;
-}
+  }
 /*
  * 
  */
@@ -203,10 +227,12 @@ message ItemAggregate {
   /*
    * 
    */
+
   optional string label = 2001;
   /*
    * 
    */
+
   optional nexus.v4.config.ObjectMapWrapper _reserved = 900000;
 }
 /*
@@ -216,22 +242,27 @@ message ItemAssociation {
   /*
    * The item ID this association belongs to
    */
+
   optional string item_id = 3001;
   /*
    * Type of associated entity
    */
+
   optional string entity_type = 3002;
   /*
    * ID of associated entity
    */
+
   optional string entity_id = 3003;
   /*
    * Count of associations of this type
    */
+
   optional int32 count = 3004;
   /*
    * 
    */
+
   optional nexus.v4.config.ObjectMapWrapper _reserved = 900000;
 }
 /*
@@ -241,6 +272,7 @@ message ItemAssociationProjection {
   /*
    * 
    */
+
   optional nexus.v4.config.ItemAssociation base = 100;
 }
 /*
@@ -250,6 +282,7 @@ message StringWrapper {
   /*
    * Value field in oneOf item wrapper message
    */
+
   optional string value = 1000;
 }
 /*
@@ -259,6 +292,7 @@ message BooleanWrapper {
   /*
    * Value field in oneOf item wrapper message
    */
+
   optional bool value = 1000;
 }
 /*
@@ -269,7 +303,7 @@ message ItemArrayWrapper {
    * Value field in oneOf item wrapper message
    */
   repeated nexus.v4.config.Item value = 1000;
-}
+  }
 /*
  * Array wrapper message
  */
@@ -278,7 +312,7 @@ message ItemAggregateArrayWrapper {
    * Value field in wrapper message
    */
   repeated nexus.v4.config.ItemAggregate value = 1000;
-}
+  }
 /*
  * 
  */
@@ -320,14 +354,17 @@ message ItemGroup {
   /*
    * 
    */
+
   optional nexus.v4.config.ItemAggregateArrayWrapper aggregates = 2009;
   /*
    * 
    */
+
   optional common.v1.response.ApiResponseMetadata metadata = 2010;
   /*
    * 
    */
+
   optional nexus.v4.config.ObjectMapWrapper _reserved = 900000;
 }
 /*
@@ -337,6 +374,7 @@ message ItemProjection {
   /*
    * 
    */
+
   optional nexus.v4.config.Item base = 100;
 }
 /*
@@ -346,14 +384,17 @@ message ItemTimeValuePair {
   /*
    * 
    */
+
   optional int64 time_stamp = 2001;
   /*
    * 
    */
+
   optional int64 value = 2002;
   /*
    * 
    */
+
   optional nexus.v4.config.ObjectMapWrapper _reserved = 900000;
 }
 /*
@@ -375,6 +416,7 @@ message ErrorResponseWrapper {
   /*
    * Value field in oneOf item wrapper message
    */
+
   optional nexus.v4.error.ErrorResponse value = 1000;
 }
 /*
@@ -385,7 +427,7 @@ message ItemProjectionArrayWrapper {
    * Value field in oneOf item wrapper message
    */
   repeated nexus.v4.config.ItemProjection value = 1000;
-}
+  }
 /*
  * OneOf item wrapper message
  */
@@ -394,7 +436,7 @@ message ItemGroupArrayWrapper {
    * Value field in oneOf item wrapper message
    */
   repeated nexus.v4.config.ItemGroup value = 1000;
-}
+  }
 /*
  * REST response for all response codes in API path /nexus/v4.1/config/items Get operation
  */
@@ -423,9 +465,11 @@ message ListItemsApiResponse {
   /*
    * 
    */
+
   optional common.v1.response.ApiResponseMetadata metadata = 1001;
   /*
    * 
    */
+
   optional nexus.v4.config.ObjectMapWrapper _reserved = 900000;
 }

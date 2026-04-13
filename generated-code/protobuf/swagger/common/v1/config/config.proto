@@ -25,10 +25,12 @@ message Flag {
   /*
    * Name of the flag. 
    */
+
   optional string name = 1001;
   /*
    * Value of the flag. 
    */
+
   optional bool value = 1002 [default = false];
 }
 /*
@@ -38,6 +40,7 @@ message StringWrapper {
   /*
    * Value field in oneOf item wrapper message
    */
+
   optional string value = 1000;
 }
 /*
@@ -47,6 +50,7 @@ message IntegerWrapper {
   /*
    * Value field in oneOf item wrapper message
    */
+
   optional int32 value = 1000;
 }
 /*
@@ -56,6 +60,7 @@ message BooleanWrapper {
   /*
    * Value field in oneOf item wrapper message
    */
+
   optional bool value = 1000;
 }
 /*
@@ -66,7 +71,7 @@ message StringArrayWrapper {
    * Value field in oneOf item wrapper message
    */
   repeated string value = 1000;
-}
+  }
 /*
  * Map wrapper message
  */
@@ -74,8 +79,9 @@ message StringMapWrapper {
   /*
    * Value field in wrapper message
    */
+
   map<string, string> value = 1000;
-}
+  }
 /*
  * OneOf item wrapper message
  */
@@ -84,7 +90,7 @@ message MapOfStringWrapperArrayWrapper {
    * Value field in oneOf item wrapper message
    */
   repeated common.v1.config.MapOfStringWrapper value = 1000;
-}
+  }
 /*
  * OneOf item wrapper message
  */
@@ -93,7 +99,7 @@ message IntegerArrayWrapper {
    * Value field in oneOf item wrapper message
    */
   repeated int32 value = 1000;
-}
+  }
 /*
  * A map describing a set of keys and their corresponding values. 
  */
@@ -134,6 +140,7 @@ message KVPair {
   /*
    * The key of the key-value pair. 
    */
+
   optional string name = 1001;
 }
 /*
@@ -143,6 +150,7 @@ message MapOfStringWrapper {
   /*
    * A map with string keys and values. 
    */
+
   optional common.v1.config.StringMapWrapper map = 1001;
 }
 /*
@@ -152,18 +160,22 @@ message Message {
   /*
    * A code that uniquely identifies a message. 
    */
+
   optional string code = 1001;
   /*
    * The description of the message. 
    */
+
   optional string message = 1002;
   /*
    * The locale for the message description. 
    */
+
   optional string locale = 1003 [default = "en_US"];
   /*
    * 
    */
+
   optional common.v1.config.MessageSeverityMessage.MessageSeverity severity = 1004;
 }
 /*
@@ -187,7 +199,7 @@ message FlagArrayWrapper {
    * Value field in wrapper message
    */
   repeated common.v1.config.Flag value = 1000;
-}
+  }
 /*
  * Array wrapper message
  */
@@ -196,7 +208,7 @@ message MessageArrayWrapper {
    * Value field in wrapper message
    */
   repeated common.v1.config.Message value = 1000;
-}
+  }
 /*
  * Array wrapper message
  */
@@ -205,4 +217,4 @@ message KVPairArrayWrapper {
    * Value field in wrapper message
    */
   repeated common.v1.config.KVPair value = 1000;
-}
+  }

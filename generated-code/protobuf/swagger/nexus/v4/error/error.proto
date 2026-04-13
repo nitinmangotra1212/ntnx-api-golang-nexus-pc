@@ -28,8 +28,9 @@ message StringMapWrapper {
   /*
    * Value field in wrapper message
    */
+
   map<string, string> value = 1000;
-}
+  }
 /*
  * Map wrapper message
  */
@@ -37,8 +38,9 @@ message ObjectMapWrapper {
   /*
    * Value field in wrapper message
    */
+
   map<string, google.protobuf.Any> value = 1000;
-}
+  }
 /*
  * Message with associated severity describing status of the current operation.
  */
@@ -46,30 +48,37 @@ message AppMessage {
   /*
    * The message string.
    */
+
   optional string message = 201;
   /*
    * 
    */
+
   optional common.v1.config.MessageSeverityMessage.MessageSeverity severity = 202;
   /*
    * The code associated with this message. This string is typically prefixed with the namespace to which the endpoint belongs. For example: VMM-40000
    */
+
   optional string code = 203;
   /*
    * Locale for this message. The default locale would be 'en-US'.
    */
+
   optional string locale = 204 [default = "en_US"];
   /*
    * The error group associated with this message of severity ERROR.
    */
+
   optional string error_group = 205;
   /*
    * The map of argument name to value.
    */
+
   optional nexus.v4.error.StringMapWrapper arguments_map = 206;
   /*
    * 
    */
+
   optional nexus.v4.error.ObjectMapWrapper _reserved = 900000;
 }
 /*
@@ -80,7 +89,7 @@ message AppMessageArrayWrapper {
    * Value field in oneOf item wrapper message
    */
   repeated nexus.v4.error.AppMessage value = 1000;
-}
+  }
 /*
  * OneOf item wrapper message
  */
@@ -88,6 +97,7 @@ message SchemaValidationErrorWrapper {
   /*
    * Value field in oneOf item wrapper message
    */
+
   optional nexus.v4.error.SchemaValidationError value = 1000;
 }
 /*
@@ -110,6 +120,7 @@ message ErrorResponse {
   /*
    * 
    */
+
   optional nexus.v4.error.ObjectMapWrapper _reserved = 900000;
 }
 /*
@@ -120,7 +131,7 @@ message SchemaValidationErrorMessageArrayWrapper {
    * Value field in wrapper message
    */
   repeated nexus.v4.error.SchemaValidationErrorMessage value = 1000;
-}
+  }
 /*
  * This schema is generated from SchemaValidationError.java
  */
@@ -128,26 +139,32 @@ message SchemaValidationError {
   /*
    * Timestamp of the response.
    */
+
   optional google.protobuf.Timestamp timestamp = 201;
   /*
    * The HTTP status code of the response.
    */
+
   optional int32 status_code = 202;
   /*
    * The generic error message for the response.
    */
+
   optional string error = 203;
   /*
    * API path on which the request was made.
    */
+
   optional string path = 204;
   /*
    * List of validation error messages
    */
+
   optional nexus.v4.error.SchemaValidationErrorMessageArrayWrapper validation_error_messages = 205;
   /*
    * 
    */
+
   optional nexus.v4.error.ObjectMapWrapper _reserved = 900000;
 }
 /*
@@ -157,17 +174,21 @@ message SchemaValidationErrorMessage {
   /*
    * The part of the request that failed validation. Validation can fail for path, query parameters, and request body.
    */
+
   optional string location = 201;
   /*
    * The detailed message for the validation error.
    */
+
   optional string message = 202;
   /*
    * The path of the attribute that failed validation in the schema.
    */
+
   optional string attribute_path = 203;
   /*
    * 
    */
+
   optional nexus.v4.error.ObjectMapWrapper _reserved = 900000;
 }

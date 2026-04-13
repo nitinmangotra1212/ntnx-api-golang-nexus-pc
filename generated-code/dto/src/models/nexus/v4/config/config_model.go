@@ -22,6 +22,7 @@ import (
   import3 "github.com/nutanix/ntnx-api-golang-nexus-pc/generated-code/dto/models/nexus/v4/error"
   import1 "github.com/nutanix/ntnx-api-golang-nexus-pc/generated-code/dto/models/nexus/v4/stats"
 )
+
 /*
 File entity for file transfer operations
 */
@@ -151,6 +152,7 @@ func NewFile() *File {
 
   return p
 }
+
 
 
 
@@ -356,6 +358,7 @@ func NewItem() *Item {
 
 
 
+
 type ItemAggregate struct {
   
   ObjectType_ *string `json:"$objectType,omitempty"`
@@ -483,6 +486,7 @@ func (p *ItemAggregate) SetResult(v interface{}) error {
 }
 
 
+
 /*
 Association entity for items, representing related entities associated with an item
 */
@@ -608,6 +612,7 @@ func NewItemAssociation() *ItemAssociation {
 
 
 
+
 type ItemAssociationProjection struct {
   
   ObjectType_ *string `json:"$objectType,omitempty"`
@@ -726,6 +731,7 @@ func NewItemAssociationProjection() *ItemAssociationProjection {
 
   return p
 }
+
 
 
 
@@ -873,6 +879,7 @@ func (p *ItemGroup) SetData(v interface{}) error {
   }
   return e
 }
+
 
 
 
@@ -1075,6 +1082,7 @@ func NewItemProjection() *ItemProjection {
 
 
 
+
 type ItemTimeValuePair struct {
   
   ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1256,6 +1264,7 @@ func (e ItemType) Ref() *ItemType {
   return &e
 }
 
+
 /*
 REST response for all response codes in API path /nexus/v4.1/config/items Get operation
 */
@@ -1395,6 +1404,8 @@ type OneOfItemAggregateResult struct {
   oneOfType2005 *float64 `json:"-"`
   oneOfType2006 []ItemTimeValuePair `json:"-"`
   oneOfType2004 *int64 `json:"-"`
+  // Holds data with unknown oneOf types
+  UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfItemAggregateResult() *OneOfItemAggregateResult {
@@ -1443,6 +1454,9 @@ func (p *OneOfItemAggregateResult) SetValue (v interface {}) error {
 }
 
 func (p *OneOfItemAggregateResult) GetValue() interface{} {
+  if p.UnknownValue_ != nil {
+    return p.UnknownValue_
+  }
   if "Integer" == *p.Discriminator {
     return *p.oneOfType2003
   }
@@ -1459,7 +1473,7 @@ func (p *OneOfItemAggregateResult) GetValue() interface{} {
 }
 
 func (p *OneOfItemAggregateResult) UnmarshalJSON(b []byte) error {
-
+  p.UnknownValue_ = nil
   // Try to handle nested structure like {"": {"value": {...}}}
   // This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
   var rawMap map[string]interface{}
@@ -1598,10 +1612,27 @@ func (p *OneOfItemAggregateResult) UnmarshalJSON(b []byte) error {
       *p.ObjectType_ = "Long"
       return nil
   }
+  // Store raw when no known variant matched
+  var unknownRaw map[string]interface{}
+  if err := json.Unmarshal(b, &unknownRaw); err == nil {
+    p.UnknownValue_ = unknownRaw
+    if nil == p.Discriminator { p.Discriminator = new(string) }
+    if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+      *p.Discriminator = ot
+    } else {
+      *p.Discriminator = "UNKNOWN"
+    }
+    if nil == p.ObjectType_ { p.ObjectType_ = new(string) }
+    *p.ObjectType_ = *p.Discriminator
+    return nil
+  }
   return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfItemAggregateResult"))
 }
 
 func (p *OneOfItemAggregateResult) MarshalJSON() ([]byte, error) {
+  if p.UnknownValue_ != nil {
+    return json.Marshal(p.UnknownValue_)
+  }
   if "Integer" == *p.Discriminator {
     return json.Marshal(p.oneOfType2003)
   }
@@ -1624,6 +1655,8 @@ type OneOfListItemsApiResponseData struct {
   oneOfType2001 []Item `json:"-"`
   oneOfType400 *import3.ErrorResponse `json:"-"`
   oneOfType402 []ItemGroup `json:"-"`
+  // Holds data with unknown oneOf types
+  UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfListItemsApiResponseData() *OneOfListItemsApiResponseData {
@@ -1670,6 +1703,9 @@ func (p *OneOfListItemsApiResponseData) SetValue (v interface {}) error {
 }
 
 func (p *OneOfListItemsApiResponseData) GetValue() interface{} {
+  if p.UnknownValue_ != nil {
+    return p.UnknownValue_
+  }
   if "List<nexus.v4.config.ItemProjection>" == *p.Discriminator {
     return p.oneOfType401
   }
@@ -1686,7 +1722,7 @@ func (p *OneOfListItemsApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfListItemsApiResponseData) UnmarshalJSON(b []byte) error {
-
+  p.UnknownValue_ = nil
   // Try to handle nested structure like {"": {"value": {...}}}
   // This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
   var rawMap map[string]interface{}
@@ -1836,10 +1872,27 @@ func (p *OneOfListItemsApiResponseData) UnmarshalJSON(b []byte) error {
       return nil
     }
   }
+  // Store raw when no known variant matched
+  var unknownRaw map[string]interface{}
+  if err := json.Unmarshal(b, &unknownRaw); err == nil {
+    p.UnknownValue_ = unknownRaw
+    if nil == p.Discriminator { p.Discriminator = new(string) }
+    if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+      *p.Discriminator = ot
+    } else {
+      *p.Discriminator = "UNKNOWN"
+    }
+    if nil == p.ObjectType_ { p.ObjectType_ = new(string) }
+    *p.ObjectType_ = *p.Discriminator
+    return nil
+  }
   return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListItemsApiResponseData"))
 }
 
 func (p *OneOfListItemsApiResponseData) MarshalJSON() ([]byte, error) {
+  if p.UnknownValue_ != nil {
+    return json.Marshal(p.UnknownValue_)
+  }
   if "List<nexus.v4.config.ItemProjection>" == *p.Discriminator {
     return json.Marshal(p.oneOfType401)
   }
@@ -1859,6 +1912,8 @@ type OneOfItemGroupData struct {
   Discriminator *string `json:"-"`
   ObjectType_ *string `json:"-"`
   oneOfType2008 []Item `json:"-"`
+  // Holds data with unknown oneOf types
+  UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfItemGroupData() *OneOfItemGroupData {
@@ -1886,6 +1941,9 @@ func (p *OneOfItemGroupData) SetValue (v interface {}) error {
 }
 
 func (p *OneOfItemGroupData) GetValue() interface{} {
+  if p.UnknownValue_ != nil {
+    return p.UnknownValue_
+  }
   if "List<nexus.v4.config.Item>" == *p.Discriminator {
     return p.oneOfType2008
   }
@@ -1893,7 +1951,7 @@ func (p *OneOfItemGroupData) GetValue() interface{} {
 }
 
 func (p *OneOfItemGroupData) UnmarshalJSON(b []byte) error {
-
+  p.UnknownValue_ = nil
   // Try to handle nested structure like {"": {"value": {...}}}
   // This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
   var rawMap map[string]interface{}
@@ -1936,10 +1994,27 @@ func (p *OneOfItemGroupData) UnmarshalJSON(b []byte) error {
       return nil
     }
   }
+  // Store raw when no known variant matched
+  var unknownRaw map[string]interface{}
+  if err := json.Unmarshal(b, &unknownRaw); err == nil {
+    p.UnknownValue_ = unknownRaw
+    if nil == p.Discriminator { p.Discriminator = new(string) }
+    if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+      *p.Discriminator = ot
+    } else {
+      *p.Discriminator = "UNKNOWN"
+    }
+    if nil == p.ObjectType_ { p.ObjectType_ = new(string) }
+    *p.ObjectType_ = *p.Discriminator
+    return nil
+  }
   return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfItemGroupData"))
 }
 
 func (p *OneOfItemGroupData) MarshalJSON() ([]byte, error) {
+  if p.UnknownValue_ != nil {
+    return json.Marshal(p.UnknownValue_)
+  }
   if "List<nexus.v4.config.Item>" == *p.Discriminator {
     return json.Marshal(p.oneOfType2008)
   }
@@ -1954,6 +2029,8 @@ type OneOfItemGroupGroup struct {
   oneOfType2002 *string `json:"-"`
   oneOfType2003 *int `json:"-"`
   oneOfType2006 *bool `json:"-"`
+  // Holds data with unknown oneOf types
+  UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfItemGroupGroup() *OneOfItemGroupGroup {
@@ -2010,6 +2087,9 @@ func (p *OneOfItemGroupGroup) SetValue (v interface {}) error {
 }
 
 func (p *OneOfItemGroupGroup) GetValue() interface{} {
+  if p.UnknownValue_ != nil {
+    return p.UnknownValue_
+  }
   if "Double" == *p.Discriminator {
     return *p.oneOfType2005
   }
@@ -2029,7 +2109,7 @@ func (p *OneOfItemGroupGroup) GetValue() interface{} {
 }
 
 func (p *OneOfItemGroupGroup) UnmarshalJSON(b []byte) error {
-
+  p.UnknownValue_ = nil
   // Try to handle nested structure like {"": {"value": {...}}}
   // This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
   var rawMap map[string]interface{}
@@ -2197,10 +2277,27 @@ func (p *OneOfItemGroupGroup) UnmarshalJSON(b []byte) error {
       *p.ObjectType_ = "Boolean"
       return nil
   }
+  // Store raw when no known variant matched
+  var unknownRaw map[string]interface{}
+  if err := json.Unmarshal(b, &unknownRaw); err == nil {
+    p.UnknownValue_ = unknownRaw
+    if nil == p.Discriminator { p.Discriminator = new(string) }
+    if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+      *p.Discriminator = ot
+    } else {
+      *p.Discriminator = "UNKNOWN"
+    }
+    if nil == p.ObjectType_ { p.ObjectType_ = new(string) }
+    *p.ObjectType_ = *p.Discriminator
+    return nil
+  }
   return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfItemGroupGroup"))
 }
 
 func (p *OneOfItemGroupGroup) MarshalJSON() ([]byte, error) {
+  if p.UnknownValue_ != nil {
+    return json.Marshal(p.UnknownValue_)
+  }
   if "Double" == *p.Discriminator {
     return json.Marshal(p.oneOfType2005)
   }

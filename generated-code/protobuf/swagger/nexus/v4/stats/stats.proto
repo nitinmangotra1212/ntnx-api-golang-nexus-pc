@@ -29,8 +29,9 @@ message ObjectMapWrapper {
   /*
    * Value field in wrapper message
    */
+
   map<string, google.protobuf.Any> value = 1000;
-}
+  }
 /*
  * Time-value pair for double/float metrics
  */
@@ -38,14 +39,17 @@ message DoubleTimeValuePair {
   /*
    * Timestamp when the value was recorded
    */
+
   optional google.protobuf.Timestamp timestamp = 2001;
   /*
    * Double value
    */
+
   optional double value = 2002;
   /*
    * 
    */
+
   optional nexus.v4.stats.ObjectMapWrapper _reserved = 900000;
 }
 /*
@@ -55,14 +59,17 @@ message IntegerTimeValuePair {
   /*
    * Timestamp when the value was recorded
    */
+
   optional google.protobuf.Timestamp timestamp = 2001;
   /*
    * Integer value
    */
+
   optional int32 value = 2002;
   /*
    * 
    */
+
   optional nexus.v4.stats.ObjectMapWrapper _reserved = 900000;
 }
 /*
@@ -73,7 +80,7 @@ message IntegerTimeValuePairArrayWrapper {
    * Value field in wrapper message
    */
   repeated nexus.v4.stats.IntegerTimeValuePair value = 1000;
-}
+  }
 /*
  * Array wrapper message
  */
@@ -82,7 +89,7 @@ message DoubleTimeValuePairArrayWrapper {
    * Value field in wrapper message
    */
   repeated nexus.v4.stats.DoubleTimeValuePair value = 1000;
-}
+  }
 /*
  * Statistics entity for items, representing time-series or analytical data for an item
  */
@@ -90,22 +97,27 @@ message ItemStats {
   /*
    * External identifier of the item this stats record belongs to
    */
-  optional string item_ext_id = 4002;
+
+  optional string item_ext_id = 2001;
   /*
    * Age of the item (time-series data as array of time-value pairs)
    */
-  optional nexus.v4.stats.IntegerTimeValuePairArrayWrapper age = 4003;
+
+  optional nexus.v4.stats.IntegerTimeValuePairArrayWrapper age = 2002;
   /*
    * Heart rate measurement (time-series data as array of time-value pairs)
    */
-  optional nexus.v4.stats.IntegerTimeValuePairArrayWrapper heart_rate = 4004;
+
+  optional nexus.v4.stats.IntegerTimeValuePairArrayWrapper heart_rate = 2003;
   /*
    * Food intake measurement (time-series data as array of time-value pairs)
    */
-  optional nexus.v4.stats.DoubleTimeValuePairArrayWrapper food_intake = 4005;
+
+  optional nexus.v4.stats.DoubleTimeValuePairArrayWrapper food_intake = 2004;
   /*
    * 
    */
+
   optional nexus.v4.stats.ObjectMapWrapper _reserved = 900000;
 }
 /*
@@ -115,6 +127,7 @@ message Int32Wrapper {
   /*
    * Value field in oneOf item wrapper message
    */
+
   optional int32 value = 1000;
 }
 /*
@@ -124,6 +137,7 @@ message Int64Wrapper {
   /*
    * Value field in oneOf item wrapper message
    */
+
   optional int64 value = 1000;
 }
 /*
@@ -133,6 +147,7 @@ message DoubleWrapper {
   /*
    * Value field in oneOf item wrapper message
    */
+
   optional double value = 1000;
 }
 /*
@@ -143,7 +158,7 @@ message ItemStatsTimeValuePairArrayWrapper {
    * Value field in oneOf item wrapper message
    */
   repeated nexus.v4.stats.ItemStatsTimeValuePair value = 1000;
-}
+  }
 /*
  * 
  */
@@ -172,10 +187,12 @@ message ItemStatsAggregate {
   /*
    * 
    */
+
   optional string label = 2001;
   /*
    * 
    */
+
   optional nexus.v4.stats.ObjectMapWrapper _reserved = 900000;
 }
 /*
@@ -185,6 +202,7 @@ message StringWrapper {
   /*
    * Value field in oneOf item wrapper message
    */
+
   optional string value = 1000;
 }
 /*
@@ -194,6 +212,7 @@ message BooleanWrapper {
   /*
    * Value field in oneOf item wrapper message
    */
+
   optional bool value = 1000;
 }
 /*
@@ -204,7 +223,7 @@ message ItemStatsArrayWrapper {
    * Value field in oneOf item wrapper message
    */
   repeated nexus.v4.stats.ItemStats value = 1000;
-}
+  }
 /*
  * Array wrapper message
  */
@@ -213,7 +232,7 @@ message ItemStatsAggregateArrayWrapper {
    * Value field in wrapper message
    */
   repeated nexus.v4.stats.ItemStatsAggregate value = 1000;
-}
+  }
 /*
  * 
  */
@@ -255,14 +274,17 @@ message ItemStatsGroup {
   /*
    * 
    */
+
   optional nexus.v4.stats.ItemStatsAggregateArrayWrapper aggregates = 2009;
   /*
    * 
    */
+
   optional common.v1.response.ApiResponseMetadata metadata = 2010;
   /*
    * 
    */
+
   optional nexus.v4.stats.ObjectMapWrapper _reserved = 900000;
 }
 /*
@@ -272,6 +294,7 @@ message ItemStatsProjection {
   /*
    * 
    */
+
   optional nexus.v4.stats.ItemStats base = 100;
 }
 /*
@@ -281,14 +304,17 @@ message ItemStatsTimeValuePair {
   /*
    * 
    */
+
   optional int64 time_stamp = 2001;
   /*
    * 
    */
+
   optional int64 value = 2002;
   /*
    * 
    */
+
   optional nexus.v4.stats.ObjectMapWrapper _reserved = 900000;
 }
 /*
@@ -298,6 +324,7 @@ message ErrorResponseWrapper {
   /*
    * Value field in oneOf item wrapper message
    */
+
   optional nexus.v4.error.ErrorResponse value = 1000;
 }
 /*
@@ -308,7 +335,7 @@ message ItemStatsProjectionArrayWrapper {
    * Value field in oneOf item wrapper message
    */
   repeated nexus.v4.stats.ItemStatsProjection value = 1000;
-}
+  }
 /*
  * OneOf item wrapper message
  */
@@ -317,7 +344,7 @@ message ItemStatsGroupArrayWrapper {
    * Value field in oneOf item wrapper message
    */
   repeated nexus.v4.stats.ItemStatsGroup value = 1000;
-}
+  }
 /*
  * REST response for all response codes in API path /nexus/v4.1/stats/item-stats Get operation
  */
@@ -346,9 +373,11 @@ message ListItemStatsApiResponse {
   /*
    * 
    */
+
   optional common.v1.response.ApiResponseMetadata metadata = 1001;
   /*
    * 
    */
+
   optional nexus.v4.stats.ObjectMapWrapper _reserved = 900000;
 }

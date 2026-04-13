@@ -20,6 +20,7 @@ import (
   "fmt"
   "time"
 )
+
 /*
 Message with associated severity describing status of the current operation.
 */
@@ -160,6 +161,7 @@ func NewAppMessage() *AppMessage {
 
 
 
+
 /*
 An error response indicates that the operation has failed either due to a client error(4XX) or server error(5XX). Please look at the HTTP status code and namespace specific error code and error message for further details.
 */
@@ -284,6 +286,7 @@ func (p *ErrorResponse) SetError(v interface{}) error {
   }
   return e
 }
+
 
 
 /*
@@ -418,6 +421,7 @@ func NewSchemaValidationError() *SchemaValidationError {
 
 
 
+
 /*
 This schema is generated from SchemaValidationErrorMessage.java
 */
@@ -539,6 +543,8 @@ type OneOfErrorResponseError struct {
   ObjectType_ *string `json:"-"`
   oneOfType201 []AppMessage `json:"-"`
   oneOfType202 *SchemaValidationError `json:"-"`
+  // Holds data with unknown oneOf types
+  UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfErrorResponseError() *OneOfErrorResponseError {
@@ -573,6 +579,9 @@ func (p *OneOfErrorResponseError) SetValue (v interface {}) error {
 }
 
 func (p *OneOfErrorResponseError) GetValue() interface{} {
+  if p.UnknownValue_ != nil {
+    return p.UnknownValue_
+  }
   if "List<nexus.v4.error.AppMessage>" == *p.Discriminator {
     return p.oneOfType201
   }
@@ -583,7 +592,7 @@ func (p *OneOfErrorResponseError) GetValue() interface{} {
 }
 
 func (p *OneOfErrorResponseError) UnmarshalJSON(b []byte) error {
-
+  p.UnknownValue_ = nil
   // Try to handle nested structure like {"": {"value": {...}}}
   // This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
   var rawMap map[string]interface{}
@@ -663,10 +672,27 @@ func (p *OneOfErrorResponseError) UnmarshalJSON(b []byte) error {
       return nil
     }
   }
+  // Store raw when no known variant matched
+  var unknownRaw map[string]interface{}
+  if err := json.Unmarshal(b, &unknownRaw); err == nil {
+    p.UnknownValue_ = unknownRaw
+    if nil == p.Discriminator { p.Discriminator = new(string) }
+    if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+      *p.Discriminator = ot
+    } else {
+      *p.Discriminator = "UNKNOWN"
+    }
+    if nil == p.ObjectType_ { p.ObjectType_ = new(string) }
+    *p.ObjectType_ = *p.Discriminator
+    return nil
+  }
   return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfErrorResponseError"))
 }
 
 func (p *OneOfErrorResponseError) MarshalJSON() ([]byte, error) {
+  if p.UnknownValue_ != nil {
+    return json.Marshal(p.UnknownValue_)
+  }
   if "List<nexus.v4.error.AppMessage>" == *p.Discriminator {
     return json.Marshal(p.oneOfType201)
   }

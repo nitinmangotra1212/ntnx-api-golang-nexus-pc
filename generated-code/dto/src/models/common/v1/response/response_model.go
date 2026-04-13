@@ -17,6 +17,7 @@ import (
   import1 "github.com/nutanix/ntnx-api-golang-nexus-pc/generated-code/dto/models/common/v1/config"
   "encoding/json"
 )
+
 /*
 A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 */
@@ -122,6 +123,7 @@ func NewApiLink() *ApiLink {
 
   return p
 }
+
 
 
 
