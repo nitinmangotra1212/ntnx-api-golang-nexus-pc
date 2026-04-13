@@ -19,6 +19,7 @@ import (
   "errors"
   "fmt"
 )
+
 /*
 Many entities in the Nutanix APIs carry flags.  This object captures all the flags associated with that entity through this object.  The field that hosts this type of object must have an attribute called x-bounded-map-keys that tells which flags are actually present for that entity.
 */
@@ -126,6 +127,7 @@ func NewFlag() *Flag {
 
   return p
 }
+
 
 
 
@@ -265,6 +267,7 @@ func (p *KVPair) SetValue(v interface{}) error {
 }
 
 
+
 /*
 A wrapper schema containing a map with string keys and values.
 */
@@ -362,6 +365,7 @@ func NewMapOfStringWrapper() *MapOfStringWrapper {
 
   return p
 }
+
 
 
 
@@ -581,6 +585,8 @@ type OneOfKVPairValue struct {
   oneOfType1007 []MapOfStringWrapper `json:"-"`
   oneOfType1005 []string `json:"-"`
   oneOfType1008 []int `json:"-"`
+  // Holds data with unknown oneOf types
+  UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfKVPairValue() *OneOfKVPairValue {
@@ -647,6 +653,9 @@ func (p *OneOfKVPairValue) SetValue (v interface {}) error {
 }
 
 func (p *OneOfKVPairValue) GetValue() interface{} {
+  if p.UnknownValue_ != nil {
+    return p.UnknownValue_
+  }
   if "Map<String, String>" == *p.Discriminator {
     return p.oneOfType1006
   }
@@ -672,7 +681,7 @@ func (p *OneOfKVPairValue) GetValue() interface{} {
 }
 
 func (p *OneOfKVPairValue) UnmarshalJSON(b []byte) error {
-
+  p.UnknownValue_ = nil
   // Try to handle nested structure like {"": {"value": {...}}}
   // This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
   var rawMap map[string]interface{}
@@ -901,10 +910,27 @@ func (p *OneOfKVPairValue) UnmarshalJSON(b []byte) error {
       *p.ObjectType_ = "List<Integer>"
       return nil
   }
+  // Store raw when no known variant matched
+  var unknownRaw map[string]interface{}
+  if err := json.Unmarshal(b, &unknownRaw); err == nil {
+    p.UnknownValue_ = unknownRaw
+    if nil == p.Discriminator { p.Discriminator = new(string) }
+    if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+      *p.Discriminator = ot
+    } else {
+      *p.Discriminator = "UNKNOWN"
+    }
+    if nil == p.ObjectType_ { p.ObjectType_ = new(string) }
+    *p.ObjectType_ = *p.Discriminator
+    return nil
+  }
   return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfKVPairValue"))
 }
 
 func (p *OneOfKVPairValue) MarshalJSON() ([]byte, error) {
+  if p.UnknownValue_ != nil {
+    return json.Marshal(p.UnknownValue_)
+  }
   if "Map<String, String>" == *p.Discriminator {
     return json.Marshal(p.oneOfType1006)
   }

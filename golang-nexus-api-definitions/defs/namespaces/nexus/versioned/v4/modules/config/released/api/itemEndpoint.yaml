@@ -12,6 +12,10 @@ paths:
       x-support-projection: true
       x-groupable: true
       x-codegen-hint:
+        spring-mvc:
+          - type: non-blocking
+            properties:
+              non-blocking: true
         $any:
           - type: entity-identifier
             properties:

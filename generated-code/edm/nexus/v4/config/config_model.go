@@ -98,7 +98,7 @@ func NewItem() *edm.EdmEntityBinding {
   itemTypeProperty.IsFilterable = filterProperties["itemType"]
   itemTypeProperty.IsSortable = sortableProperties["itemType"]
   itemTypeProperty.IsGroupable = groupableProperties["itemType"]
-  properties = append(properties, itemTypeProperty)
+    properties = append(properties, itemTypeProperty)
 
   descriptionProperty := new(edm.EdmProperty)
   descriptionProperty.Name = "description"

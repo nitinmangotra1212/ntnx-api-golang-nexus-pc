@@ -62,7 +62,7 @@ paths:
                     - type: string
                       index: 2080
           x-api-responses:
-            template: ext:common:/namespaces/common/versioned/v1/modules/response/alpha/models/apiResponse
+            template: ext:common:/namespaces/common/versioned/v1/modules/response/released/models/apiResponse
             responseModelName: UploadFileApiResponse
 
   /download/{extId}:
@@ -124,7 +124,7 @@ paths:
                 type: string
                 format: binary
           x-api-responses:
-            template: ext:common:/namespaces/common/versioned/v1/modules/response/beta/models/apiResponse
+            template: ext:common:/namespaces/common/versioned/v1/modules/response/released/models/apiResponse
             responseModelName: FileDownloadApiResponse
           x-codegen-hint:
             $any:
