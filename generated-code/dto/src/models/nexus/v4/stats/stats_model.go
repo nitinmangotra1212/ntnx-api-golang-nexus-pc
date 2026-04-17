@@ -1007,8 +1007,6 @@ type OneOfItemStatsGroupGroup struct {
   oneOfType2002 *string `json:"-"`
   oneOfType2003 *int `json:"-"`
   oneOfType2006 *bool `json:"-"`
-  // Holds data with unknown oneOf types
-  UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfItemStatsGroupGroup() *OneOfItemStatsGroupGroup {
@@ -1065,9 +1063,6 @@ func (p *OneOfItemStatsGroupGroup) SetValue (v interface {}) error {
 }
 
 func (p *OneOfItemStatsGroupGroup) GetValue() interface{} {
-  if p.UnknownValue_ != nil {
-    return p.UnknownValue_
-  }
   if "Double" == *p.Discriminator {
     return *p.oneOfType2005
   }
@@ -1087,7 +1082,7 @@ func (p *OneOfItemStatsGroupGroup) GetValue() interface{} {
 }
 
 func (p *OneOfItemStatsGroupGroup) UnmarshalJSON(b []byte) error {
-  p.UnknownValue_ = nil
+
   // Try to handle nested structure like {"": {"value": {...}}}
   // This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
   var rawMap map[string]interface{}
@@ -1255,27 +1250,10 @@ func (p *OneOfItemStatsGroupGroup) UnmarshalJSON(b []byte) error {
       *p.ObjectType_ = "Boolean"
       return nil
   }
-  // Store raw when no known variant matched
-  var unknownRaw map[string]interface{}
-  if err := json.Unmarshal(b, &unknownRaw); err == nil {
-    p.UnknownValue_ = unknownRaw
-    if nil == p.Discriminator { p.Discriminator = new(string) }
-    if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
-      *p.Discriminator = ot
-    } else {
-      *p.Discriminator = "UNKNOWN"
-    }
-    if nil == p.ObjectType_ { p.ObjectType_ = new(string) }
-    *p.ObjectType_ = *p.Discriminator
-    return nil
-  }
   return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfItemStatsGroupGroup"))
 }
 
 func (p *OneOfItemStatsGroupGroup) MarshalJSON() ([]byte, error) {
-  if p.UnknownValue_ != nil {
-    return json.Marshal(p.UnknownValue_)
-  }
   if "Double" == *p.Discriminator {
     return json.Marshal(p.oneOfType2005)
   }
@@ -1301,8 +1279,6 @@ type OneOfItemStatsAggregateResult struct {
   oneOfType2005 *float64 `json:"-"`
   oneOfType2006 []ItemStatsTimeValuePair `json:"-"`
   oneOfType2004 *int64 `json:"-"`
-  // Holds data with unknown oneOf types
-  UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfItemStatsAggregateResult() *OneOfItemStatsAggregateResult {
@@ -1351,9 +1327,6 @@ func (p *OneOfItemStatsAggregateResult) SetValue (v interface {}) error {
 }
 
 func (p *OneOfItemStatsAggregateResult) GetValue() interface{} {
-  if p.UnknownValue_ != nil {
-    return p.UnknownValue_
-  }
   if "Integer" == *p.Discriminator {
     return *p.oneOfType2003
   }
@@ -1370,7 +1343,7 @@ func (p *OneOfItemStatsAggregateResult) GetValue() interface{} {
 }
 
 func (p *OneOfItemStatsAggregateResult) UnmarshalJSON(b []byte) error {
-  p.UnknownValue_ = nil
+
   // Try to handle nested structure like {"": {"value": {...}}}
   // This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
   var rawMap map[string]interface{}
@@ -1509,27 +1482,10 @@ func (p *OneOfItemStatsAggregateResult) UnmarshalJSON(b []byte) error {
       *p.ObjectType_ = "Long"
       return nil
   }
-  // Store raw when no known variant matched
-  var unknownRaw map[string]interface{}
-  if err := json.Unmarshal(b, &unknownRaw); err == nil {
-    p.UnknownValue_ = unknownRaw
-    if nil == p.Discriminator { p.Discriminator = new(string) }
-    if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
-      *p.Discriminator = ot
-    } else {
-      *p.Discriminator = "UNKNOWN"
-    }
-    if nil == p.ObjectType_ { p.ObjectType_ = new(string) }
-    *p.ObjectType_ = *p.Discriminator
-    return nil
-  }
   return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfItemStatsAggregateResult"))
 }
 
 func (p *OneOfItemStatsAggregateResult) MarshalJSON() ([]byte, error) {
-  if p.UnknownValue_ != nil {
-    return json.Marshal(p.UnknownValue_)
-  }
   if "Integer" == *p.Discriminator {
     return json.Marshal(p.oneOfType2003)
   }
@@ -1549,8 +1505,6 @@ type OneOfItemStatsGroupData struct {
   Discriminator *string `json:"-"`
   ObjectType_ *string `json:"-"`
   oneOfType2008 []ItemStats `json:"-"`
-  // Holds data with unknown oneOf types
-  UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfItemStatsGroupData() *OneOfItemStatsGroupData {
@@ -1578,9 +1532,6 @@ func (p *OneOfItemStatsGroupData) SetValue (v interface {}) error {
 }
 
 func (p *OneOfItemStatsGroupData) GetValue() interface{} {
-  if p.UnknownValue_ != nil {
-    return p.UnknownValue_
-  }
   if "List<nexus.v4.stats.ItemStats>" == *p.Discriminator {
     return p.oneOfType2008
   }
@@ -1588,7 +1539,7 @@ func (p *OneOfItemStatsGroupData) GetValue() interface{} {
 }
 
 func (p *OneOfItemStatsGroupData) UnmarshalJSON(b []byte) error {
-  p.UnknownValue_ = nil
+
   // Try to handle nested structure like {"": {"value": {...}}}
   // This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
   var rawMap map[string]interface{}
@@ -1631,27 +1582,10 @@ func (p *OneOfItemStatsGroupData) UnmarshalJSON(b []byte) error {
       return nil
     }
   }
-  // Store raw when no known variant matched
-  var unknownRaw map[string]interface{}
-  if err := json.Unmarshal(b, &unknownRaw); err == nil {
-    p.UnknownValue_ = unknownRaw
-    if nil == p.Discriminator { p.Discriminator = new(string) }
-    if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
-      *p.Discriminator = ot
-    } else {
-      *p.Discriminator = "UNKNOWN"
-    }
-    if nil == p.ObjectType_ { p.ObjectType_ = new(string) }
-    *p.ObjectType_ = *p.Discriminator
-    return nil
-  }
   return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfItemStatsGroupData"))
 }
 
 func (p *OneOfItemStatsGroupData) MarshalJSON() ([]byte, error) {
-  if p.UnknownValue_ != nil {
-    return json.Marshal(p.UnknownValue_)
-  }
   if "List<nexus.v4.stats.ItemStats>" == *p.Discriminator {
     return json.Marshal(p.oneOfType2008)
   }
@@ -1665,8 +1599,6 @@ type OneOfListItemStatsApiResponseData struct {
   oneOfType400 *import2.ErrorResponse `json:"-"`
   oneOfType2001 []ItemStats `json:"-"`
   oneOfType401 []ItemStatsProjection `json:"-"`
-  // Holds data with unknown oneOf types
-  UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfListItemStatsApiResponseData() *OneOfListItemStatsApiResponseData {
@@ -1713,9 +1645,6 @@ func (p *OneOfListItemStatsApiResponseData) SetValue (v interface {}) error {
 }
 
 func (p *OneOfListItemStatsApiResponseData) GetValue() interface{} {
-  if p.UnknownValue_ != nil {
-    return p.UnknownValue_
-  }
   if "List<nexus.v4.stats.ItemStatsGroup>" == *p.Discriminator {
     return p.oneOfType402
   }
@@ -1732,7 +1661,7 @@ func (p *OneOfListItemStatsApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfListItemStatsApiResponseData) UnmarshalJSON(b []byte) error {
-  p.UnknownValue_ = nil
+
   // Try to handle nested structure like {"": {"value": {...}}}
   // This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
   var rawMap map[string]interface{}
@@ -1882,27 +1811,10 @@ func (p *OneOfListItemStatsApiResponseData) UnmarshalJSON(b []byte) error {
       return nil
     }
   }
-  // Store raw when no known variant matched
-  var unknownRaw map[string]interface{}
-  if err := json.Unmarshal(b, &unknownRaw); err == nil {
-    p.UnknownValue_ = unknownRaw
-    if nil == p.Discriminator { p.Discriminator = new(string) }
-    if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
-      *p.Discriminator = ot
-    } else {
-      *p.Discriminator = "UNKNOWN"
-    }
-    if nil == p.ObjectType_ { p.ObjectType_ = new(string) }
-    *p.ObjectType_ = *p.Discriminator
-    return nil
-  }
   return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListItemStatsApiResponseData"))
 }
 
 func (p *OneOfListItemStatsApiResponseData) MarshalJSON() ([]byte, error) {
-  if p.UnknownValue_ != nil {
-    return json.Marshal(p.UnknownValue_)
-  }
   if "List<nexus.v4.stats.ItemStatsGroup>" == *p.Discriminator {
     return json.Marshal(p.oneOfType402)
   }
