@@ -37,9 +37,8 @@ const (
 
 // Map wrapper message
 type ObjectMapWrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in wrapper message
-	Value         map[string]*anypb.Any `protobuf:"bytes,1000,rep,name=value" json:"value,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         map[string]*anypb.Any  `protobuf:"bytes,1000,rep,name=value" json:"value,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -83,12 +82,10 @@ func (x *ObjectMapWrapper) GetValue() map[string]*anypb.Any {
 
 // Time-value pair for double/float metrics
 type DoubleTimeValuePair struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Timestamp when the value was recorded
-	Timestamp *timestamppb.Timestamp `protobuf:"bytes,2001,opt,name=timestamp" json:"timestamp,omitempty"`
-	// Double value
-	Value *float64 `protobuf:"fixed64,2002,opt,name=value" json:"value,omitempty"`
-	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,2001,opt,name=timestamp" json:"timestamp,omitempty"`
+	Value         *float64               `protobuf:"fixed64,2002,opt,name=value" json:"value,omitempty"`
+	XReserved     *ObjectMapWrapper      `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -146,12 +143,10 @@ func (x *DoubleTimeValuePair) GetXReserved() *ObjectMapWrapper {
 
 // Time-value pair for integer metrics
 type IntegerTimeValuePair struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Timestamp when the value was recorded
-	Timestamp *timestamppb.Timestamp `protobuf:"bytes,2001,opt,name=timestamp" json:"timestamp,omitempty"`
-	// Integer value
-	Value *int32 `protobuf:"varint,2002,opt,name=value" json:"value,omitempty"`
-	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,2001,opt,name=timestamp" json:"timestamp,omitempty"`
+	Value         *int32                 `protobuf:"varint,2002,opt,name=value" json:"value,omitempty"`
+	XReserved     *ObjectMapWrapper      `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -301,20 +296,12 @@ func (x *DoubleTimeValuePairArrayWrapper) GetValue() []*DoubleTimeValuePair {
 
 // Statistics entity for items, representing time-series or analytical data for an item
 type ItemStats struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// External identifier of the item this stats record belongs to (foreign key to Item.extId)
-	ItemExtId *string `protobuf:"bytes,4002,opt,name=item_ext_id,json=itemExtId" json:"item_ext_id,omitempty"`
-	// Age of the item (time-series data as array of time-value pairs)
-	Age *IntegerTimeValuePairArrayWrapper `protobuf:"bytes,4003,opt,name=age" json:"age,omitempty"`
-	// Heart rate measurement (time-series data as array of time-value pairs)
-	HeartRate *IntegerTimeValuePairArrayWrapper `protobuf:"bytes,4004,opt,name=heart_rate,json=heartRate" json:"heart_rate,omitempty"`
-	// Food intake measurement (time-series data as array of time-value pairs)
-	FoodIntake *DoubleTimeValuePairArrayWrapper `protobuf:"bytes,4005,opt,name=food_intake,json=foodIntake" json:"food_intake,omitempty"`
-	// Timestamp attribute (registered as attribute in IDF, not TSDB)
-	Timestamp *int64 `protobuf:"varint,4006,opt,name=timestamp" json:"timestamp,omitempty"`
-	// Speed attribute (registered as attribute in IDF, not TSDB)
-	Speed *int64 `protobuf:"varint,4007,opt,name=speed" json:"speed,omitempty"`
-	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	state         protoimpl.MessageState            `protogen:"open.v1"`
+	ItemExtId     *string                           `protobuf:"bytes,2001,opt,name=item_ext_id,json=itemExtId" json:"item_ext_id,omitempty"`
+	Age           *IntegerTimeValuePairArrayWrapper `protobuf:"bytes,2002,opt,name=age" json:"age,omitempty"`
+	HeartRate     *IntegerTimeValuePairArrayWrapper `protobuf:"bytes,2003,opt,name=heart_rate,json=heartRate" json:"heart_rate,omitempty"`
+	FoodIntake    *DoubleTimeValuePairArrayWrapper  `protobuf:"bytes,2004,opt,name=food_intake,json=foodIntake" json:"food_intake,omitempty"`
+	XReserved     *ObjectMapWrapper                 `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -377,20 +364,6 @@ func (x *ItemStats) GetFoodIntake() *DoubleTimeValuePairArrayWrapper {
 	return nil
 }
 
-func (x *ItemStats) GetTimestamp() int64 {
-	if x != nil && x.Timestamp != nil {
-		return *x.Timestamp
-	}
-	return 0
-}
-
-func (x *ItemStats) GetSpeed() int64 {
-	if x != nil && x.Speed != nil {
-		return *x.Speed
-	}
-	return 0
-}
-
 func (x *ItemStats) GetXReserved() *ObjectMapWrapper {
 	if x != nil {
 		return x.XReserved
@@ -400,9 +373,8 @@ func (x *ItemStats) GetXReserved() *ObjectMapWrapper {
 
 // OneOf item wrapper message
 type Int32Wrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in oneOf item wrapper message
-	Value         *int32 `protobuf:"varint,1000,opt,name=value" json:"value,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         *int32                 `protobuf:"varint,1000,opt,name=value" json:"value,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -446,9 +418,8 @@ func (x *Int32Wrapper) GetValue() int32 {
 
 // OneOf item wrapper message
 type Int64Wrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in oneOf item wrapper message
-	Value         *int64 `protobuf:"varint,1000,opt,name=value" json:"value,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         *int64                 `protobuf:"varint,1000,opt,name=value" json:"value,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -492,9 +463,8 @@ func (x *Int64Wrapper) GetValue() int64 {
 
 // OneOf item wrapper message
 type DoubleWrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in oneOf item wrapper message
-	Value         *float64 `protobuf:"fixed64,1000,opt,name=value" json:"value,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         *float64               `protobuf:"fixed64,1000,opt,name=value" json:"value,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -590,9 +560,9 @@ type ItemStatsAggregate struct {
 	//	*ItemStatsAggregate_Int64Result
 	//	*ItemStatsAggregate_DoubleResult
 	//	*ItemStatsAggregate_ItemStatsTimeValuePairArrayResult
-	Result isItemStatsAggregate_Result `protobuf_oneof:"result"`
-	Label *string `protobuf:"bytes,2001,opt,name=label" json:"label,omitempty"`
-	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	Result        isItemStatsAggregate_Result `protobuf_oneof:"result"`
+	Label         *string                     `protobuf:"bytes,2001,opt,name=label" json:"label,omitempty"`
+	XReserved     *ObjectMapWrapper           `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -714,9 +684,8 @@ func (*ItemStatsAggregate_ItemStatsTimeValuePairArrayResult) isItemStatsAggregat
 
 // OneOf item wrapper message
 type StringWrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in oneOf item wrapper message
-	Value         *string `protobuf:"bytes,1000,opt,name=value" json:"value,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         *string                `protobuf:"bytes,1000,opt,name=value" json:"value,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -760,9 +729,8 @@ func (x *StringWrapper) GetValue() string {
 
 // OneOf item wrapper message
 type BooleanWrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in oneOf item wrapper message
-	Value         *bool `protobuf:"varint,1000,opt,name=value" json:"value,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         *bool                  `protobuf:"varint,1000,opt,name=value" json:"value,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -909,10 +877,10 @@ type ItemStatsGroup struct {
 	// Types that are valid to be assigned to Data:
 	//
 	//	*ItemStatsGroup_ItemStatsArrayData
-	Data isItemStatsGroup_Data `protobuf_oneof:"data"`
-	Aggregates *ItemStatsAggregateArrayWrapper `protobuf:"bytes,2009,opt,name=aggregates" json:"aggregates,omitempty"`
-	Metadata *response.ApiResponseMetadata `protobuf:"bytes,2010,opt,name=metadata" json:"metadata,omitempty"`
-	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	Data          isItemStatsGroup_Data           `protobuf_oneof:"data"`
+	Aggregates    *ItemStatsAggregateArrayWrapper `protobuf:"bytes,2009,opt,name=aggregates" json:"aggregates,omitempty"`
+	Metadata      *response.ApiResponseMetadata   `protobuf:"bytes,2010,opt,name=metadata" json:"metadata,omitempty"`
+	XReserved     *ObjectMapWrapper               `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1081,8 +1049,8 @@ type ItemStatsGroup_ItemStatsArrayData struct {
 func (*ItemStatsGroup_ItemStatsArrayData) isItemStatsGroup_Data() {}
 
 type ItemStatsProjection struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	Base          *ItemStats `protobuf:"bytes,100,opt,name=base" json:"base,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Base          *ItemStats             `protobuf:"bytes,100,opt,name=base" json:"base,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1125,10 +1093,10 @@ func (x *ItemStatsProjection) GetBase() *ItemStats {
 }
 
 type ItemStatsTimeValuePair struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	TimeStamp *int64 `protobuf:"varint,2001,opt,name=time_stamp,json=timeStamp" json:"time_stamp,omitempty"`
-	Value *int64 `protobuf:"varint,2002,opt,name=value" json:"value,omitempty"`
-	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TimeStamp     *int64                 `protobuf:"varint,2001,opt,name=time_stamp,json=timeStamp" json:"time_stamp,omitempty"`
+	Value         *int64                 `protobuf:"varint,2002,opt,name=value" json:"value,omitempty"`
+	XReserved     *ObjectMapWrapper      `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1186,9 +1154,8 @@ func (x *ItemStatsTimeValuePair) GetXReserved() *ObjectMapWrapper {
 
 // OneOf item wrapper message
 type ErrorResponseWrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in oneOf item wrapper message
-	Value         *error1.ErrorResponse `protobuf:"bytes,1000,opt,name=value" json:"value,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         *error1.ErrorResponse  `protobuf:"bytes,1000,opt,name=value" json:"value,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1333,9 +1300,9 @@ type ListItemStatsApiResponse struct {
 	//	*ListItemStatsApiResponse_ErrorResponseData
 	//	*ListItemStatsApiResponse_ItemStatsProjectionArrayData
 	//	*ListItemStatsApiResponse_ItemStatsGroupArrayData
-	Data isListItemStatsApiResponse_Data `protobuf_oneof:"data"`
-	Metadata *response.ApiResponseMetadata `protobuf:"bytes,1001,opt,name=metadata" json:"metadata,omitempty"`
-	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	Data          isListItemStatsApiResponse_Data `protobuf_oneof:"data"`
+	Metadata      *response.ApiResponseMetadata   `protobuf:"bytes,1001,opt,name=metadata" json:"metadata,omitempty"`
+	XReserved     *ObjectMapWrapper               `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1477,16 +1444,14 @@ const file_nexus_v4_stats_stats_proto_rawDesc = "" +
 	" IntegerTimeValuePairArrayWrapper\x12;\n" +
 	"\x05value\x18\xe8\a \x03(\v2$.nexus.v4.stats.IntegerTimeValuePairR\x05value\"]\n" +
 	"\x1fDoubleTimeValuePairArrayWrapper\x12:\n" +
-	"\x05value\x18\xe8\a \x03(\v2#.nexus.v4.stats.DoubleTimeValuePairR\x05value\"\x8d\x03\n" +
+	"\x05value\x18\xe8\a \x03(\v2#.nexus.v4.stats.DoubleTimeValuePairR\x05value\"\xd7\x02\n" +
 	"\tItemStats\x12\x1f\n" +
-	"\vitem_ext_id\x18\xa2\x1f \x01(\tR\titemExtId\x12C\n" +
-	"\x03age\x18\xa3\x1f \x01(\v20.nexus.v4.stats.IntegerTimeValuePairArrayWrapperR\x03age\x12P\n" +
+	"\vitem_ext_id\x18\xd1\x0f \x01(\tR\titemExtId\x12C\n" +
+	"\x03age\x18\xd2\x0f \x01(\v20.nexus.v4.stats.IntegerTimeValuePairArrayWrapperR\x03age\x12P\n" +
 	"\n" +
-	"heart_rate\x18\xa4\x1f \x01(\v20.nexus.v4.stats.IntegerTimeValuePairArrayWrapperR\theartRate\x12Q\n" +
-	"\vfood_intake\x18\xa5\x1f \x01(\v2/.nexus.v4.stats.DoubleTimeValuePairArrayWrapperR\n" +
-	"foodIntake\x12\x1d\n" +
-	"\ttimestamp\x18\xa6\x1f \x01(\x03R\ttimestamp\x12\x15\n" +
-	"\x05speed\x18\xa7\x1f \x01(\x03R\x05speed\x12?\n" +
+	"heart_rate\x18\xd3\x0f \x01(\v20.nexus.v4.stats.IntegerTimeValuePairArrayWrapperR\theartRate\x12Q\n" +
+	"\vfood_intake\x18\xd4\x0f \x01(\v2/.nexus.v4.stats.DoubleTimeValuePairArrayWrapperR\n" +
+	"foodIntake\x12?\n" +
 	"\t_reserved\x18\xa0\xf76 \x01(\v2 .nexus.v4.stats.ObjectMapWrapperR\bReserved\"%\n" +
 	"\fInt32Wrapper\x12\x15\n" +
 	"\x05value\x18\xe8\a \x01(\x05R\x05value\"%\n" +

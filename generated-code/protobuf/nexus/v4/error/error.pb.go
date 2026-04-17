@@ -36,9 +36,8 @@ const (
 
 // Map wrapper message
 type StringMapWrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in wrapper message
-	Value         map[string]string `protobuf:"bytes,1000,rep,name=value" json:"value,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         map[string]string      `protobuf:"bytes,1000,rep,name=value" json:"value,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -82,9 +81,8 @@ func (x *StringMapWrapper) GetValue() map[string]string {
 
 // Map wrapper message
 type ObjectMapWrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in wrapper message
-	Value         map[string]*anypb.Any `protobuf:"bytes,1000,rep,name=value" json:"value,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         map[string]*anypb.Any  `protobuf:"bytes,1000,rep,name=value" json:"value,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -128,19 +126,14 @@ func (x *ObjectMapWrapper) GetValue() map[string]*anypb.Any {
 
 // Message with associated severity describing status of the current operation.
 type AppMessage struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The message string.
-	Message *string `protobuf:"bytes,201,opt,name=message" json:"message,omitempty"`
-	Severity *config.MessageSeverityMessage_MessageSeverity `protobuf:"varint,202,opt,name=severity,enum=common.v1.config.MessageSeverityMessage_MessageSeverity" json:"severity,omitempty"`
-	// The code associated with this message. This string is typically prefixed with the namespace to which the endpoint belongs. For example: VMM-40000
-	Code *string `protobuf:"bytes,203,opt,name=code" json:"code,omitempty"`
-	// Locale for this message. The default locale would be 'en-US'.
-	Locale *string `protobuf:"bytes,204,opt,name=locale,def=en_US" json:"locale,omitempty"`
-	// The error group associated with this message of severity ERROR.
-	ErrorGroup *string `protobuf:"bytes,205,opt,name=error_group,json=errorGroup" json:"error_group,omitempty"`
-	// The map of argument name to value.
-	ArgumentsMap *StringMapWrapper `protobuf:"bytes,206,opt,name=arguments_map,json=argumentsMap" json:"arguments_map,omitempty"`
-	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	state         protoimpl.MessageState                         `protogen:"open.v1"`
+	Message       *string                                        `protobuf:"bytes,201,opt,name=message" json:"message,omitempty"`
+	Severity      *config.MessageSeverityMessage_MessageSeverity `protobuf:"varint,202,opt,name=severity,enum=common.v1.config.MessageSeverityMessage_MessageSeverity" json:"severity,omitempty"`
+	Code          *string                                        `protobuf:"bytes,203,opt,name=code" json:"code,omitempty"`
+	Locale        *string                                        `protobuf:"bytes,204,opt,name=locale,def=en_US" json:"locale,omitempty"`
+	ErrorGroup    *string                                        `protobuf:"bytes,205,opt,name=error_group,json=errorGroup" json:"error_group,omitempty"`
+	ArgumentsMap  *StringMapWrapper                              `protobuf:"bytes,206,opt,name=arguments_map,json=argumentsMap" json:"arguments_map,omitempty"`
+	XReserved     *ObjectMapWrapper                              `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -277,8 +270,7 @@ func (x *AppMessageArrayWrapper) GetValue() []*AppMessage {
 
 // OneOf item wrapper message
 type SchemaValidationErrorWrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in oneOf item wrapper message
+	state         protoimpl.MessageState `protogen:"open.v1"`
 	Value         *SchemaValidationError `protobuf:"bytes,1000,opt,name=value" json:"value,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -330,8 +322,8 @@ type ErrorResponse struct {
 	//
 	//	*ErrorResponse_AppMessageArrayError
 	//	*ErrorResponse_SchemaValidationErrorError
-	Error isErrorResponse_Error `protobuf_oneof:"error"`
-	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	Error         isErrorResponse_Error `protobuf_oneof:"error"`
+	XReserved     *ObjectMapWrapper     `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -462,20 +454,15 @@ func (x *SchemaValidationErrorMessageArrayWrapper) GetValue() []*SchemaValidatio
 
 // This schema is generated from SchemaValidationError.java
 type SchemaValidationError struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Timestamp of the response.
-	Timestamp *timestamppb.Timestamp `protobuf:"bytes,201,opt,name=timestamp" json:"timestamp,omitempty"`
-	// The HTTP status code of the response.
-	StatusCode *int32 `protobuf:"varint,202,opt,name=status_code,json=statusCode" json:"status_code,omitempty"`
-	// The generic error message for the response.
-	Error *string `protobuf:"bytes,203,opt,name=error" json:"error,omitempty"`
-	// API path on which the request was made.
-	Path *string `protobuf:"bytes,204,opt,name=path" json:"path,omitempty"`
-	// List of validation error messages
+	state                   protoimpl.MessageState                    `protogen:"open.v1"`
+	Timestamp               *timestamppb.Timestamp                    `protobuf:"bytes,201,opt,name=timestamp" json:"timestamp,omitempty"`
+	StatusCode              *int32                                    `protobuf:"varint,202,opt,name=status_code,json=statusCode" json:"status_code,omitempty"`
+	Error                   *string                                   `protobuf:"bytes,203,opt,name=error" json:"error,omitempty"`
+	Path                    *string                                   `protobuf:"bytes,204,opt,name=path" json:"path,omitempty"`
 	ValidationErrorMessages *SchemaValidationErrorMessageArrayWrapper `protobuf:"bytes,205,opt,name=validation_error_messages,json=validationErrorMessages" json:"validation_error_messages,omitempty"`
-	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	XReserved               *ObjectMapWrapper                         `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	unknownFields           protoimpl.UnknownFields
+	sizeCache               protoimpl.SizeCache
 }
 
 func (x *SchemaValidationError) Reset() {
@@ -552,14 +539,11 @@ func (x *SchemaValidationError) GetXReserved() *ObjectMapWrapper {
 
 // This schema is generated from SchemaValidationErrorMessage.java
 type SchemaValidationErrorMessage struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The part of the request that failed validation. Validation can fail for path, query parameters, and request body.
-	Location *string `protobuf:"bytes,201,opt,name=location" json:"location,omitempty"`
-	// The detailed message for the validation error.
-	Message *string `protobuf:"bytes,202,opt,name=message" json:"message,omitempty"`
-	// The path of the attribute that failed validation in the schema.
-	AttributePath *string `protobuf:"bytes,203,opt,name=attribute_path,json=attributePath" json:"attribute_path,omitempty"`
-	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Location      *string                `protobuf:"bytes,201,opt,name=location" json:"location,omitempty"`
+	Message       *string                `protobuf:"bytes,202,opt,name=message" json:"message,omitempty"`
+	AttributePath *string                `protobuf:"bytes,203,opt,name=attribute_path,json=attributePath" json:"attribute_path,omitempty"`
+	XReserved     *ObjectMapWrapper      `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
