@@ -152,7 +152,6 @@ components:
         - itemId
         - itemName
         - itemType
-        - description
         - extId
         - quantity
         - price

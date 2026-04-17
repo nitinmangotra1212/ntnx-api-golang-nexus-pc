@@ -59,7 +59,6 @@ func NewItem() *edm.EdmEntityBinding {
   groupableProperties["itemId"] = true
   groupableProperties["itemName"] = true
   groupableProperties["itemType"] = true
-  groupableProperties["description"] = true
   groupableProperties["extId"] = true
   groupableProperties["quantity"] = true
   groupableProperties["price"] = true

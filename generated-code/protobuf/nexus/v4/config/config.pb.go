@@ -99,9 +99,8 @@ func (ItemTypeMessage_ItemType) EnumDescriptor() ([]byte, []int) {
 
 // Map wrapper message
 type ObjectMapWrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in wrapper message
-	Value         map[string]*anypb.Any `protobuf:"bytes,1000,rep,name=value" json:"value,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         map[string]*anypb.Any  `protobuf:"bytes,1000,rep,name=value" json:"value,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -145,18 +144,13 @@ func (x *ObjectMapWrapper) GetValue() map[string]*anypb.Any {
 
 // File entity for file transfer operations
 type File struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Unique identifier for the file
-	FileId *string `protobuf:"bytes,2001,opt,name=file_id,json=fileId" json:"file_id,omitempty"`
-	// Name of the file
-	FileName *string `protobuf:"bytes,2002,opt,name=file_name,json=fileName" json:"file_name,omitempty"`
-	// Size of the file in bytes
-	FileSize *int64 `protobuf:"varint,2003,opt,name=file_size,json=fileSize" json:"file_size,omitempty"`
-	// MIME type of the file
-	ContentType *string `protobuf:"bytes,2004,opt,name=content_type,json=contentType" json:"content_type,omitempty"`
-	// External identifier (UUID)
-	ExtId *string `protobuf:"bytes,2005,opt,name=ext_id,json=extId" json:"ext_id,omitempty"`
-	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	FileId        *string                `protobuf:"bytes,2001,opt,name=file_id,json=fileId" json:"file_id,omitempty"`
+	FileName      *string                `protobuf:"bytes,2002,opt,name=file_name,json=fileName" json:"file_name,omitempty"`
+	FileSize      *int64                 `protobuf:"varint,2003,opt,name=file_size,json=fileSize" json:"file_size,omitempty"`
+	ContentType   *string                `protobuf:"bytes,2004,opt,name=content_type,json=contentType" json:"content_type,omitempty"`
+	ExtId         *string                `protobuf:"bytes,2005,opt,name=ext_id,json=extId" json:"ext_id,omitempty"`
+	XReserved     *ObjectMapWrapper      `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -327,32 +321,21 @@ func (x *ItemAssociationArrayWrapper) GetValue() []*ItemAssociation {
 
 // Item entity for mock REST API
 type Item struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Unique identifier for the item
-	ItemId *int32 `protobuf:"varint,2001,opt,name=item_id,json=itemId" json:"item_id,omitempty"`
-	// Name of the item
-	ItemName *string `protobuf:"bytes,2002,opt,name=item_name,json=itemName" json:"item_name,omitempty"`
-	ItemType *ItemTypeMessage_ItemType `protobuf:"varint,2003,opt,name=item_type,json=itemType,enum=nexus.v4.config.ItemTypeMessage_ItemType" json:"item_type,omitempty"`
-	// Description of the item
-	Description *string `protobuf:"bytes,2004,opt,name=description" json:"description,omitempty"`
-	// External identifier for the item (UUID)
-	ExtId *string `protobuf:"bytes,2005,opt,name=ext_id,json=extId" json:"ext_id,omitempty"`
-	// Associated entities for this item. This field is only present when $expand=associations is specified in the query.
-	Associations *ItemAssociationArrayWrapper `protobuf:"bytes,2006,opt,name=associations" json:"associations,omitempty"`
-	// Quantity/stock count of the item
-	Quantity *int64 `protobuf:"varint,2007,opt,name=quantity" json:"quantity,omitempty"`
-	// Price/cost of the item
-	Price *float64 `protobuf:"fixed64,2008,opt,name=price" json:"price,omitempty"`
-	// Whether the item is active
-	IsActive *bool `protobuf:"varint,2009,opt,name=is_active,json=isActive" json:"is_active,omitempty"`
-	// Priority level of the item (0-255)
-	Priority *int32 `protobuf:"varint,2010,opt,name=priority" json:"priority,omitempty"`
-	// Status of the item (e.g., ACTIVE, INACTIVE, PENDING)
-	Status *string `protobuf:"bytes,2011,opt,name=status" json:"status,omitempty"`
-	ItemStats *stats.ItemStats `protobuf:"bytes,2012,opt,name=item_stats,json=itemStats" json:"item_stats,omitempty"`
-	// List of integer values (int64)
-	Int64List *LongArrayWrapper `protobuf:"bytes,2014,opt,name=int64_list,json=int64List" json:"int64_list,omitempty"`
-	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	state         protoimpl.MessageState       `protogen:"open.v1"`
+	ItemId        *int32                       `protobuf:"varint,2001,opt,name=item_id,json=itemId" json:"item_id,omitempty"`
+	ItemName      *string                      `protobuf:"bytes,2002,opt,name=item_name,json=itemName" json:"item_name,omitempty"`
+	ItemType      *ItemTypeMessage_ItemType    `protobuf:"varint,2003,opt,name=item_type,json=itemType,enum=nexus.v4.config.ItemTypeMessage_ItemType" json:"item_type,omitempty"`
+	Description   *string                      `protobuf:"bytes,2004,opt,name=description" json:"description,omitempty"`
+	ExtId         *string                      `protobuf:"bytes,2005,opt,name=ext_id,json=extId" json:"ext_id,omitempty"`
+	Associations  *ItemAssociationArrayWrapper `protobuf:"bytes,2006,opt,name=associations" json:"associations,omitempty"`
+	Quantity      *int64                       `protobuf:"varint,2007,opt,name=quantity" json:"quantity,omitempty"`
+	Price         *float64                     `protobuf:"fixed64,2008,opt,name=price" json:"price,omitempty"`
+	IsActive      *bool                        `protobuf:"varint,2009,opt,name=is_active,json=isActive" json:"is_active,omitempty"`
+	Priority      *int32                       `protobuf:"varint,2010,opt,name=priority" json:"priority,omitempty"`
+	Status        *string                      `protobuf:"bytes,2011,opt,name=status" json:"status,omitempty"`
+	ItemStats     *stats.ItemStats             `protobuf:"bytes,2012,opt,name=item_stats,json=itemStats" json:"item_stats,omitempty"`
+	Int64List     *LongArrayWrapper            `protobuf:"bytes,2014,opt,name=int64_list,json=int64List" json:"int64_list,omitempty"`
+	XReserved     *ObjectMapWrapper            `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -487,9 +470,8 @@ func (x *Item) GetXReserved() *ObjectMapWrapper {
 
 // OneOf item wrapper message
 type Int32Wrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in oneOf item wrapper message
-	Value         *int32 `protobuf:"varint,1000,opt,name=value" json:"value,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         *int32                 `protobuf:"varint,1000,opt,name=value" json:"value,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -533,9 +515,8 @@ func (x *Int32Wrapper) GetValue() int32 {
 
 // OneOf item wrapper message
 type Int64Wrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in oneOf item wrapper message
-	Value         *int64 `protobuf:"varint,1000,opt,name=value" json:"value,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         *int64                 `protobuf:"varint,1000,opt,name=value" json:"value,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -579,9 +560,8 @@ func (x *Int64Wrapper) GetValue() int64 {
 
 // OneOf item wrapper message
 type DoubleWrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in oneOf item wrapper message
-	Value         *float64 `protobuf:"fixed64,1000,opt,name=value" json:"value,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         *float64               `protobuf:"fixed64,1000,opt,name=value" json:"value,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -677,9 +657,9 @@ type ItemAggregate struct {
 	//	*ItemAggregate_Int64Result
 	//	*ItemAggregate_DoubleResult
 	//	*ItemAggregate_ItemTimeValuePairArrayResult
-	Result isItemAggregate_Result `protobuf_oneof:"result"`
-	Label *string `protobuf:"bytes,2001,opt,name=label" json:"label,omitempty"`
-	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	Result        isItemAggregate_Result `protobuf_oneof:"result"`
+	Label         *string                `protobuf:"bytes,2001,opt,name=label" json:"label,omitempty"`
+	XReserved     *ObjectMapWrapper      `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -801,16 +781,12 @@ func (*ItemAggregate_ItemTimeValuePairArrayResult) isItemAggregate_Result() {}
 
 // Association entity for items, representing related entities associated with an item
 type ItemAssociation struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The item ID this association belongs to
-	ItemId *string `protobuf:"bytes,3001,opt,name=item_id,json=itemId" json:"item_id,omitempty"`
-	// Type of associated entity
-	EntityType *string `protobuf:"bytes,3002,opt,name=entity_type,json=entityType" json:"entity_type,omitempty"`
-	// ID of associated entity
-	EntityId *string `protobuf:"bytes,3003,opt,name=entity_id,json=entityId" json:"entity_id,omitempty"`
-	// Count of associations of this type
-	Count *int32 `protobuf:"varint,3004,opt,name=count" json:"count,omitempty"`
-	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ItemId        *string                `protobuf:"bytes,3001,opt,name=item_id,json=itemId" json:"item_id,omitempty"`
+	EntityType    *string                `protobuf:"bytes,3002,opt,name=entity_type,json=entityType" json:"entity_type,omitempty"`
+	EntityId      *string                `protobuf:"bytes,3003,opt,name=entity_id,json=entityId" json:"entity_id,omitempty"`
+	Count         *int32                 `protobuf:"varint,3004,opt,name=count" json:"count,omitempty"`
+	XReserved     *ObjectMapWrapper      `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -881,8 +857,8 @@ func (x *ItemAssociation) GetXReserved() *ObjectMapWrapper {
 }
 
 type ItemAssociationProjection struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	Base          *ItemAssociation `protobuf:"bytes,100,opt,name=base" json:"base,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Base          *ItemAssociation       `protobuf:"bytes,100,opt,name=base" json:"base,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -926,9 +902,8 @@ func (x *ItemAssociationProjection) GetBase() *ItemAssociation {
 
 // OneOf item wrapper message
 type StringWrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in oneOf item wrapper message
-	Value         *string `protobuf:"bytes,1000,opt,name=value" json:"value,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         *string                `protobuf:"bytes,1000,opt,name=value" json:"value,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -972,9 +947,8 @@ func (x *StringWrapper) GetValue() string {
 
 // OneOf item wrapper message
 type BooleanWrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in oneOf item wrapper message
-	Value         *bool `protobuf:"varint,1000,opt,name=value" json:"value,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         *bool                  `protobuf:"varint,1000,opt,name=value" json:"value,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1121,10 +1095,10 @@ type ItemGroup struct {
 	// Types that are valid to be assigned to Data:
 	//
 	//	*ItemGroup_ItemArrayData
-	Data isItemGroup_Data `protobuf_oneof:"data"`
-	Aggregates *ItemAggregateArrayWrapper `protobuf:"bytes,2009,opt,name=aggregates" json:"aggregates,omitempty"`
-	Metadata *response.ApiResponseMetadata `protobuf:"bytes,2010,opt,name=metadata" json:"metadata,omitempty"`
-	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	Data          isItemGroup_Data              `protobuf_oneof:"data"`
+	Aggregates    *ItemAggregateArrayWrapper    `protobuf:"bytes,2009,opt,name=aggregates" json:"aggregates,omitempty"`
+	Metadata      *response.ApiResponseMetadata `protobuf:"bytes,2010,opt,name=metadata" json:"metadata,omitempty"`
+	XReserved     *ObjectMapWrapper             `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1293,8 +1267,8 @@ type ItemGroup_ItemArrayData struct {
 func (*ItemGroup_ItemArrayData) isItemGroup_Data() {}
 
 type ItemProjection struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	Base          *Item `protobuf:"bytes,100,opt,name=base" json:"base,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Base          *Item                  `protobuf:"bytes,100,opt,name=base" json:"base,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1337,10 +1311,10 @@ func (x *ItemProjection) GetBase() *Item {
 }
 
 type ItemTimeValuePair struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	TimeStamp *int64 `protobuf:"varint,2001,opt,name=time_stamp,json=timeStamp" json:"time_stamp,omitempty"`
-	Value *int64 `protobuf:"varint,2002,opt,name=value" json:"value,omitempty"`
-	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TimeStamp     *int64                 `protobuf:"varint,2001,opt,name=time_stamp,json=timeStamp" json:"time_stamp,omitempty"`
+	Value         *int64                 `protobuf:"varint,2002,opt,name=value" json:"value,omitempty"`
+	XReserved     *ObjectMapWrapper      `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1435,9 +1409,8 @@ func (*ItemTypeMessage) Descriptor() ([]byte, []int) {
 
 // OneOf item wrapper message
 type ErrorResponseWrapper struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Value field in oneOf item wrapper message
-	Value         *error1.ErrorResponse `protobuf:"bytes,1000,opt,name=value" json:"value,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         *error1.ErrorResponse  `protobuf:"bytes,1000,opt,name=value" json:"value,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1582,9 +1555,9 @@ type ListItemsApiResponse struct {
 	//	*ListItemsApiResponse_ErrorResponseData
 	//	*ListItemsApiResponse_ItemProjectionArrayData
 	//	*ListItemsApiResponse_ItemGroupArrayData
-	Data isListItemsApiResponse_Data `protobuf_oneof:"data"`
-	Metadata *response.ApiResponseMetadata `protobuf:"bytes,1001,opt,name=metadata" json:"metadata,omitempty"`
-	XReserved     *ObjectMapWrapper `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
+	Data          isListItemsApiResponse_Data   `protobuf_oneof:"data"`
+	Metadata      *response.ApiResponseMetadata `protobuf:"bytes,1001,opt,name=metadata" json:"metadata,omitempty"`
+	XReserved     *ObjectMapWrapper             `protobuf:"bytes,900000,opt,name=_reserved,json=Reserved" json:"_reserved,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
